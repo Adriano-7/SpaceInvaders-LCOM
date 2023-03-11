@@ -60,7 +60,9 @@ int(timer_test_int)(uint8_t time) {
     message msg;
     uint8_t bit_no;
 
-    timer_subscribe_int(&bit_no);
+    if(timer_subscribe_int(&bit_no)) {
+      printf("Error while calling subscribing the timer\n"); return 1;}
+      
     uint8_t irq_set = BIT(bit_no);
 
 
