@@ -5,7 +5,7 @@
 #include "kbc.h"
 #include "i8042.h"
 
-uint8_t output;
+extern uint8_t output;
 
 int (read_KBC_status)(uint8_t* status){
   if(util_sys_inb(KBC_STATUS_REG, status)){
@@ -84,8 +84,4 @@ int (write_KBC_command)(uint8_t port, uint8_t commandByte){
     attempts--;
   }
   return 1;
-}
-
-void (kbc_ih)(uint8_t mouse){
-  read_KBC_output(KBC_OUT_CMD, &output, mouse);
 }
