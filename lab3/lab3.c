@@ -46,7 +46,7 @@ int(kbd_test_scan)() {
   uint8_t bytes[2];
   int r;
 
-  int irq_set = BIT(1);
+  int irq_keyboard_set = BIT(1);
 
   if(keyboard_subscribe_interrupts(&bit_no)){
       printf("Error while calling subscribing the keyboard interrupts\n");
@@ -63,7 +63,7 @@ int(kbd_test_scan)() {
       if (is_ipc_notify(ipc_status)) {
         switch (_ENDPOINT_P(msg.m_source)) {
         case HARDWARE:
-          if (msg.m_notify.interrupts & irq_set) {
+          if (msg.m_notify.interrupts & irq_keyboard_set) {
             kbc_ih();
             if(ReadSecond){
               ReadSecond = false;
