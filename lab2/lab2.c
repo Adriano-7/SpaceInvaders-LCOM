@@ -3,9 +3,8 @@
 
 #include <stdbool.h>
 #include <stdint.h>
-#include <i8254.h>
 
-extern int counter;
+extern int timer_counter;
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -32,66 +31,63 @@ int main(int argc, char *argv[]) {
 }
 
 int(timer_test_read_config)(uint8_t timer, enum timer_status_field field) {
-  if(timer < 0 || timer > 2){
-      printf("There's only 3 timers\n");
-      return 1;
-  }
-
   uint8_t st;
   if(timer_get_conf(timer, &st)){
-      printf("Error getting config from timer %d\n", timer);
-      return 1;
+    printf("timer_test_read_config() -> Error geting the timer configuration\n");
+    return 1;
   }
 
-  return timer_display_conf(timer, st, field);
+  if(timer_display_conf (timer, st, field)){
+    printf("timer_test_read_config() -> Error while displaying the timer's configuration");
+    return 1;
+  }
+  return 0;
 }
 
 int(timer_test_time_base)(uint8_t timer, uint32_t freq) {
-  if(timer < 0 || timer > 2){
-      printf("There's only 3 timers\n");
-      return 1;
+  if(timer_set_frequency(timer, freq)){
+    printf("timer_test_time_base() -> Error setting timer %d frequency", timer);
+    return 1;
   }
-  return timer_set_frequency(timer, freq);
+  return 0;
 }
 
 int(timer_test_int)(uint8_t time) {
-    int r;
-    int ipc_status;
-    message msg;
-    uint8_t bit_no;
+  int ipc_status, r;
+  message msg;
+  uint8_t timer_bit_no;
 
-    if(timer_subscribe_int(&bit_no)) {
-      printf("Error while calling subscribing the timer\n"); return 1;}
-      
-    uint8_t irq_set = BIT(bit_no);
+  if(timer_subscribe_int(&timer_bit_no)){
+    printf("timer_test_int() -> Error subscribing timer interrupts\n");
+    return 1;
+  }
 
-
-    while(time > 0){
-      if((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
-        printf("driver_receive failed with: %d", r);
-        continue;
-      }
-
-      if (is_ipc_notify(ipc_status)) {
-          switch (_ENDPOINT_P(msg.m_source)) {
-          case HARDWARE:
-            if (msg.m_notify.interrupts & irq_set) {
-              timer_int_handler();
-
-              if(counter % 60 ==0){
-                timer_print_elapsed_time();
-                time--;
-              }
+  while(time) {
+    if ( (r = driver_receive(ANY, &msg, &ipc_status))) { 
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status)){
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE:	
+          if (msg.m_notify.interrupts & BIT(timer_bit_no)) {
+            timer_int_handler();
+            if(timer_counter % 60==0){
+              time--;
+              timer_print_elapsed_time();
             }
-            break;
-
-            default:
-              break;
           }
+          break;
+        default:
+          break;
       }
     }
+  }
 
-    if(timer_unsubscribe_int()) {printf("Error while calling timer_unsubscribe_int\n"); return 1;}
-
-    return 0;
+  if(timer_unsubscribe_int()){
+    printf("timer_test_int() -> Error unsubscribing timer interrupts\n");
+    return 1;
+  }
+  
+  return 0;
 }
