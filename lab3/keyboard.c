@@ -3,56 +3,54 @@
 
 #include "keyboard.h"
 
-uint8_t output;
-int keyboard_hook_id = 1;
+int keyboard_hook_id=1;
+uint8_t output = 0;
 
 int (keyboard_subscribe_interrupts)(uint8_t *bit_no){
-  if(bit_no == NULL){printf("bit_no is nullptr\n"); return 1;}
-  *bit_no = BIT(keyboard_hook_id);
+    *bit_no = keyboard_hook_id;
+    if(sys_irqsetpolicy(IRQ_KEYBOARD, IRQ_REENABLE | IRQ_EXCLUSIVE, &keyboard_hook_id)){
+        printf("keyboard_subscribe_interrupts() -> Error setting policy for keyboard interrupts\n");
+        return 1;
+    }
     
-  if(sys_irqsetpolicy(KEYBOARD_IRQ, IRQ_ENABLE | IRQ_EXCLUSIVE, &keyboard_hook_id)){
-    printf("Error setting irq policy for the keyboard\n");
-    return 1;
-  }
-  return 0;
+    return 0;
 }
 
 int (keyboard_unsubscribe_interrupts)(){
-  if(sys_irqrmpolicy(&keyboard_hook_id)){
-    printf("Error removing policy for the keyboard\n");
-    return 1;
-  }
-  return 0;
+    if(sys_irqrmpolicy(&keyboard_hook_id)){
+        printf("Error removing policy for keyboard interrupts");
+        return 1;
+    }
+    return 0;
 }
 
 void (kbc_ih)(){
-  read_KBC_output(KBC_OUT_CMD, &output);
+    util_sys_inb(KBC_OUT_BUF, &output);
 }
 
 int (keyboard_restore)(){
-  uint8_t commandByte;
+    if(sys_outb(0x64, 0x20)){
+        printf("Error writing command 'Write Command Byte' to KBC");
+        return 1;
+    }
 
-  if(write_KBC_command(KBC_IN_CMD, KBC_READ_CMD)) {
-    printf("Error writing Read Command Byte\n"); 
-    return 1;
-  }
+    uint8_t commandByte;
+    if(util_sys_inb(0x60, &commandByte)){
+        printf("Error reading command byte from KBC");
+        return 1;
+    }
 
-  if(read_KBC_output(KBC_OUT_CMD, &commandByte)){
-    printf("Error Reading Command Byte\n"); 
-    return 1;
-  }
+    commandByte |= 0x01; //enable keyboard interrupts
 
-  commandByte |= ENABLE_INT;
+    if(sys_outb(0x64, 0x60)){
+        printf("Error writing new command byte to KBC");
+        return 1;
+    }
 
-  if(write_KBC_command(KBC_IN_CMD, KBC_WRITE_CMD)){
-    printf("Error writing Write Command Byte\n"); 
-    return 1;
-  }
+    if(sys_outb(0x64, 0xAE)){
+        printf("Error writing command 'Enable Scanning' to KBC");
+        return 1;
+    }
 
-  if(write_KBC_command(KBC_OUT_CMD, commandByte)){
-    printf("Error writing the new command byte\n");
-    return 1;
-  }
-  
-  return 0;
+    return 0;
 }
