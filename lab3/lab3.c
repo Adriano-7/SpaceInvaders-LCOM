@@ -47,7 +47,7 @@ int(kbd_test_scan)() {
     printf("kbd_test_scan() -> Error subscribing keyboard interrupts\n");
     return 1;
   }
-kbd_print_scancode(make, 2, by)
+  
   while(output != BREAK_ESC){
     if((r = driver_receive(ANY, &msg, &ipc_status))) {
       printf("driver_receive failed with: %d", r);
