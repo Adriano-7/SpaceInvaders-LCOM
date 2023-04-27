@@ -135,3 +135,22 @@ uint32_t (get_color)(uint16_t row, uint16_t col, uint8_t step, uint32_t first, u
     return color_indexed(row, col, step, first, no_rectangles);
   }
 }
+
+int (draw_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y){
+  xpm_image_t xpm_sprite;
+  uint8_t* sprite = xpm_load(xpm, XPM_INDEXED, &xpm_sprite);
+  if(sprite == NULL){
+    printf("Error loading sprite\n");
+    return 1;
+  }
+
+  for(unsigned i=0; i<xpm_sprite.height; i++){
+    for(unsigned j=0; j<xpm_sprite.width; j++){
+      if(vg_draw_pixel(x+j, y+i, *sprite++)){
+        printf("Error drawing pixel\n");
+        return 1;
+      }
+    }
+  }
+  return 0;
+}

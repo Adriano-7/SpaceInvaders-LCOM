@@ -152,10 +152,28 @@ int(video_test_pattern)(uint16_t mode, uint8_t no_rectangles, uint32_t first, ui
 
 
 int(video_test_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
-  /* To be completed */
-  printf("%s(%8p, %u, %u): under construction\n", __func__, xpm, x, y);
+  if(map_phys_mem(0x105)){
+    printf("Error mapping video memory to the process address space\n");
+    return 1;
+  }
 
-  return 1;
+  if(set_graphics_mode(0x105)){
+    printf("Error changing to the graphics mode\n");
+    return 1;
+  }
+
+  if(draw_xpm(xpm, x, y)){
+    printf("Error drawing xpm\n");
+    return 1;
+  }
+
+  wait_esq();
+
+  if(vg_exit()){
+    printf("Error returning to text mode\n");
+    return 1;
+  }
+  return 0;
 }
 
 int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf,
