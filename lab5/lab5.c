@@ -9,6 +9,7 @@
 #include "keyboard.h"
 
 extern uint8_t output;
+extern vbe_mode_info_t mode_info;
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -116,12 +117,39 @@ int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y,
 }
 
 int(video_test_pattern)(uint16_t mode, uint8_t no_rectangles, uint32_t first, uint8_t step) {
-  /* To be completed */
-  printf("%s(0x%03x, %u, 0x%08x, %d): under construction\n", __func__,
-         mode, no_rectangles, first, step);
+  if(map_phys_mem(mode)){
+    printf("Error mapping video memory to the process address space\n");
+    return 1;
+  }
 
-  return 1;
+  if(set_graphics_mode(mode)){
+    printf("Error changing to the graphics mode\n");
+    return 1;
+  }
+
+  uint16_t height = mode_info.YResolution / no_rectangles;
+  uint16_t width = mode_info.XResolution / no_rectangles;
+  uint32_t  color;
+
+  for(unsigned row=0; row < no_rectangles; row++){
+    for(unsigned col=0; col < no_rectangles; col++){
+      color = get_color(row, col, step, first, no_rectangles);
+      if(vg_draw_rectangle(col*width, row*height, width, height, color)){
+        printf("Error drawing rectangle\n");
+        return 1;
+      }
+    }
+  }
+
+  wait_esq();
+
+  if(vg_exit()){
+    printf("Error returning to text mode\n");
+    return 1;
+  }
+  return 0;
 }
+
 
 int(video_test_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
   /* To be completed */
@@ -145,5 +173,3 @@ int(video_test_controller)() {
 
   return 1;
 }
-
-

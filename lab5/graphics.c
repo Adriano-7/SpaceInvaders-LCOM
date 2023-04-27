@@ -94,3 +94,44 @@ int (vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height,
   }
   return 0;
 }
+
+uint32_t (color_indexed)(uint16_t row, uint16_t col, uint8_t step, uint32_t first, uint8_t no_rectangles){
+  return (first + (row*no_rectangles+col)*step) % (1 << mode_info.BitsPerPixel);
+}
+
+uint32_t (color_direct)(uint32_t r, uint32_t g, uint32_t b){
+  return (r<<mode_info.RedFieldPosition) | (g << mode_info.GreenFieldPosition) | (b << mode_info.BlueFieldPosition);
+}
+
+uint32_t (First_R)(uint32_t first){
+  return (first >> mode_info.RedFieldPosition) & ((1 << mode_info.RedMaskSize) - 1);
+}
+
+uint32_t (First_G)(uint32_t first){
+  return (first >> mode_info.GreenFieldPosition) & ((1 << mode_info.GreenMaskSize) - 1);
+}
+
+uint32_t (First_B)(uint32_t first){
+  return (first >> mode_info.BlueFieldPosition) & ((1 << mode_info.BlueMaskSize) - 1);
+}
+
+uint32_t (R)(unsigned row, unsigned col, uint8_t step, uint32_t first){
+  return (First_R(first) + col*step) % (1 << mode_info.RedMaskSize);
+}
+
+uint32_t (G)(unsigned row, unsigned col, uint8_t step, uint32_t first){
+  return (First_G(first) + row*step) % (1 << mode_info.GreenMaskSize);
+}
+
+uint32_t (B)(unsigned row, unsigned col, uint8_t step, uint32_t first){
+  return (First_B(first) + (row+col)*step) % (1 << mode_info.BlueMaskSize);
+}
+
+uint32_t (get_color)(uint16_t row, uint16_t col, uint8_t step, uint32_t first, uint8_t no_rectangles){
+  if(mode_info.MemoryModel == DIRECT_COLOR_MODE){
+    return color_direct(R(row, col, step, first), G(row, col, step, first), B(row, col, step, first));
+  }
+  else{
+    return color_indexed(row, col, step, first, no_rectangles);
+  }
+}

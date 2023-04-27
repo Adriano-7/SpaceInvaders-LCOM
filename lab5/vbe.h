@@ -13,4 +13,6 @@
 #define GR_BX(submode) (submode | BIT(14))
 #define GR_INTNO 0x10
 
+#define DIRECT_COLOR_MODE 0x06
+
 #endif
