@@ -1,5 +1,6 @@
 #include "graphics.h"
 
+<<<<<<< Updated upstream
 static void *video_mem;
 vbe_mode_info_t info_mode;
 struct minix_mem_range memory_range;
@@ -55,4 +56,20 @@ int set_graphics_mode(uint16_t submode){
   }
   return 0;
 }
+=======
+int (set_graphics_mode)(uint16_t submode) {
+  reg86_t reg;
+  memset(&reg, 0, sizeof(reg));
 
+  reg.ah = GR_AH;
+  reg.al = GR_AL;
+  reg.bx = GR_BX(submode);
+  reg.intno = GR_INTNO;
+>>>>>>> Stashed changes
+
+  if(sys_int86(&reg) != OK){
+    printf("Error setting up graphics mode\n");
+    return 1;
+  }
+  return 0;
+}

@@ -1,4 +1,3 @@
-// IMPORTANT: you must include the following line in all your C files
 #include <lcom/lcf.h>
 
 #include <lcom/lab5.h>
@@ -37,14 +36,22 @@ int main(int argc, char *argv[]) {
 
 int(video_test_init)(uint16_t mode, uint8_t delay) {
   if(set_graphics_mode(mode)){
+<<<<<<< Updated upstream
     printf("video_test_init() -> Error setting graphics mode\n");
+=======
+    printf("Error changing to graphics mode\n");
+>>>>>>> Stashed changes
     return 1;
   }
 
   sleep(delay);
 
   if(vg_exit()){
+<<<<<<< Updated upstream
     printf("vg_exit() -> Error returning to text mode\n");
+=======
+    printf("Error returning to text mode\n");
+>>>>>>> Stashed changes
     return 1;
   }
   return 0;
