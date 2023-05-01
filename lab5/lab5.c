@@ -1,15 +1,12 @@
 #include <lcom/lcf.h>
-
 #include <lcom/lab5.h>
-
-#include <stdint.h>
-#include <stdio.h>
 
 #include "graphics.h"
 #include "keyboard.h"
 
 extern uint8_t output;
 extern vbe_mode_info_t mode_info;
+extern int timer_counter;
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -37,17 +34,18 @@ int main(int argc, char *argv[]) {
 
 int(video_test_init)(uint16_t mode, uint8_t delay) {
   if(set_graphics_mode(mode)){
-    printf("Error changing to graphics mode\n");
+    printf("Error setting graphics mode\n");
     return 1;
   }
 
   sleep(delay);
 
   if(vg_exit()){
-    printf("Error returning to text mode\n");
+    printf("Error exiting graphics mode\n");
     return 1;
   }
-  return 0;
+
+  return 1;
 }
 
 int(wait_esq)(){
@@ -88,29 +86,25 @@ int(wait_esq)(){
 
 int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y,
                           uint16_t width, uint16_t height, uint32_t color) {
-  //1. map the video memory to the process' address space
   if(map_phys_mem(mode)){
-    printf("Error mapping video memory to the process address space\n");
+    printf("Error mapping physical memory\n");
     return 1;
   }
 
-  //2. Change the video mode to that in its argument
   if(set_graphics_mode(mode)){
-    printf("Error changing to the graphics mode\n");
+    printf("Error setting graphics mode\n");
     return 1;
   }
 
-  //3. Draw a rectangle
   if(vg_draw_rectangle(x, y, width, height, color)){
     printf("Error drawing rectangle\n");
     return 1;
   }
 
-  //4. Reset the video mode to Minix's default text mode and return, upon receiving the break code of the ESC key (0x81)
   wait_esq();
 
   if(vg_exit()){
-    printf("Error returning to text mode\n");
+    printf("Error exiting graphics mode\n");
     return 1;
   }
   return 0;
@@ -118,76 +112,144 @@ int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y,
 
 int(video_test_pattern)(uint16_t mode, uint8_t no_rectangles, uint32_t first, uint8_t step) {
   if(map_phys_mem(mode)){
-    printf("Error mapping video memory to the process address space\n");
+    printf("Error mapping physical memory\n");
     return 1;
   }
-
+  
   if(set_graphics_mode(mode)){
-    printf("Error changing to the graphics mode\n");
+    printf("Error setting graphics mode\n");
     return 1;
   }
 
-  uint16_t height = mode_info.YResolution / no_rectangles;
-  uint16_t width = mode_info.XResolution / no_rectangles;
-  uint32_t  color;
+  if(vg_draw_pattern(no_rectangles, first, step)){
+    printf("Error drawing pattern\n");
+    return 1;
+  }
 
-  for(unsigned row=0; row < no_rectangles; row++){
-    for(unsigned col=0; col < no_rectangles; col++){
-      color = get_color(row, col, step, first, no_rectangles);
-      if(vg_draw_rectangle(col*width, row*height, width, height, color)){
-        printf("Error drawing rectangle\n");
-        return 1;
-      }
+  wait_esq();
+
+  if(vg_exit()){
+    printf("Error exiting graphics mode\n");
+    return 1;
+  }
+  return 0;
+}
+
+int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate) {
+  if((xi != xf) && (yi != yf)){
+    printf("The movement should be either horizontal or vertical not both");
+  }
+
+  if(map_phys_mem(G_Mode_1024x768)){
+    printf("Error mapping physical memory\n");
+    return 1;
+  }
+
+  if(set_graphics_mode(G_Mode_1024x768)){
+    printf("Error setting graphics mode\n");
+    return 1;
+  }
+
+  int ipc_status, r;
+  message msg;
+
+  bool make, secondByte = false;
+  uint8_t bytes[2];
+  uint8_t keyboard_bit_no, timer_bit_no;
+
+  if(timer_subscribe_int(&timer_bit_no)){
+    printf("Error while subscribing timer interrupt\n");
+    return 1;
+  }
+
+  if(keyboard_subscribe_interrupts(&keyboard_bit_no)){
+    printf("Error subscribing keyboard interrupts\n");
+    return 1;
+  }
+
+  uint16_t x=xi;
+  uint16_t y=yi;
+
+  int frameCounter=0;
+  int timeFrame=sys_hz()/fr_rate;
+
+  bool verticalMovement = yi != yf;
+  bool positiveMovement = (verticalMovement && yi < yf) || (!verticalMovement && xi < xf);
+
+  xpm_image_t img;
+  xpm_load(xpm, XPM_INDEXED, &img);
+  draw_xpm(xpm, xi, yi);
+
+  while(output != BREAK_ESC){
+    if((r = driver_receive(ANY, &msg, &ipc_status))) {
+      printf("driver_receive failed with: %d", r);
+      continue;
     }
+
+    if (is_ipc_notify(ipc_status)) {
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE:
+          if (msg.m_notify.interrupts & BIT(keyboard_bit_no)) {
+            kbc_ih();
+            make = !(output & BIT(7));
+            if(secondByte){
+              secondByte=false;
+              bytes[1]=output;
+            }
+            else{
+              bytes[0] = output;
+              if(output==0xE0){
+                secondByte = true;
+              }
+            }
+          }
+
+          if (msg.m_notify.interrupts & BIT(0) && (x != xf || y != yf)){
+            timer_int_handler();
+
+            if(timer_counter%timeFrame==0){
+              uint16_t oldX = x;
+              uint16_t oldY = y;
+              if(speed>0){
+                if(pos_speed_update(verticalMovement, positiveMovement, &x, &y, xf, yf, speed)){
+                  erase_screen(oldX, oldY, img);
+                  draw_xpm(xpm, x, y);
+                }
+              }
+              else{
+                if(neg_speed_update(verticalMovement, positiveMovement, &x, &y, xf, yf, speed, &frameCounter)){
+                  erase_screen(oldX, oldY, img);
+                  draw_xpm(xpm, x, y);
+                }
+              }
+            }            
+          }
+          break;
+        default:
+           break;
+      }
+    } 
   }
 
-  wait_esq();
+  if(timer_unsubscribe_int()){
+    printf("Error while unsubscribing timer interrupt\n");
+    return 1;
+  }
+
+  if(keyboard_unsubscribe_interrupts()){
+    printf("Error unsubscribing keyboard interrupts\n");
+    return 1;
+  }
+
 
   if(vg_exit()){
-    printf("Error returning to text mode\n");
+    printf("Error exiting graphics mode\n");
     return 1;
   }
   return 0;
 }
 
-
-int(video_test_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
-  if(map_phys_mem(0x105)){
-    printf("Error mapping video memory to the process address space\n");
-    return 1;
-  }
-
-  if(set_graphics_mode(0x105)){
-    printf("Error changing to the graphics mode\n");
-    return 1;
-  }
-
-  if(draw_xpm(xpm, x, y)){
-    printf("Error drawing xpm\n");
-    return 1;
-  }
-
-  wait_esq();
-
-  if(vg_exit()){
-    printf("Error returning to text mode\n");
-    return 1;
-  }
-  return 0;
-}
-
-int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf,
-                     int16_t speed, uint8_t fr_rate) {
-  /* To be completed */
-  printf("%s(%8p, %u, %u, %u, %u, %d, %u): under construction\n",
-         __func__, xpm, xi, yi, xf, yf, speed, fr_rate);
-
-  return 1;
-}
 
 int(video_test_controller)() {
-  /* To be completed */
-  printf("%s(): under construction\n", __func__);
-
   return 1;
 }
