@@ -41,6 +41,13 @@ int map_phys_mem(uint16_t mode){
   return 0;
 }
 
+uint32_t (correctColor) (uint32_t color){
+  if(mode_info.BitsPerPixel == 32){
+    return color;
+  }
+  return color & ((1 << mode_info.BitsPerPixel) -1);
+}
+
 int (pixel_index)(uint16_t x, uint16_t y){
   return (y*mode_info.XResolution + x) * BytesPerPixel;
 }
@@ -96,6 +103,7 @@ int vg_draw_pattern(uint8_t no_rectangles, uint32_t first, uint8_t step){
   for(int i=0; i<no_rectangles; i++){
     for(int j=0; j<no_rectangles; j++){
       uint32_t color = get_color(i, j, step, first, no_rectangles);
+      color = correctColor(color);
       if(vg_draw_rectangle(width*j, height*i, width, height, color)) {printf("Error drawing rectangle (%d, %d)\n", i, j); return 1;}
     }
   }

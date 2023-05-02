@@ -105,6 +105,7 @@ int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y,
   if(set_graphics_mode(mode)) {printf("Error setting graphics mode\n"); return 1;}
 
   //3. draw a rectangle
+  color = correctColor(color); //In case of mode 110
   if(vg_draw_rectangle(x, y, width, height, color)) {printf("Error drawing the rectangle\n"); return 1;}
 
   //4. wait to receive the break code of the ESC key (0x81)
