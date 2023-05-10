@@ -4,14 +4,14 @@
 #include <minix/sysutil.h>
 #include <lcom/lcf.h>
 #include "i8042.h"
-#include "kbc.h"
+#include "KBC.h"
 
 int (keyboard_subscribe_interrupts)(uint8_t *bit_no);
 
 int (keyboard_unsubscribe_interrupts)();
 
-int (keyboard_restore)();
+void (kbc_ih)();
 
-void (keyboard_ih)();
+int (keyboard_restore)();
 
 #endif

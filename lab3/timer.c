@@ -5,116 +5,88 @@
 
 #include "i8254.h"
 
-static int hook_id = 0;
+int timer_hook_id = 0;
 int timer_counter = 0;
 
 int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
   uint8_t st;
   if(timer_get_conf(timer, &st)){
-      printf("Error getting config from timer %d\n", timer);
-      return 1;
+    printf("timer_set_frequency() -> Error while reading timer %d configuration\n", timer); 
+    return 1;
   }
 
-  uint8_t control_word;
+  uint8_t control_word = TIMER_SEL(timer) | (TIMER_LSB_MSB) | (st & 0x0F);
+  sys_outb(0x43, control_word);
 
-  switch (timer){
-      case 0:
-          control_word = (TIMER_SEL0 | TIMER_LSB_MSB | (st & 0x0F)); 
-          break;
-      case 1:
-          control_word = (TIMER_SEL1 | TIMER_LSB_MSB | (st & 0x0F)); 
-          break;
-      case 2:
-          control_word = (TIMER_SEL2 | TIMER_LSB_MSB | (st & 0x0F)); 
-          break;
-  }
+  uint16_t counting_value = TIMER_FREQ / freq;
 
-  if(sys_outb(TIMER_CTRL, control_word)){
-      printf("Error writing to timer control register\n");
-      return 1;
-  }
+  uint8_t val_lsb;
+  util_get_LSB(counting_value, &val_lsb);
+  sys_outb(REG_TIMER(timer), val_lsb);
 
-  uint16_t counter = TIMER_FREQ / freq;
-  uint8_t lsb, msb;
-  util_get_LSB(counter, &lsb);
-  util_get_MSB(counter, &msb);
-
-  if(sys_outb(TIMER_0 + timer, lsb)) {printf("Error writing lsb to timer %d\n", timer); return 1;}
-  if(sys_outb(TIMER_0 + timer, msb)) {printf("Error writing msb to timer %d\n", timer); return 1;}
+  uint8_t val_msb;
+  util_get_MSB(counting_value, &val_msb);
+  sys_outb(REG_TIMER(timer), val_msb);
 
   return 0;
 }
 
 int (timer_subscribe_int)(uint8_t *bit_no) {
-    if(bit_no==NULL) return 1;
+  if(bit_no==NULL){printf("timer_subscribe_int() -> Bit_no is nullptr\n"); return 1;}
 
-    *bit_no = BIT(hook_id);
-    if(sys_irqsetpolicy(TIMER0_IRQ, IRQ_REENABLE, &hook_id)){
-        printf("Error while sys_irqsetpolicy\n");
-        return 1;
-    }
+  *bit_no = timer_hook_id;
+
+  if(sys_irqsetpolicy(TIMER0_IRQ, IRQ_REENABLE, &timer_hook_id)){
+    printf("timer_subscribe_int() -> Error trying to subscribe timer interrupt's\n"); 
+    return 1;
+  }
   return 0;
 }
 
 int (timer_unsubscribe_int)() {
-  if(sys_irqrmpolicy(&hook_id)){
-    printf("Error while calling sys_irqrmpolicy\n");
+  if(sys_irqrmpolicy(&timer_hook_id)){
+    printf("timer_unsubscribe_int() -> Error trying to unsubscribe timer interrupt's\n"); 
     return 1;
   }
   return 0;
 }
 
 void (timer_int_handler)() {
-    timer_counter++;
+  timer_counter++;
 }
 
 int (timer_get_conf)(uint8_t timer, uint8_t *st) {
-    if(sys_outb(TIMER_CTRL, TIMER_RB_SEL(timer) | TIMER_RB_COUNT_ | TIMER_RB_CMD)){
-        printf("Error in writing to timer control register\n");
-        return 1;
-    }
+  uint8_t RBK = TIMER_RB_CMD | TIMER_RB_COUNT_ | TIMER_RB_SEL(timer);
+  sys_outb(REG_TIMER_CTRL, RBK);
 
-    if(util_sys_inb(TIMER_0 + timer, st)){
-        printf("Error reading config from timer %d\n", timer);}
-
-    return 0;
+  return util_sys_inb(REG_TIMER(timer), st);
 }
 
 int (timer_display_conf)(uint8_t timer, uint8_t st,
                         enum timer_status_field field) {
-  
-  union timer_status_field_val val;
-  uint8_t mode;
 
-  switch (field){
-      case tsf_all:
-          val.byte = st;
-          break;
+  union timer_status_field_val conf;
 
-      case tsf_initial:
-          mode = (st & (BIT(4) | BIT(5))) >> 4;
+  switch(field){
+    case tsf_all:
+      conf.byte = st;
+      break;
 
-          if(mode==BIT(0)){val.in_mode=LSB_only;}
-          else if(mode==BIT(1)){val.in_mode=MSB_only;}
-          else if(mode== (BIT(0) | BIT(1))){val.in_mode=MSB_after_LSB;}
-          else{val.in_mode = INVAL_val;}
-          break;
+    case tsf_initial:
+      conf.in_mode = (st & TIMER_LSB_MSB)>>4;
+      break;
 
-      case tsf_mode:
-          mode = (st & (BIT(1) | BIT(2) | BIT(3))) >> 1;
-          if(mode==6){val.count_mode=2;}
-          else if(mode==7){val.count_mode=3;}
-          else{val.count_mode=mode;}
-          break;
+    case tsf_mode:
+      st = (st & TIMER_COUNTING_MODE) >> 1;
+      if(st==6) conf.count_mode = 2;
+      else if(st==7) conf.count_mode = 3;
+      else conf.count_mode = st;
+      break;
 
-      case tsf_base:
-          val.bcd = st & 1;
-          break;
-
-    default:
-      printf("Invalid field\n");
-      return 1;
+    case tsf_base:
+      conf.bcd = st & TIMER_BCD;
+      break;
   }
-
-  return timer_print_config(timer, field, val);
+  
+  return timer_print_config(timer, field, conf);
 }

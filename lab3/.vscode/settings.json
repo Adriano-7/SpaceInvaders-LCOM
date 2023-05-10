@@ -1,14 +1,7 @@
 {
-  "git.ignoreLimitWarning": true,
-  "C_Cpp.clang_format_fallbackStyle": "LLVM",
-  "diffEditor.ignoreTrimWhitespace": true,
-  "editor.formatOnSave": false,
-  "editor.tabSize": 2,
-  "editor.wordWrap": "bounded",
-  "editor.wordWrapColumn": 100,
-  "files.associations": {
-    "stdint.h": "c",
-    "i8254.h": "c",
-    "util.h": "c"
-  },
+    "files.associations": {
+        "*.embeddedhtml": "html",
+        "keyboard.h": "c",
+        "i8042.h": "c"
+    }
 }

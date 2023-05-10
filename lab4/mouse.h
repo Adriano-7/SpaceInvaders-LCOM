@@ -8,3 +8,5 @@ int (mouse_subscribe_interrupts)(uint8_t *bit_no);
 int (mouse_unsubscribe_interrupts)();
 
 void(mouse_ih)();
+
+void mouse_sync_bytes();

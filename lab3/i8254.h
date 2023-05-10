@@ -14,10 +14,8 @@
 
 /* I/O port addresses */
 
-#define TIMER_0    0x40 /**< @brief Timer 0 count register */
-#define TIMER_1    0x41 /**< @brief Timer 1 count register */
-#define TIMER_2    0x42 /**< @brief Timer 2 count register */
-#define TIMER_CTRL 0x43 /**< @brief Control register */
+#define REG_TIMER(n) (0x40 + (n))
+#define REG_TIMER_CTRL 0x43 /**< @brief Control register */
 
 #define SPEAKER_CTRL 0x61 /**< @brief Register for speaker control  */
 
@@ -25,9 +23,7 @@
 
 /* Timer selection: bits 7 and 6 */
 
-#define TIMER_SEL0   0x00              /**< @brief Control Word for Timer 0 */
-#define TIMER_SEL1   BIT(6)            /**< @brief Control Word for Timer 1 */
-#define TIMER_SEL2   BIT(7)            /**< @brief Control Word for Timer 2 */
+#define TIMER_SEL(n) (n<<6)           /**< @brief Control Word for Timer n */
 #define TIMER_RB_CMD (BIT(7) | BIT(6)) /**< @brief Read Back Command */
 
 /* Register selection: bits 5 and 4 */
@@ -45,6 +41,8 @@
 
 #define TIMER_BCD 0x01 /**< @brief Count in BCD */
 #define TIMER_BIN 0x00 /**< @brief Count in binary */
+
+#define TIMER_COUNTING_MODE (BIT(3) | BIT(2) | BIT(1))
 
 /* READ-BACK COMMAND FORMAT */
 
