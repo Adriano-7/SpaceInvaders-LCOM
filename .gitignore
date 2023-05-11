@@ -1,4 +1,7 @@
 
-lab2/.gdbinit
-lab2/lab2
+trace.txt
+output.txt
+.gbinit
+.vscode
+.clang-format
 *.o

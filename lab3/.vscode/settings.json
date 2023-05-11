@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "*.embeddedhtml": "html",
-        "keyboard.h": "c",
-        "i8042.h": "c"
-    }
-}
