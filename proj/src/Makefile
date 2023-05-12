@@ -7,7 +7,7 @@ PROG=proj
 .PATH: ${.CURDIR}/lib/graphics
 .PATH: ${.CURDIR}/lib/rtc
 
-SRCS= timer.c utils.c main.c kbc.c keyboard.c
+SRCS= timer.c utils.c main.c kbc.c keyboard.c graphics.c
 
 CFLAGS += -pedantic -D__LCOM_OPTIMIZED__
 
