@@ -41,7 +41,7 @@ int (mouse_test_packet)(uint32_t cnt) {
     mouse_enable_data_reporting();
 
     if(mouse_subscribe_interrupts(&bit_no)){
-      printf("Error while calling subscribing the mouse interrupts\n");
+      printf("Error while subscribing the mouse interrupts\n");
       return 1;
     }
 
@@ -59,12 +59,17 @@ int (mouse_test_packet)(uint32_t cnt) {
             } 
           }
           break;
-        default:
-          break;
         } 
       }
-    }
+
+      if(mouse_unsubscribe_interrupts()){
+        printf("Error while unsubscribing the mouse interrupts\n");
+        return 1;
+      }
+
+      return 0;
 }
+
 
 int (mouse_test_async)(uint8_t idle_time) {
     /* To be completed */
