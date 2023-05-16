@@ -1,7 +1,7 @@
 #include <lcom/lcf.h>
 #include <stdint.h>
 
-#include "keyboard.h"
+#include "../headers/devices/keyboard.h"
 
 int keyboard_hook_id=1;
 uint8_t output = 0;

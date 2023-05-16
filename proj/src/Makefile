@@ -1,13 +1,9 @@
 PROG=proj
 
-.PATH: ${.CURDIR}/project
-.PATH: ${.CURDIR}/lib/timer
-.PATH: ${.CURDIR}/lib/utils
-.PATH: ${.CURDIR}/lib/kbc
-.PATH: ${.CURDIR}/lib/graphics
-.PATH: ${.CURDIR}/lib/rtc
+.PATH: ${.CURDIR}/Devices
+.PATH: ${.CURDIR}/controllers
 
-SRCS= timer.c utils.c main.c kbc.c keyboard.c graphics.c
+SRCS= timer.c utils.c main.c kbc.c keyboard.c graphics.c game.c keyboard_controller.c
 
 CFLAGS += -pedantic -D__LCOM_OPTIMIZED__
 

@@ -1,4 +1,6 @@
 #include <lcom/lcf.h>
+#include "headers/game.h"
+#include "headers/devices/graphics.h"
 
 
 int main(int argc, char *argv[]) {
@@ -13,8 +15,20 @@ int main(int argc, char *argv[]) {
   return lcf_cleanup();
 }
 
-//Game Loop
-//1st Subscribe interrupts
-//2nd Initialize game
-//3rd Loop/Receive interrupts
-//4th Unsubscribe interrupts
+int main_loop(int argc, char *argv[]) {
+  if(map_phys_mem(G_Mode_1024x768)){
+    printf("Error mapping phys memmory\n");
+    return 1;
+  }
+  if(set_graphics_mode(G_Mode_1024x768)){
+    printf("Error setting graphics mode\n");
+    return 1;
+  }
+
+  if (game_loop()) {
+    printf("Error entering game loop\n");
+    return 1;
+  }
+
+  return 0;
+}

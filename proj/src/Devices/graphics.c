@@ -1,4 +1,4 @@
-#include "graphics.h"
+#include "../headers/devices/graphics.h"
 
 struct minix_mem_range mem_range;
 vbe_mode_info_t mode_info;
