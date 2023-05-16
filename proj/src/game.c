@@ -11,7 +11,7 @@
 extern uint8_t output;
 
 int game_loop(){
-	bool running = true;
+	//bool running = true;
 	enum State state = MENU;
 
 	int ipc_status, r;
@@ -45,9 +45,10 @@ int game_loop(){
 	return 1;
 	}
 
+	vg_draw_hline(40,40,100,0xFFFFFF);
 
 	//2nd Initialize game
-	while(running){
+	while(output != BREAK_ESC){
 	if((r = driver_receive(ANY, &msg, &ipc_status))) {
 		printf("driver_receive failed with: %d", r);
 		continue;

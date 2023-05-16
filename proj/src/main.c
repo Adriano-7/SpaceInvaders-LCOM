@@ -6,8 +6,9 @@
 int main(int argc, char *argv[]) {
   lcf_set_language("EN-US");
 
-  lcf_trace_calls("/home/lcom/labs/proj/trace.txt");
-  lcf_log_output("/home/lcom/labs/proj/output.txt");
+  lcf_trace_calls("/home/lcom/labs/g5/proj/trace.txt");
+  
+  lcf_log_output("/home/lcom/labs/g5/proj/output.txt");
 
   if (lcf_start(argc, argv))
     return 1;
@@ -15,7 +16,7 @@ int main(int argc, char *argv[]) {
   return lcf_cleanup();
 }
 
-int main_loop(int argc, char *argv[]) {
+int proj_main_loop(int argc, char *argv[]) {
   if(map_phys_mem(G_Mode_1024x768)){
     printf("Error mapping phys memmory\n");
     return 1;
