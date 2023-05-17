@@ -5,7 +5,7 @@
 #include "kbc.h"
 #include "i8042.h"
 
-extern uint8_t output;
+uint8_t output;
 
 int (read_KBC_status)(uint8_t* status){
   if(util_sys_inb(KBC_STATUS_REG, status)){
@@ -19,7 +19,7 @@ int (read_KBC_output)(uint8_t port, uint8_t *output, uint8_t mouse){
   if(output==NULL){printf("output is nullptr\n"); return 1;}
 
   uint8_t st;
-  uint8_t attempts = MAX_ATTEMPS;
+  uint8_t attempts = MAX_TRIES;
 
   while(attempts){
     /*Ler o status register*/
@@ -55,6 +55,7 @@ int (read_KBC_output)(uint8_t port, uint8_t *output, uint8_t mouse){
       } 
       return 0;
     }
+
     tickdelay(micros_to_ticks(20000));
     attempts--;
   }
@@ -64,7 +65,7 @@ int (read_KBC_output)(uint8_t port, uint8_t *output, uint8_t mouse){
 
 int (write_KBC_command)(uint8_t port, uint8_t commandByte){
   uint8_t st;
-  uint8_t attempts = MAX_ATTEMPS;
+  uint8_t attempts = MAX_TRIES;
 
   while(attempts){
     if(read_KBC_status(&st)){
@@ -72,7 +73,7 @@ int (write_KBC_command)(uint8_t port, uint8_t commandByte){
       return 1;
     }
 
-    if(st & FULL_IN_BUFFER){
+    if((st & FULL_IN_BUFFER)==0){
       if(sys_outb(port, commandByte)){
         printf("Error while writing the commandByte\n");
         return 1;
@@ -83,5 +84,6 @@ int (write_KBC_command)(uint8_t port, uint8_t commandByte){
     tickdelay(micros_to_ticks(20000));
     attempts--;
   }
+
   return 1;
 }
