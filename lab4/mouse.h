@@ -9,4 +9,14 @@ int (mouse_unsubscribe_interrupts)();
 
 void(mouse_ih)();
 
-void mouse_sync_bytes();
+bool mouse_parse_output();
+
+void mouse_build_packet();
+
+int write_mouse_cmd(uint8_t cmd);
+
+int disable_data_report();
+
+int enable_data_report();
+
+uint16_t twoComplement(uint8_t* number, uint8_t overflow);
