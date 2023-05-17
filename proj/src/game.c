@@ -6,6 +6,13 @@
 #include "headers/devices/vbe.h"
 #include "headers/devices/graphics.h"
 
+#include "Assets/imgs/monster1.xpm"
+#include "Assets/imgs/monster2.xpm"
+#include "Assets/imgs/monster3.xpm"
+#include "Assets/imgs/zero.xpm"
+
+
+
 #include "state.h"
 
 extern uint8_t output;
@@ -35,17 +42,19 @@ int game_loop(){
 	return 1;
 	}
 
-	if(map_phys_mem(G_Mode_1024x768)){
+	if(map_phys_mem(0x105)){
 	printf("Error mapping the physical to virtual memory"); 
 	return 1;
 	}
 
-	if(set_graphics_mode(G_Mode_1024x768)){
+	if(set_graphics_mode(0x105)){
 	printf("Error setting graphics mode\n");
 	return 1;
 	}
 
-	vg_draw_hline(40,40,100,0xFFFFFF);
+	//xpm_map_t xpm = monster1_xpm;
+	draw_xpm(monster3_xpm,50,50);
+
 
 	//2nd Initialize game
 	while(output != BREAK_ESC){
@@ -106,4 +115,4 @@ int game_loop(){
 	}
 
 	return 0;
-	}
+}

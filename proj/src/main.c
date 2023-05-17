@@ -2,13 +2,12 @@
 #include "headers/game.h"
 #include "headers/devices/graphics.h"
 
-
 int main(int argc, char *argv[]) {
   lcf_set_language("EN-US");
 
-  lcf_trace_calls("/home/lcom/labs/g5/proj/trace.txt");
+  lcf_trace_calls("/home/lcom/labs/g5/trace.txt");
   
-  lcf_log_output("/home/lcom/labs/g5/proj/output.txt");
+  lcf_log_output("/home/lcom/labs/g5/output.txt");
 
   if (lcf_start(argc, argv))
     return 1;
@@ -17,11 +16,13 @@ int main(int argc, char *argv[]) {
 }
 
 int proj_main_loop(int argc, char *argv[]) {
-  if(map_phys_mem(G_Mode_1024x768)){
+
+  if(map_phys_mem(0x105)){
     printf("Error mapping phys memmory\n");
     return 1;
   }
-  if(set_graphics_mode(G_Mode_1024x768)){
+  
+  if(set_graphics_mode(0x105)){
     printf("Error setting graphics mode\n");
     return 1;
   }

@@ -16,5 +16,6 @@
 #define DIRECT_COLOR_MODE 0x06
 
 #define G_Mode_1024x768 0x105
+#define G_Mode_800x600 0x115
 
 #endif
