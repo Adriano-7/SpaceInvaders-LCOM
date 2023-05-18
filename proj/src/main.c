@@ -17,6 +17,7 @@ int main(int argc, char *argv[]) {
 
 int proj_main_loop(int argc, char *argv[]) {
 
+  
   if(map_phys_mem(0x105)){
     printf("Error mapping phys memmory\n");
     return 1;

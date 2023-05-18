@@ -8,15 +8,16 @@
 #include "model/game/player.h"
 #include "model/gameObject.h"
 
-#include "assets/imgs/ivan.xpm"
-#include "assets/imgs/osvaldo.xpm"
-#include "assets/imgs/miro.xpm"
-#include "assets/imgs/nave.xpm"
+#include "xpm/loadXpm.h"
 
 #include "state.h"
 
 extern uint8_t output;
 extern vbe_mode_info_t mode_info;
+
+extern xpm_image_t game_xpm[4];
+extern uint8_t* game_xpm_map[4];
+
 Player* player;
 
 int game_loop(){
@@ -34,13 +35,8 @@ int game_loop(){
 	//Timer
 	uint8_t timer_bit_no;
 
-	//Player
-
-	xpm_image_t img;
-	uint8_t* img_colors;
-	img_colors = xpm_load(nave_xpm,XPM_INDEXED,&img);
-	GameObject* gameObject = createGameObject((mode_info.XResolution/2)-(img.width/2), mode_info.YResolution-img.height, 30, img,img_colors,true);
-	
+	loadXpms();
+	GameObject* gameObject = createGameObject((mode_info.XResolution/2)-(game_xpm[0].width/2), mode_info.YResolution-game_xpm[0].height, 30, game_xpm[0] ,game_xpm_map[0],true);
 	player = createPlayer(gameObject);
 
 	if(timer_subscribe_int(&timer_bit_no)){
@@ -79,8 +75,6 @@ int game_loop(){
 				handle_keyboard(state,bytes,player);
 				}
 			}
-
-
 			}
 			if (msg.m_notify.interrupts & BIT(timer_bit_no)){
 				timer_int_handler();
@@ -94,6 +88,7 @@ int game_loop(){
 
 	//3rd Loop/Receive interrupts
 
+	cleanXpms();
 
 	//4th Unsubscribe interrupts
 	if(timer_unsubscribe_int()){
