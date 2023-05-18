@@ -5,7 +5,7 @@
 #include "../gameObject.h"
 
 typedef struct Player {
-  GameObject* gameObject;
+  GameObject_t* gameObject;
   bool canShoot;
   int lives;
   int score;

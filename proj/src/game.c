@@ -19,14 +19,11 @@ extern vbe_mode_info_t mode_info;
 extern xpm_image_t game_xpm[4];
 extern uint8_t* game_xpm_map[4];
 
-Player_t* player;
-Monster_t* monster;
-enum State* state;
-
 int game_loop(){
 	//bool running = true;
-	enum State state_ = GAME;
-	state = &state_;
+	//put the entities in the game
+	enum State st = GAME;
+	enum State* state = &st;
 
 	int ipc_status, r;
 	message msg;
@@ -40,8 +37,8 @@ int game_loop(){
 	uint8_t timer_bit_no;
 
 	loadXpms();
-	player = createPlayer();
-	monster = createMonster(OSVALDO, 100, 100);
+
+	Entities_t* entities =  loadGame();
 
 	if(timer_subscribe_int(&timer_bit_no)){
 	printf("Error while subscribing timer interrupt\n");
@@ -68,7 +65,7 @@ int game_loop(){
 			if(secondByte){
 				secondByte=false;
 				bytes[1]=output;
-				handle_keyboard(bytes);
+				handle_keyboard(state, bytes,entities->player);
 			}
 			else{
 				bytes[0] = output;
@@ -76,13 +73,14 @@ int game_loop(){
 				secondByte = true;
 				}
 				else{
-				handle_keyboard(bytes);
+				handle_keyboard(state, bytes,entities->player);
 				}
 			}
 			}
 			if (msg.m_notify.interrupts & BIT(timer_bit_no)){
+				printf("timer interrupt\n");
 				timer_int_handler();
-				handle_timer();
+				handle_timer(state, entities);
 			}
 			break;
 			}

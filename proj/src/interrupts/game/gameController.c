@@ -1,9 +1,6 @@
 #include "gameController.h"
 
-extern Player_t* player;
-extern Monster_t* monster;
-
-void (game_handle_keyboard)(enum Keys key){
+void (game_handle_keyboard)(enum Keys key, Player_t* player){
     if(key == Make_Arrow_left){
         movePlayer(player, LEFT);
     }
@@ -12,24 +9,20 @@ void (game_handle_keyboard)(enum Keys key){
     } 
 }
 
-void (game_handle_timer)(){
-    moveMonster(monster);
+void (game_handle_timer)(Entities_t* entities){
+    moveMonster(entities->monsters);
+
     /*
-    for(int i = 0; i < 55; i++){
-        if(monsters[i] != NULL){
+    for(int i = 0; i < 2; i++){
+        if(entities->gameObjects[i] != NULL){
             moveMonster(context->monsters[i]);
         }
     }
     */
-
-    drawGameObject(monster->gameObject);
-    drawGameObject(player->gameObject);
-
-    /*
-    for(int i = 0; i < 56; i++){
-        if(gameObjects[i] != NULL){
-            drawGameObject(context->gameObjects[i]);
+    
+    for(int i = 0; i < 2; i++){
+        if(entities->gameObjects[i] != NULL){
+            drawGameObject(entities->gameObjects[i]);
         }
     }
-    */
 }

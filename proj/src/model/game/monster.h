@@ -11,7 +11,7 @@ enum MonsterType {
 };
 
 typedef struct Monster {
-  GameObject* gameObject;
+  GameObject_t* gameObject;
   int points;
   bool isAlive;
   enum Direction direction;
