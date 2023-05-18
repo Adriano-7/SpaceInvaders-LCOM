@@ -1,8 +1,9 @@
 #include "handleInterrupt.h"
-#include "model/game/player.h"
+
+extern Player* player;
 
 int handle_keyboard(enum State state, uint8_t bytes[2], Player* player){
-    //enum Keys key = get_key(bytes);    
+    enum Keys key = get_key(bytes);    
 
     switch(state){
         case MENU:
@@ -15,7 +16,12 @@ int handle_keyboard(enum State state, uint8_t bytes[2], Player* player){
             //TODO
             break;
         case GAME:
-        //TODO
+            if(key == Make_Arrow_left){
+                movePlayer(player, LEFT);
+            }
+            else if(key == Make_Arrow_right){
+                movePlayer(player, RIGHT);
+            } 
             break;
 
         case PAUSE:

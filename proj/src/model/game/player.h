@@ -9,8 +9,9 @@ typedef struct {
   int lives;
   int score;
 
-  GameObject gameObject;
+  GameObject* gameObject;
 } Player;
 
-Player* createPlayer(GameObject gameObject);
+Player* createPlayer(GameObject* gameObject);
+void movePlayer(Player* player, enum Direction direction);
 

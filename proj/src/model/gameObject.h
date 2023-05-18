@@ -5,6 +5,8 @@
 typedef struct {
     int x;
     int y;
+    int old_x;
+    int old_y;
     int speed;
     xpm_image_t img;
     uint8_t* img_colors;
@@ -13,4 +15,5 @@ typedef struct {
 
 GameObject* createGameObject(int x, int y, int speed, xpm_image_t img, uint8_t* img_colors,bool isAlive);
 void drawGameObject(GameObject* obj);
+//void eraseGameObject(GameObject* obj);
 

@@ -12,7 +12,7 @@ PROG=proj
 
 
 
-SRCS= timer.c utils.c main.c kbc.c keyboard.c graphics.c game.c handleInterrupt.c player.c menu.c gameObject.c
+SRCS= timer.c utils.c main.c kbc.c keyboard.c graphics.c game.c handleInterrupt.c player.c menu.c gameObject.c keys.c
 
 CFLAGS += -pedantic -D__LCOM_OPTIMIZED__
 

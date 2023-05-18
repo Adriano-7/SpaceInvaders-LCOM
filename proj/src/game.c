@@ -16,10 +16,12 @@
 #include "state.h"
 
 extern uint8_t output;
+extern vbe_mode_info_t mode_info;
+Player* player;
 
 int game_loop(){
 	//bool running = true;
-	//enum State state = MENU;
+	enum State state = GAME;
 
 	int ipc_status, r;
 	message msg;
@@ -37,9 +39,9 @@ int game_loop(){
 	xpm_image_t img;
 	uint8_t* img_colors;
 	img_colors = xpm_load(nave_xpm,XPM_INDEXED,&img);
-	GameObject* gameObject = createGameObject(0,0,3,img,img_colors,true);
-	drawGameObject(gameObject);
-	//Player* player = createPlayer();
+	GameObject* gameObject = createGameObject((mode_info.XResolution/2)-(img.width/2), mode_info.YResolution-img.height, 30, img,img_colors,true);
+	
+	player = createPlayer(gameObject);
 
 	if(timer_subscribe_int(&timer_bit_no)){
 	printf("Error while subscribing timer interrupt\n");
@@ -50,26 +52,6 @@ int game_loop(){
 	printf("Error subscribing keyboard interrupts\n");
 	return 1;
 	}
-
-	/*
-	if(map_phys_mem(0x105)){
-	printf("Error mapping the physical to virtual memory"); 
-	return 1;
-	}
-
-	if(set_graphics_mode(0x105)){
-	printf("Error setting graphics mode\n");
-	return 1;
-	}
-	*/
-
-	//xpm_map_t xpm = monster1_xpm;
-	//draw_xpm(osvaldo_xpm,50,50);
-	//draw_xpm(ivan_xpm,50,150);
-	//draw_xpm(miro_xpm,50,200);
-	//draw_xpm(nave_xpm,200,800);
-
-
 
 	//2nd Initialize game
 	while(output != BREAK_ESC){
@@ -86,7 +68,7 @@ int game_loop(){
 			if(secondByte){
 				secondByte=false;
 				bytes[1]=output;
-				//handle_keyboard(state,bytes,player);
+				handle_keyboard(state,bytes,player);
 			}
 			else{
 				bytes[0] = output;
@@ -94,15 +76,15 @@ int game_loop(){
 				secondByte = true;
 				}
 				else{
-					//handle_keyboard(state,bytes,player);
+				handle_keyboard(state,bytes,player);
 				}
 			}
 
 
 			}
 			if (msg.m_notify.interrupts & BIT(timer_bit_no)){
-			timer_int_handler();
-			
+				timer_int_handler();
+				drawGameObject(gameObject);
 			}
 			break;
 			}
