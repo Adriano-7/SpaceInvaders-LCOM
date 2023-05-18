@@ -63,7 +63,7 @@ void moveMonster(Monster_t* monster){
                 monster->gameObject->x += monster->gameObject->speed;
             } 
             else {
-            monster->gameObject->y += monster->gameObject->speed;
+            monster->gameObject->y += monster->gameObject->img.height;
             monster->direction = LEFT;
             }
         } 
@@ -71,7 +71,7 @@ void moveMonster(Monster_t* monster){
         if (canMoveLeft) {
             monster->gameObject->x -= monster->gameObject->speed;
         } else {
-            monster->gameObject->y += monster->gameObject->speed;
+            monster->gameObject->y += monster->gameObject->img.height;
             monster->direction = RIGHT;
         }
     }

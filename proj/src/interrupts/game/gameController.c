@@ -10,17 +10,13 @@ void (game_handle_keyboard)(enum Keys key, Player_t* player){
 }
 
 void (game_handle_timer)(Entities_t* entities){
-    moveMonster(entities->monsters);
-
-    /*
-    for(int i = 0; i < 2; i++){
-        if(entities->gameObjects[i] != NULL){
-            moveMonster(context->monsters[i]);
+    for(int i = 0; i < 55; i++){
+        if(entities->monsters[i] != NULL){
+            moveMonster(entities->monsters[i]);
         }
     }
-    */
     
-    for(int i = 0; i < 2; i++){
+    for(int i = 0; i < 56; i++){
         if(entities->gameObjects[i] != NULL){
             drawGameObject(entities->gameObjects[i]);
         }
