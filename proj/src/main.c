@@ -1,6 +1,6 @@
 #include <lcom/lcf.h>
-#include "headers/game.h"
-#include "headers/devices/graphics.h"
+#include "game.h"
+#include "devices/graphics.h"
 
 int main(int argc, char *argv[]) {
   lcf_set_language("EN-US");

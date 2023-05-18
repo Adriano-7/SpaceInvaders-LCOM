@@ -1,9 +1,18 @@
 PROG=proj
 
-.PATH: ${.CURDIR}/Devices
+.PATH: ${.CURDIR}/devices
 .PATH: ${.CURDIR}/controllers
+.PATH: ${.CURDIR}/controllers/game
+.PATH: ${.CURDIR}/controllers/menu
+.PATH: ${.CURDIR}/model
+.PATH: ${.CURDIR}/model/menu
+.PATH: ${.CURDIR}/model/game
 
-SRCS= timer.c utils.c main.c kbc.c keyboard.c graphics.c game.c keyboard_controller.c
+
+
+
+
+SRCS= timer.c utils.c main.c kbc.c keyboard.c graphics.c game.c handleInterrupt.c player.c menu.c gameObject.c
 
 CFLAGS += -pedantic -D__LCOM_OPTIMIZED__
 

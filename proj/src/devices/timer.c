@@ -1,7 +1,7 @@
 #include <stdint.h>
 
-#include "../headers/devices/timer.h"
-#include "../headers/devices/i8254.h"
+#include "timer.h"
+#include "i8254.h"
 
 
 

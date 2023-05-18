@@ -2,8 +2,8 @@
 
 #include <stdint.h>
 
-#include "../headers/devices/kbc.h"
-#include "../headers/devices/i8042.h"
+#include "kbc.h"
+#include "i8042.h"
 
 int (read_KBC_status)(uint8_t* status){
     if(util_sys_inb(KBC_STATUS_REG, status)){

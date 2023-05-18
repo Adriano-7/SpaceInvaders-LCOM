@@ -1,4 +1,4 @@
-#include "../headers/devices/graphics.h"
+#include "graphics.h"
 
 struct minix_mem_range mem_range;
 vbe_mode_info_t mode_info;
@@ -111,10 +111,8 @@ int vg_draw_pattern(uint8_t no_rectangles, uint32_t first, uint8_t step){
   return 0;
 }
 
-int (draw_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y){
-  xpm_image_t img;
-  uint8_t *img_colors = xpm_load(xpm, XPM_INDEXED, &img);
-
+int (draw_xpm)(xpm_image_t img, uint8_t* img_colors, uint16_t x, uint16_t y){
+  
   if(img_colors==NULL) return 1;
 
   for(int i=0; i<img.height; i++){

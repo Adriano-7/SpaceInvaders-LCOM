@@ -20,7 +20,7 @@ uint32_t (get_color)(uint16_t row, uint16_t col, uint8_t step, uint32_t first, u
 
 int vg_draw_pattern(uint8_t no_rectangles, uint32_t first, uint8_t step);
 
-int (draw_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y);
+int (draw_xpm)(xpm_image_t xpm,uint8_t* img_colors, uint16_t x, uint16_t y);
 
 int (erase_screen)(uint16_t x, uint16_t y, xpm_image_t img);
 
