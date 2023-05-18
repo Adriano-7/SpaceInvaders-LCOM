@@ -7,9 +7,9 @@ ___
 #### Work Done by Group T14-G05:
 | Name | Email | 
 |:-----------------:|:-----------------:|
-| Luís Cunha | up201709375@up.pt | 
 | Adriano Machado | up202105352@fe.up.pt | 
 |José João|up202108818@fe.up.pt|
+| Luís Cunha | up201709375@up.pt | 
 |Rodrigo Ribeiro |up202108679@fe.up.pt|
 
 ___
