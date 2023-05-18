@@ -14,7 +14,7 @@ Monster_t* createMonster(enum MonsterType monsterType, int x, int y) {
 
     int i = getMonsterImageIndex(monsterType);
     monster->points = 10*i;
-    monster->gameObject = createGameObject(x, y, 30, game_xpm[i] ,game_xpm_map[i],true);
+    monster->gameObject = createGameObject(x, y, 2, game_xpm[i] ,game_xpm_map[i],true);
     monster->isAlive = true;
     monster->direction = RIGHT;
 
@@ -53,41 +53,29 @@ void moveMonster(Monster_t* monster){
     monster->gameObject->old_x = monster->gameObject->x;
     monster->gameObject->old_y = monster->gameObject->y;
 
-    bool canMoveRight = false;
-    if( monster->gameObject->x + monster->gameObject->speed + monster->gameObject->img.width < mode_info.XResolution> 0){
-        canMoveRight = true;
-        }
-    else{
-        canMoveRight = false;
-    }
-    bool canMoveLeft = false;
-    if(monster->gameObject->x - monster->gameObject->speed >= 0){
-        canMoveLeft = true;
-    }else{
-        canMoveLeft = false;
-    }
+    bool canMoveRight = monster->gameObject->x + monster->gameObject->speed + monster->gameObject->img.width < mode_info.XResolution;
+    bool canMoveLeft = monster->gameObject->x - monster->gameObject->speed >= 0;
+    bool canMoveDown = monster->gameObject->y + monster->gameObject->speed + monster->gameObject->img.height < mode_info.YResolution;
 
-    switch(monster->direction){
-        case RIGHT:
-            if(canMoveRight){
+    if(canMoveDown){
+        if (monster->direction == RIGHT) {
+            if (canMoveRight) {
                 monster->gameObject->x += monster->gameObject->speed;
+            } 
+            else {
+            monster->gameObject->y += monster->gameObject->speed;
+            monster->direction = LEFT;
             }
-            else{
-                monster->gameObject->y += monster->gameObject->speed;
-                monster->direction = LEFT;
-            }
-            break;
-        case LEFT:
-            if(canMoveLeft){
-                monster->gameObject->x -= monster->gameObject->speed;
-            }
-            else{
-                monster->gameObject->y += monster->gameObject->speed;
-                monster->direction = RIGHT;
-            }
-            break;
-        default:
-            break;
+        } 
+    else if (monster->direction == LEFT) {
+        if (canMoveLeft) {
+            monster->gameObject->x -= monster->gameObject->speed;
+        } else {
+            monster->gameObject->y += monster->gameObject->speed;
+            monster->direction = RIGHT;
+        }
+    }
     }
 }
+
 

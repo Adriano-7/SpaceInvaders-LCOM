@@ -1,9 +1,9 @@
 PROG=proj
 
 .PATH: ${.CURDIR}/devices
-.PATH: ${.CURDIR}/controllers
-.PATH: ${.CURDIR}/controllers/game
-.PATH: ${.CURDIR}/controllers/menu
+.PATH: ${.CURDIR}/interrupts
+.PATH: ${.CURDIR}/interrupts/game
+.PATH: ${.CURDIR}/interrupts/menu
 .PATH: ${.CURDIR}/model
 .PATH: ${.CURDIR}/model/menu
 .PATH: ${.CURDIR}/model/game
@@ -13,7 +13,7 @@ PROG=proj
 
 
 
-SRCS= timer.c utils.c main.c kbc.c keyboard.c graphics.c game.c handleInterrupt.c player.c menu.c gameObject.c keys.c loadXpm.c monster.c
+SRCS= timer.c utils.c main.c kbc.c keyboard.c graphics.c game.c handleInterrupt.c player.c menu.c gameObject.c keys.c loadXpm.c monster.c gameController.c
 
 CFLAGS += -pedantic -D__LCOM_OPTIMIZED__
 

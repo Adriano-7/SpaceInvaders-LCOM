@@ -1,5 +1,5 @@
 #include <lcom/lcf.h>
-#include "controllers/handleInterrupt.h"
+#include "interrupts/handleInterrupt.h"
 #include "game.h"
 #include "devices/keyboard.h"
 #include "devices/timer.h"
@@ -20,10 +20,13 @@ extern xpm_image_t game_xpm[4];
 extern uint8_t* game_xpm_map[4];
 
 Player_t* player;
+Monster_t* monster;
+enum State* state;
 
 int game_loop(){
 	//bool running = true;
-	enum State state = GAME;
+	enum State state_ = GAME;
+	state = &state_;
 
 	int ipc_status, r;
 	message msg;
@@ -38,7 +41,7 @@ int game_loop(){
 
 	loadXpms();
 	player = createPlayer();
-	Monster_t *monster = createMonster(OSVALDO, 100, 100);
+	monster = createMonster(OSVALDO, 100, 100);
 
 	if(timer_subscribe_int(&timer_bit_no)){
 	printf("Error while subscribing timer interrupt\n");
@@ -65,7 +68,7 @@ int game_loop(){
 			if(secondByte){
 				secondByte=false;
 				bytes[1]=output;
-				handle_keyboard(state,bytes,player);
+				handle_keyboard(bytes);
 			}
 			else{
 				bytes[0] = output;
@@ -73,20 +76,18 @@ int game_loop(){
 				secondByte = true;
 				}
 				else{
-				handle_keyboard(state,bytes,player);
+				handle_keyboard(bytes);
 				}
 			}
 			}
 			if (msg.m_notify.interrupts & BIT(timer_bit_no)){
 				timer_int_handler();
-				drawGameObject(player->gameObject);
-				drawGameObject(monster->gameObject);
+				handle_timer();
 			}
 			break;
 			}
 		}
 	} 
-
 
 	//3rd Loop/Receive interrupts
 	cleanXpms();
