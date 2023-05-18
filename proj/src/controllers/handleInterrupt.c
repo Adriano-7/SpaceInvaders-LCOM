@@ -1,8 +1,8 @@
 #include "handleInterrupt.h"
 
-extern Player* player;
+extern Player_t* player;
 
-int handle_keyboard(enum State state, uint8_t bytes[2], Player* player){
+int handle_keyboard(enum State state, uint8_t bytes[2], Player_t* player){
     enum Keys key = get_key(bytes);    
 
     switch(state){

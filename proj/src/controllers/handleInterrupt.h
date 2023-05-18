@@ -9,5 +9,5 @@
 #include "game/gameController.h"
 #include "model/game/player.h"
 
-int (handle_keyboard)(enum State state, uint8_t bytes[2], Player* player);
+int (handle_keyboard)(enum State state, uint8_t bytes[2], Player_t* player);
 

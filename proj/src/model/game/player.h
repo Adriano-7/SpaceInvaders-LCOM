@@ -4,16 +4,16 @@
 #include "model/direction.h"
 #include "../gameObject.h"
 
-typedef struct {
+typedef struct Player {
   GameObject* gameObject;
   bool canShoot;
   int lives;
   int score;
-} Player;
+} Player_t;
 
-Player* createPlayer();
-void destroyPlayer(Player* player);
+Player_t* createPlayer();
+void destroyPlayer(Player_t* player);
 
-void movePlayer(Player* player, enum Direction direction);
+void movePlayer(Player_t* player, enum Direction direction);
 
 

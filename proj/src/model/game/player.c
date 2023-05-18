@@ -6,8 +6,8 @@ extern vbe_mode_info_t mode_info;
 extern xpm_image_t game_xpm[4];
 extern uint8_t* game_xpm_map[4];
 
-Player* createPlayer() {
-  Player* player = malloc(sizeof(Player));
+Player_t* createPlayer() {
+  Player_t* player = malloc(sizeof(Player_t));
   if (player == NULL) {
     printf("Error: malloc failed in createPlayer\n");
     exit(EXIT_FAILURE);
@@ -21,12 +21,12 @@ Player* createPlayer() {
   return player;
 }
 
-void destroyPlayer(Player* player) {
+void destroyPlayer(Player_t* player) {
   free(player->gameObject);
   free(player);
 }
 
-void movePlayer(Player* player, enum Direction direction) {
+void movePlayer(Player_t* player, enum Direction direction) {
   if(player == NULL) {
     printf("Error: player is NULL in movePlayer\n");
     exit(EXIT_FAILURE);

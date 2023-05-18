@@ -7,6 +7,7 @@
 #include "devices/graphics.h"
 #include "model/game/player.h"
 #include "model/gameObject.h"
+#include "model/game/monster.h"
 
 #include "xpm/loadXpm.h"
 
@@ -18,7 +19,7 @@ extern vbe_mode_info_t mode_info;
 extern xpm_image_t game_xpm[4];
 extern uint8_t* game_xpm_map[4];
 
-Player* player;
+Player_t* player;
 
 int game_loop(){
 	//bool running = true;
@@ -37,6 +38,7 @@ int game_loop(){
 
 	loadXpms();
 	player = createPlayer();
+	Monster_t *monster = createMonster(OSVALDO, 100, 100);
 
 	if(timer_subscribe_int(&timer_bit_no)){
 	printf("Error while subscribing timer interrupt\n");
@@ -78,6 +80,7 @@ int game_loop(){
 			if (msg.m_notify.interrupts & BIT(timer_bit_no)){
 				timer_int_handler();
 				drawGameObject(player->gameObject);
+				drawGameObject(monster->gameObject);
 			}
 			break;
 			}
