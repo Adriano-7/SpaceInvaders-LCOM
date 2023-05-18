@@ -5,13 +5,15 @@
 #include "../gameObject.h"
 
 typedef struct {
+  GameObject* gameObject;
   bool canShoot;
   int lives;
   int score;
-
-  GameObject* gameObject;
 } Player;
 
-Player* createPlayer(GameObject* gameObject);
+Player* createPlayer();
+void destroyPlayer(Player* player);
+
 void movePlayer(Player* player, enum Direction direction);
+
 

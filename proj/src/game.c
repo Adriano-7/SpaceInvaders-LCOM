@@ -36,8 +36,7 @@ int game_loop(){
 	uint8_t timer_bit_no;
 
 	loadXpms();
-	GameObject* gameObject = createGameObject((mode_info.XResolution/2)-(game_xpm[0].width/2), mode_info.YResolution-game_xpm[0].height, 30, game_xpm[0] ,game_xpm_map[0],true);
-	player = createPlayer(gameObject);
+	player = createPlayer();
 
 	if(timer_subscribe_int(&timer_bit_no)){
 	printf("Error while subscribing timer interrupt\n");
@@ -78,7 +77,7 @@ int game_loop(){
 			}
 			if (msg.m_notify.interrupts & BIT(timer_bit_no)){
 				timer_int_handler();
-				drawGameObject(gameObject);
+				drawGameObject(player->gameObject);
 			}
 			break;
 			}
@@ -87,7 +86,6 @@ int game_loop(){
 
 
 	//3rd Loop/Receive interrupts
-
 	cleanXpms();
 
 	//4th Unsubscribe interrupts
