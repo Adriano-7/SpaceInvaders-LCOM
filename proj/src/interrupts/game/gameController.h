@@ -6,9 +6,8 @@
 #include "model/direction.h"
 
 #include "model/game/player.h"
-#include "model/game/monster.h"
-
 #include "../../entities.h"
+#include "entitiesController.h"
 
 void (game_handle_keyboard)(enum Keys key, Player_t* player);
 

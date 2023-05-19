@@ -5,6 +5,7 @@
 #include "model/game/monster.h"
 #include "model/gameObject.h"
 
+
 typedef struct Entities{
     Player_t* player;
     Monster_t* monsters[55];

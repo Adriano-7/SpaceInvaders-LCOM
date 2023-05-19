@@ -14,6 +14,5 @@ typedef struct Player {
 Player_t* createPlayer();
 void destroyPlayer(Player_t* player);
 
-void movePlayer(Player_t* player, enum Direction direction);
 
 

@@ -20,5 +20,6 @@ typedef struct Monster {
 Monster_t* createMonster(enum MonsterType monsterType, int x, int y);
 void destroyMonster(Monster_t* monster);
 int getMonsterImageIndex(enum MonsterType monsterType);
+void changeMonsterDirection(Monster_t* monster);
 
-void moveMonster(Monster_t* monster);
+
