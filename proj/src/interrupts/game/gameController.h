@@ -8,6 +8,9 @@
 #include "model/game/player.h"
 #include "../../entities.h"
 #include "entitiesController.h"
+#include "../../xpm/loadXpm.h"
+
+
 
 void (game_handle_keyboard)(enum Keys key, Player_t* player);
 
