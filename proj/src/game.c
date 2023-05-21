@@ -21,7 +21,6 @@ extern uint8_t* game_xpm_map[5];
 
 int game_loop(){
 	//bool running = true;
-	//put the entities in the game
 	enum State st = GAME;
 	enum State* state = &st;
 
@@ -38,7 +37,7 @@ int game_loop(){
 
 	loadXpms();
 
-	Entities_t* entities =  loadGame();
+	Map_t* map =  loadGame();
 
 	if(timer_subscribe_int(&timer_bit_no)){
 	printf("Error while subscribing timer interrupt\n");
@@ -65,7 +64,7 @@ int game_loop(){
 			if(secondByte){
 				secondByte=false;
 				bytes[1]=output;
-				handle_keyboard(state, bytes,entities->player);
+				handle_keyboard(state, bytes,map->player);
 			}
 			else{
 				bytes[0] = output;
@@ -73,14 +72,14 @@ int game_loop(){
 				secondByte = true;
 				}
 				else{
-				handle_keyboard(state, bytes,entities->player);
+				handle_keyboard(state, bytes,map->player);
 				}
 			}
 			}
 			if (msg.m_notify.interrupts & BIT(timer_bit_no)){
 				printf("timer interrupt\n");
 				timer_int_handler();
-				handle_timer(state, entities);
+				handle_timer(state, map);
 			}
 			break;
 			}

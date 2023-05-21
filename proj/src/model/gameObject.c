@@ -22,7 +22,7 @@ GameObject_t* createGameObject(int x, int y, int speedX, int speedY, xpm_image_t
 }
 
 void drawGameObject(GameObject_t* obj) {
-    vg_draw_rectangle(obj->old_x, obj->old_y, obj->img.width, obj->img.height, 0);
+    vg_draw_rectangle(obj->old_x, obj->old_y, obj->img.width, obj->img.height+4, 0);
 
     if (obj->isAlive) {
         draw_xpm(obj->img,obj->img_colors, obj->x, obj->y);
