@@ -1,12 +1,15 @@
 #include "loadXpm.h"
 
 void loadXpms(){
-    for(int i = 0; i < 4; i++){
+    for(int i = 0; i < 5; i++){
         game_xpm_map[i] = xpm_load(game_xpm_name[i], XPM_INDEXED, &game_xpm[i]);
     }
 
     for(int i = 0; i < 2; i++){
         menu_xpm_map[i] = xpm_load(menu_xpm_name[i], XPM_INDEXED, &menu_xpm[i]);
+    }
+    for(int i = 0; i< 1; i++){
+        symbol_xpm_map[i] = xpm_load(symbol_xpm_name[i], XPM_INDEXED, &symbol_xpm[i]);
     }
 
     for(int i = 0; i < 26; i++){
@@ -18,8 +21,15 @@ void loadXpms(){
 }
 
 void cleanXpms(){
-    for(int i = 0; i < 4; i++){
+    for(int i = 0; i < 5; i++){
         free(game_xpm_map[i]);
+    }
+    for (int i = 0; i < 10; i++){
+        free(numbers_xpm_map[i]);
+    }
+
+    for(int i = 0; i < 1; i++){
+        free(symbol_xpm_map[i]);
     }
 
     for(int i = 0; i < 2; i++){

@@ -22,6 +22,8 @@ void (game_handle_timer)(Entities_t* entities){
             drawGameObject(entities->gameObjects[i]);
         }
     }
-    drawString("score: ", mode_info.XResolution / 40, mode_info.YResolution / 40);
+    drawString("aaaaa: ", mode_info.XResolution / 40, mode_info.YResolution / 40);
+    drawLiveBar(entities->player);
+
     
 }

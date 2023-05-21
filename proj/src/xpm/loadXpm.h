@@ -6,7 +6,7 @@
 #include "menuXpm.h"
 #include "numbersXpm.h"
 
-static const int letterSpacing = 50;
+static const int letterSpacing = 30;
 
 static const xpm_row_t *game_xpm_name[] = {nave_xpm, osvaldo_xpm, ivan_xpm, miro_xpm, bullet_xpm};
 static const xpm_row_t *symbol_xpm_name[] = {heart_xpm};
@@ -20,8 +20,9 @@ xpm_image_t symbol_xpm[1];
 xpm_image_t letters_xpm[26];
 xpm_image_t numbers_xpm[10];
 
-uint8_t* game_xpm_map[4];
+uint8_t* game_xpm_map[5];
 uint8_t* menu_xpm_map[2];
+uint8_t* symbol_xpm_map[1];
 uint8_t* letters_xpm_map[26];
 uint8_t* numbers_xpm_map[10];
 

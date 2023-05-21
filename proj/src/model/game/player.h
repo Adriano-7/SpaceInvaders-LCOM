@@ -13,6 +13,7 @@ typedef struct Player {
 
 Player_t* createPlayer();
 void destroyPlayer(Player_t* player);
+void drawLiveBar(Player_t* player);
 
 
 
