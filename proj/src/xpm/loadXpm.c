@@ -8,7 +8,7 @@ void loadXpms(){
     for(int i = 0; i < 2; i++){
         menu_xpm_map[i] = xpm_load(menu_xpm_name[i], XPM_INDEXED, &menu_xpm[i]);
     }
-    for(int i = 0; i< 1; i++){
+    for(int i = 0; i< 2; i++){
         symbol_xpm_map[i] = xpm_load(symbol_xpm_name[i], XPM_INDEXED, &symbol_xpm[i]);
     }
 
@@ -21,14 +21,14 @@ void loadXpms(){
 }
 
 void cleanXpms(){
-    for(int i = 0; i < 5; i++){
+    for(unsigned int i = 0; i < sizeof(game_xpm_map); i++){
         free(game_xpm_map[i]);
     }
     for (int i = 0; i < 10; i++){
         free(numbers_xpm_map[i]);
     }
 
-    for(int i = 0; i < 1; i++){
+    for(int i = 0; i < 2; i++){
         free(symbol_xpm_map[i]);
     }
 
@@ -52,6 +52,9 @@ void (drawNumber)(int number, uint16_t x, uint16_t y) {
 
 void (drawString)(char string[], uint16_t x, uint16_t y) {
     for (size_t i = 0; i < strlen(string); i++) {
+        if (string[i] == ':')
+            draw_xpm(symbol_xpm[1], symbol_xpm_map[1], x + i * letterSpacing, y);
+            
         drawLetter(string[i], x + i * letterSpacing, y);
     }
 }

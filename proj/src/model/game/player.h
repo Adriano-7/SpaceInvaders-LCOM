@@ -3,6 +3,7 @@
 #include <lcom/lcf.h>
 #include "model/direction.h"
 #include "../gameObject.h"
+#include "../../xpm/loadXpm.h"
 
 typedef struct Player {
   GameObject_t* gameObject;
@@ -14,6 +15,7 @@ typedef struct Player {
 Player_t* createPlayer();
 void destroyPlayer(Player_t* player);
 void drawLiveBar(Player_t* player);
+void drawScore(Player_t* player);
 
 
 
