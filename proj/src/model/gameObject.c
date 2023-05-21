@@ -3,7 +3,7 @@
 
 extern vbe_mode_info_t mode_info;
 
-GameObject_t* createGameObject(int x, int y, int speedX, int speedY, xpm_image_t img, uint8_t* img_colors,bool isAlive) {
+GameObject_t* createGameObject(int x, int y, int speedX, int speedY, xpm_image_t img[2], uint8_t* img_colors,bool isAlive) {
     GameObject_t* obj = (GameObject_t*) malloc(sizeof(GameObject_t));
     if (obj == NULL) {
         printf("Error creating GameObject\n");
@@ -15,9 +15,12 @@ GameObject_t* createGameObject(int x, int y, int speedX, int speedY, xpm_image_t
     obj->y = y;
     obj->speedX = speedX;
     obj->speedY = speedY;
-    obj->img = img;
     obj->img_colors = img_colors;
     obj->isAlive = isAlive;
+
+    for (int i = 0; i < 2; i++) {
+        if (img[i] != NULL) obj->img[i] = img[i];
+    }
     return obj;
 }
 
