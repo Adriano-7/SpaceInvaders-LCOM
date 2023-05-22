@@ -1,9 +1,24 @@
-#include "mapLoader.h"
+#include "map.h"
 
 extern vbe_mode_info_t mode_info;
 
+Map_t* createMap(Player_t* player, Monster_t* monsters[55], GameObject_t* gameObjects[56]){
+    Map_t* map = malloc(sizeof(Map_t));
+    map->player = player;
+
+    for(int i = 0; i < 55; i++){
+        map->monsters[i] = monsters[i];
+    }
+        
+    for(int i = 0; i < 56; i++){
+        map->gameObjects[i] = gameObjects[i];
+    }
+    
+    return map;
+}
+
 Map_t* loadGame(){
-    Player_t* player = createPlayer();
+    Player_t* player = createPlayer(30);
     if(player == NULL){
         printf("Error creating player\n");
         return NULL;
@@ -30,7 +45,7 @@ Map_t* loadGame(){
         else if(i < 34) type = OSVALDO;
         else type = IVAN;
 
-        Monster_t* monster = createMonster(type, x, y);
+        Monster_t* monster = createMonster(type, x, y, 2, 4);
         if(monster == NULL){
             printf("Error creating monster\n");
             return NULL;

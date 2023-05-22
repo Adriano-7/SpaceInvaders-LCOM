@@ -7,7 +7,7 @@
 
 #include "game/gameController.h"
 #include "model/game/player.h"
-#include "../map.h"
+#include "../model/game/map.h"
 
 int (handle_keyboard)(enum State* state, uint8_t bytes[2], Player_t* player);
 

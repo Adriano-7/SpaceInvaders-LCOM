@@ -4,7 +4,7 @@
 extern xpm_image_t game_xpm[4];
 extern uint8_t* game_xpm_map[4];
 
-Monster_t* createMonster(enum MonsterType monsterType, int x, int y) {
+Monster_t* createMonster(enum MonsterType monsterType, int x, int y, int speedX, int speedY) {
     Monster_t* monster = malloc(sizeof(Monster_t));
     if (monster == NULL) {
         printf("Error: malloc failed in createMonster\n");
@@ -24,9 +24,11 @@ Monster_t* createMonster(enum MonsterType monsterType, int x, int y) {
 
     int i = getMonsterImageIndex(monsterType);
     monster->points = 10*i;
-    monster->gameObject = createGameObject(x, y, 2, 4, img ,img_colors,true);
+    monster->gameObject = createGameObject(x, y, img ,img_colors,true);
     monster->isAlive = true;
     monster->direction = RIGHT;
+    monster->speedX = speedX;
+    monster->speedY = speedY;
 
     return monster;
 }

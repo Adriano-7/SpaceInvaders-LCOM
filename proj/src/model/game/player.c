@@ -4,7 +4,7 @@
 extern vbe_mode_info_t mode_info;
 
 
-Player_t* createPlayer() {
+Player_t* createPlayer(int speedX) {
   Player_t* player = malloc(sizeof(Player_t));
   if (player == NULL) {
     printf("Error: malloc failed in createPlayer\n");
@@ -23,7 +23,8 @@ Player_t* createPlayer() {
   player->canShoot = true;
   player->lives = 3;
   player->score = 10;
-  player->gameObject = createGameObject((mode_info.XResolution/2)-(game_xpm[0].width/2), mode_info.YResolution-game_xpm[0].height-30, 30, 0, img ,img_colors,true);
+  player->gameObject = createGameObject((mode_info.XResolution/2)-(game_xpm[0].width/2), mode_info.YResolution-game_xpm[0].height-30, img ,img_colors,true);
+  player->speedX = speedX;
 
   return player;
 }

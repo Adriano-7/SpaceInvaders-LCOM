@@ -1,9 +1,8 @@
 #pragma once
-
 #include <lcom/lcf.h>
-#include "model/game/player.h"
-#include "model/game/monster.h"
-#include "model/gameObject.h"
+#include "player.h"
+#include "monster.h"
+#include "gameObject.h"
 
 typedef struct Map{
     Player_t* player;
@@ -13,3 +12,6 @@ typedef struct Map{
 
 Map_t* createMap(Player_t* player, Monster_t* monsters[55], GameObject_t* gameObjects[56]);
 void destroyMap(Map_t* map);
+
+Map_t* loadGame();
+void freeGame();

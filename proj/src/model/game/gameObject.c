@@ -1,9 +1,8 @@
 #include "gameObject.h"
-#include <lcom/lcf.h>
 
 extern vbe_mode_info_t mode_info;
 
-GameObject_t* createGameObject(int x, int y, int speedX, int speedY, xpm_image_t img[2], uint8_t* img_colors[2],bool isAlive) {
+GameObject_t* createGameObject(int x, int y, xpm_image_t img[2], uint8_t* img_colors[2],bool isAlive) {
     GameObject_t* obj = (GameObject_t*) malloc(sizeof(GameObject_t));
     if (obj == NULL) {
         printf("Error creating GameObject\n");
@@ -13,8 +12,6 @@ GameObject_t* createGameObject(int x, int y, int speedX, int speedY, xpm_image_t
     obj->old_y = y;
     obj->x = x;
     obj->y = y;
-    obj->speedX = speedX;
-    obj->speedY = speedY;
     obj->isAlive = isAlive;
     obj->cur_image = 0;
 

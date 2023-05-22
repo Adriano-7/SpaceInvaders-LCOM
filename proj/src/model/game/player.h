@@ -2,7 +2,7 @@
 
 #include <lcom/lcf.h>
 #include "model/direction.h"
-#include "../gameObject.h"
+#include "gameObject.h"
 #include "../../xpm/loadXpm.h"
 
 typedef struct Player {
@@ -10,9 +10,10 @@ typedef struct Player {
   bool canShoot;
   int lives;
   int score;
+  int speedX;
 } Player_t;
 
-Player_t* createPlayer();
+Player_t* createPlayer(int speedX);
 void destroyPlayer(Player_t* player);
 void drawLiveBar(Player_t* player);
 void drawScore(Player_t* player);

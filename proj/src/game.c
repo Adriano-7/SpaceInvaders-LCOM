@@ -5,19 +5,11 @@
 #include "devices/timer.h"
 #include "devices/vbe.h"
 #include "devices/graphics.h"
-#include "model/game/player.h"
-#include "model/gameObject.h"
-#include "model/game/monster.h"
-
+#include "model/game/gameObject.h"
 #include "xpm/loadXpm.h"
-
 #include "state.h"
 
 extern uint8_t output;
-extern vbe_mode_info_t mode_info;
-
-extern xpm_image_t game_xpm[8];
-extern uint8_t* game_xpm_map[8];
 
 int game_loop(){
 	//bool running = true;
@@ -36,7 +28,6 @@ int game_loop(){
 	uint8_t timer_bit_no;
 
 	loadXpms();
-
 	Map_t* map =  loadGame();
 
 	if(timer_subscribe_int(&timer_bit_no)){
