@@ -1,7 +1,7 @@
 #include "loadXpm.h"
 
 void loadXpms(){
-    for(int i = 0; i < 5; i++){
+    for(int i = 0; i < 8; i++){
         game_xpm_map[i] = xpm_load(game_xpm_name[i], XPM_INDEXED, &game_xpm[i]);
     }
 

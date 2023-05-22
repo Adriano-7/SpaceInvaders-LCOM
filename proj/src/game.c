@@ -16,8 +16,8 @@
 extern uint8_t output;
 extern vbe_mode_info_t mode_info;
 
-extern xpm_image_t game_xpm[5];
-extern uint8_t* game_xpm_map[5];
+extern xpm_image_t game_xpm[8];
+extern uint8_t* game_xpm_map[8];
 
 int game_loop(){
 	//bool running = true;

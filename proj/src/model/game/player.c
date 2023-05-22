@@ -11,10 +11,19 @@ Player_t* createPlayer() {
     exit(EXIT_FAILURE);
   }
 
+  xpm_image_t img[2];
+  uint8_t* img_colors[2];
+
+  img[0] = game_xpm[0];
+  img_colors[0] = game_xpm_map[0];
+
+  img[1] = game_xpm[0];
+  img_colors[1] = game_xpm_map[0];
+
   player->canShoot = true;
   player->lives = 3;
   player->score = 10;
-  player->gameObject = createGameObject((mode_info.XResolution/2)-(game_xpm[0].width/2), mode_info.YResolution-game_xpm[0].height-30, 30, 0, game_xpm[0] ,game_xpm_map[0],true);
+  player->gameObject = createGameObject((mode_info.XResolution/2)-(game_xpm[0].width/2), mode_info.YResolution-game_xpm[0].height-30, 30, 0, img ,img_colors,true);
 
   return player;
 }

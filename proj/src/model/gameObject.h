@@ -9,12 +9,13 @@ typedef struct GameObject {
     int old_y;
     int speedX;
     int speedY;
-    xpm_image_t img;
-    uint8_t* img_colors;
+    xpm_image_t img[2];
+    uint8_t* img_colors[2];
+    int cur_image;
     bool isAlive;
 } GameObject_t;
 
-GameObject_t* createGameObject(int x, int y, int speedX, int speedY, xpm_image_t img, uint8_t* img_colors,bool isAlive);
+GameObject_t* createGameObject(int x, int y, int speedX, int speedY, xpm_image_t img[2], uint8_t* img_colors[2],bool isAlive);
 void drawGameObject(GameObject_t* obj);
 //void eraseGameObject(GameObject_t* obj);
 
