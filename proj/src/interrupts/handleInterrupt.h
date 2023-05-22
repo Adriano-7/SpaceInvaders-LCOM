@@ -7,8 +7,8 @@
 
 #include "game/gameController.h"
 #include "model/game/player.h"
-#include "../entities.h"
+#include "../map.h"
 
 int (handle_keyboard)(enum State* state, uint8_t bytes[2], Player_t* player);
 
-int (handle_timer)(enum State* state, Entities_t *entities);
+int (handle_timer)(enum State* state, Map_t *map);

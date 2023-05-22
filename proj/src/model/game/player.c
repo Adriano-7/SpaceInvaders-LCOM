@@ -35,7 +35,6 @@ void destroyPlayer(Player_t* player) {
 
 void drawLiveBar(Player_t* player) {
   for (int i = 0; i < player->lives; i++) {
-    // I want to draw it on the top right corner of the screen
     draw_xpm(symbol_xpm[0], symbol_xpm_map[0], mode_info.XResolution - (i+1)*symbol_xpm[0].width - mode_info.XResolution / 40, mode_info.YResolution / 40);
   }
 }

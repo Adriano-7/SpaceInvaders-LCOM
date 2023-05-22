@@ -112,7 +112,7 @@ int vg_draw_pattern(uint8_t no_rectangles, uint32_t first, uint8_t step){
 }
 
 int (draw_xpm)(xpm_image_t img, uint8_t* img_colors, uint16_t x, uint16_t y){
-  
+
   if(img_colors==NULL) return 1;
 
   for(int i=0; i<img.height; i++){
