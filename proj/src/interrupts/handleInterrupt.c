@@ -5,7 +5,6 @@ int handle_keyboard(enum State* state, uint8_t bytes[2], Player_t* player){
 
     switch(*state){
         case MENU:
-            //TODO
             break;
         case LEADERBOARD:
             //TODO
@@ -27,10 +26,10 @@ int handle_keyboard(enum State* state, uint8_t bytes[2], Player_t* player){
     return 0;
 }
 
-int handle_timer(enum State* state, Entities_t *entities){
+int handle_timer(enum State* state, Map_t *map, Menu_t* menu){
     switch(*state){
         case MENU:
-            //TODO
+            drawMenu(menu);
             break;
         case LEADERBOARD:
             //TODO
@@ -39,7 +38,7 @@ int handle_timer(enum State* state, Entities_t *entities){
             //TODO
             break;
         case GAME:
-            game_handle_timer(entities);
+            game_handle_timer(map);
             break;
         case PAUSE:
             //TODO

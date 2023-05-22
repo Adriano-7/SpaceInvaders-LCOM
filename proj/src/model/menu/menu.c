@@ -1,34 +1,58 @@
 #include "menu.h"
+#include "../../xpm/loadXpm.h"
 
-Menu* createMenu() {
-    char* options[] = {"Start", "LeaderBoard", "Exit"};
-    int num_options = 3;
-    int current_option = 0;
+Menu_t* createMenu() {
+    Menu_t* menu = (Menu_t*) malloc(sizeof(Menu_t));
 
-    Menu* menu = (Menu*) malloc(sizeof(Menu));
-    menu->options = (char**) malloc(num_options * sizeof(char*));
-    for (int i = 0; i < num_options; i++) {
-        menu->options[i] = (char*) malloc(strlen(options[i]) + 1);
-        strcpy(menu->options[i], options[i]);
+
+
+    for(int i=0; i<4; i++){
+
+        xpm_image_t img[4];
+        uint8_t* img_colors[4];
+
+        img[0] = menu_xpm[i];
+        img_colors[0] = menu_xpm_map[i];
+
+        img[1] = menu_xpm[i];
+        img_colors[1] = menu_xpm_map[i];
+
+        img[2] = menu_xpm[i];
+        img_colors[2] = menu_xpm_map[i];
+
+        img[3] = menu_xpm[i];
+        img_colors[3] = menu_xpm_map[i];
+
+
+        //GameObject_t* createGameObject(int x, int y, int speedX, int speedY, xpm_image_t img[2], uint8_t* img_colors[2],bool isAlive) {
+        GameObject_t* gameObject;
+
+        if(i == 0){
+            gameObject = createGameObject(175, 90, 0, 0, img, img_colors, true);
+        }
+        else if (i == 1) {
+            gameObject = createGameObject(401, 349, 0, 0, img, img_colors, true);
+        }
+        else if (i == 2){
+            gameObject = createGameObject(383, 437, 0, 0, img, img_colors, true);
+        }
+        else{
+            gameObject = createGameObject(396, 525, 0, 0, img, img_colors, true);
+        }
+
+        if(gameObject == NULL){
+            printf("Error creating gameObject\n");
+            return NULL;
+        }
+
+        menu->gameObjects[i] = gameObject;
     }
-    menu->num_options = num_options;
-    menu->current_option = current_option;
 
     return menu;
 }
 
-void next_Op(Menu* menu) {
-    menu->current_option = (menu->current_option + 1) % menu->num_options;
-}
-
-void prev_Op(Menu* menu) {
-    menu->current_option = (menu->current_option - 1 + menu->num_options) % menu->num_options;
-}
-
-const char* getCurrentOption(Menu* menu) {
-    return menu->options[menu->current_option];
-}
-
-const char** getOptions(Menu* menu) {
-    return (const char**) menu->options;
+void drawMenu(Menu_t* menu) {
+    for(int i=0; i<4; i++){
+        drawGameObject(menu->gameObjects[i]);
+    }
 }

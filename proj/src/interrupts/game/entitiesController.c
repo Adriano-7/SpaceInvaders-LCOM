@@ -18,7 +18,7 @@ void movePlayer(Player_t* player, enum Direction direction) {
       }
       break;
     case RIGHT:
-      if (player->gameObject->x + player->gameObject->speedX + player->gameObject->img.width < mode_info.XResolution) {
+      if (player->gameObject->x + player->gameObject->speedX + player->gameObject->img[player->gameObject->cur_image].width < mode_info.XResolution) {
         player->gameObject->x += player->gameObject->speedX;
       }
       break;
@@ -31,7 +31,7 @@ bool monstersCollide(Monster_t* monsters[55]){
   for(int i = 0; i < 55; i++){
     if(monsters[i]->isAlive){
       
-      if((monsters[i]->direction==RIGHT) && (monsters[i]->gameObject->x + monsters[i]->gameObject->speedX + monsters[i]->gameObject->img.width >= mode_info.XResolution)){
+      if((monsters[i]->direction==RIGHT) && (monsters[i]->gameObject->x + monsters[i]->gameObject->speedX + monsters[i]->gameObject->img[monsters[i]->gameObject->cur_image].width >= mode_info.XResolution)){
         return true;
       }
       else if((monsters[i]->direction==LEFT) && (monsters[i]->gameObject->x - monsters[i]->gameObject->speedX <= 0)){
@@ -58,7 +58,7 @@ void moveMonsters(Monster_t* monsters[55]){
 
 void moveMonstersY(Monster_t* monsters[55]){
     for (int i = 0; i < 55; i++) {
-        bool canMoveDown = monsters[i]->gameObject->y + monsters[i]->gameObject->speedY + monsters[i]->gameObject->img.height < mode_info.YResolution;
+        bool canMoveDown = monsters[i]->gameObject->y + monsters[i]->gameObject->speedY + monsters[i]->gameObject->img[monsters[i]->gameObject->cur_image].height < mode_info.YResolution;
 
         if (monsters[i]->isAlive && canMoveDown) {
             changeMonsterDirection(monsters[i]);

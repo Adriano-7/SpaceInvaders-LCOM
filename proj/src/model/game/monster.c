@@ -11,9 +11,20 @@ Monster_t* createMonster(enum MonsterType monsterType, int x, int y) {
         exit(EXIT_FAILURE);
     }
 
+    xpm_image_t img[2];
+    uint8_t* img_colors[2];
+
+    img[0] = game_xpm[getMonsterImageIndex(monsterType)];
+    img_colors[0] = game_xpm_map[getMonsterImageIndex(monsterType)];
+
+    img[1] = game_xpm[getMonsterImageIndex(monsterType) + 1];
+    img_colors[1] = game_xpm_map[getMonsterImageIndex(monsterType) + 1];
+
+    
+
     int i = getMonsterImageIndex(monsterType);
     monster->points = 10*i;
-    monster->gameObject = createGameObject(x, y, 2, 4, game_xpm[i] ,game_xpm_map[i],true);
+    monster->gameObject = createGameObject(x, y, 2, 4, img ,img_colors,true);
     monster->isAlive = true;
     monster->direction = RIGHT;
 
@@ -27,10 +38,10 @@ int getMonsterImageIndex(enum MonsterType monsterType){
             i=1;
             break;
         case IVAN:
-            i=2;
+            i=3;
             break;
         case MIRO:
-            i=3;
+            i=5;
             break;
         default:
             break;

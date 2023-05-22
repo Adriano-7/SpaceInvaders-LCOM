@@ -3,17 +3,14 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include "../gameObject.h"
 
-typedef struct {
-    char** options;
-    int num_options;
-    int current_option;
-} Menu;
+typedef struct Menu{
+    //Option_t* options[2];
+    GameObject_t* gameObjects[4];
+} Menu_t;
 
-Menu* createMenu();
-void next_Op(Menu* menu);
-void prev_Op(Menu* menu);
-const char* getCurrentOption(Menu* menu);
-const char** getOptions(Menu* menu);
+Menu_t* createMenu();
+void drawMenu(Menu_t* menu);
 
 #endif
