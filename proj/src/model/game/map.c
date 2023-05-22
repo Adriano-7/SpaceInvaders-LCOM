@@ -2,7 +2,7 @@
 
 extern vbe_mode_info_t mode_info;
 
-Map_t* createMap(Player_t* player, Monster_t* monsters[55], GameObject_t* gameObjects[56]){
+Map_t* createMap(Player_t* player, Monster_t* monsters[55], drawableObject_t* drawableObjects[56]){
     Map_t* map = malloc(sizeof(Map_t));
     map->player = player;
 
@@ -11,7 +11,7 @@ Map_t* createMap(Player_t* player, Monster_t* monsters[55], GameObject_t* gameOb
     }
         
     for(int i = 0; i < 56; i++){
-        map->gameObjects[i] = gameObjects[i];
+        map->drawableObjects[i] = drawableObjects[i];
     }
     
     return map;
@@ -25,10 +25,10 @@ Map_t* loadGame(){
     }
 
     Monster_t* monsters[55];
-    GameObject_t* gameObjects[56];
+    drawableObject_t* drawableObjects[56];
 
     int i = 0;
-    gameObjects[i] = player->gameObject;
+    drawableObjects[i] = player->drawableObject;
     i++;
 
     while (i < 56) {
@@ -52,13 +52,19 @@ Map_t* loadGame(){
         }
 
         monsters[i - 1] = monster;
-        gameObjects[i] = monster->gameObject;
+        drawableObjects[i] = monster->drawableObject;
         i++;
     }
 
-    Map_t* map = createMap(player, monsters, gameObjects);
+    Map_t* map = createMap(player, monsters, drawableObjects);
 
     return map;
 }
 
-void freeGame(){;}
+void destroyMap(Map_t* map){;
+    destroyPlayer(map->player);
+    for(int i = 0; i < 55; i++){
+        destroyMonster(map->monsters[i]);
+    }
+    free(map);
+}

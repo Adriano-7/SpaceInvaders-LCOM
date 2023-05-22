@@ -1,11 +1,11 @@
-#include "gameObject.h"
+#include "drawableObject.h"
 
 extern vbe_mode_info_t mode_info;
 
-GameObject_t* createGameObject(int x, int y, xpm_image_t img[2], uint8_t* img_colors[2],bool isAlive) {
-    GameObject_t* obj = (GameObject_t*) malloc(sizeof(GameObject_t));
+drawableObject_t* createdrawableObject(int x, int y, xpm_image_t img[2], uint8_t* img_colors[2],bool isAlive) {
+    drawableObject_t* obj = (drawableObject_t*) malloc(sizeof(drawableObject_t));
     if (obj == NULL) {
-        printf("Error creating GameObject\n");
+        printf("Error creating drawableObject\n");
         return NULL;
     }
     obj->old_x = x;
@@ -24,7 +24,7 @@ GameObject_t* createGameObject(int x, int y, xpm_image_t img[2], uint8_t* img_co
     return obj;
 }
 
-void drawGameObject(GameObject_t* obj) {
+void drawdrawableObject(drawableObject_t* obj) {
     vg_draw_rectangle(obj->old_x, obj->old_y, obj->img[obj->cur_image].width, obj->img[obj->cur_image].height, 0);
 
     if (obj->isAlive) {

@@ -1,13 +1,4 @@
-#include <lcom/lcf.h>
-#include "interrupts/handleInterrupt.h"
 #include "game.h"
-#include "devices/keyboard.h"
-#include "devices/timer.h"
-#include "devices/vbe.h"
-#include "devices/graphics.h"
-#include "model/game/gameObject.h"
-#include "xpm/loadXpm.h"
-#include "state.h"
 
 extern uint8_t output;
 
@@ -79,6 +70,7 @@ int game_loop(){
 
 	//3rd Loop/Receive interrupts
 	cleanXpms();
+	destroyMap(map);
 
 	//4th Unsubscribe interrupts
 	if(timer_unsubscribe_int()){

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <lcom/lcf.h>
-#include "gameObject.h"
+#include "../drawableObject.h"
 #include "../direction.h"
 
 enum MonsterType {
@@ -11,7 +11,7 @@ enum MonsterType {
 };
 
 typedef struct Monster {
-  GameObject_t* gameObject;
+  drawableObject_t* drawableObject;
   int points;
   bool isAlive;
   enum Direction direction;

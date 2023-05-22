@@ -2,11 +2,11 @@
 
 #include <lcom/lcf.h>
 #include "model/direction.h"
-#include "gameObject.h"
+#include "../drawableObject.h"
 #include "../../xpm/loadXpm.h"
 
 typedef struct Player {
-  GameObject_t* gameObject;
+  drawableObject_t* drawableObject;
   bool canShoot;
   int lives;
   int score;

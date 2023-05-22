@@ -20,14 +20,14 @@ void (game_handle_timer)(Map_t* map){
     moveMonsters(map->monsters);
     
     for(int i = 0; i < 56; i++){
-        if(map->gameObjects[i] != NULL){
-            drawGameObject(map->gameObjects[i]);
+        if(map->drawableObjects[i] != NULL){
+            drawdrawableObject(map->drawableObjects[i]);
         }
     }
     if(timer_counter % 30 == 0){
         for(int i = 0; i < 56; i++){
-            if(map->gameObjects[i] != NULL){
-                map->gameObjects[i]->cur_image = (map->gameObjects[i]->cur_image + 1) % 2;
+            if(map->drawableObjects[i] != NULL){
+                map->drawableObjects[i]->cur_image = (map->drawableObjects[i]->cur_image + 1) % 2;
              }
         }
     }

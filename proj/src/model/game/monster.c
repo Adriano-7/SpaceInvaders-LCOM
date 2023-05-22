@@ -24,7 +24,7 @@ Monster_t* createMonster(enum MonsterType monsterType, int x, int y, int speedX,
 
     int i = getMonsterImageIndex(monsterType);
     monster->points = 10*i;
-    monster->gameObject = createGameObject(x, y, img ,img_colors,true);
+    monster->drawableObject = createdrawableObject(x, y, img ,img_colors,true);
     monster->isAlive = true;
     monster->direction = RIGHT;
     monster->speedX = speedX;
@@ -52,7 +52,7 @@ int getMonsterImageIndex(enum MonsterType monsterType){
 }
 
 void destroyMonster(Monster_t* monster){
-    free(monster->gameObject);
+    free(monster->drawableObject);
     free(monster);
 }
 
