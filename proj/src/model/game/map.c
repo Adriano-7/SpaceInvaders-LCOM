@@ -2,15 +2,17 @@
 
 extern vbe_mode_info_t mode_info;
 
-Map_t* createMap(Player_t* player, Monster_t* monsters[55], DrawableObject_t* drawableObjects[56]){
+Map_t* createMap(Player_t* player, Monster_t* monsters[55], Bullet_t* bullet, DrawableObject_t* drawableObjects[57]){
     Map_t* map = malloc(sizeof(Map_t));
     map->player = player;
 
     for(int i = 0; i < 55; i++){
         map->monsters[i] = monsters[i];
     }
-        
-    for(int i = 0; i < 56; i++){
+    
+    map->bullet = bullet;
+
+    for(int i = 0; i < 57; i++){
         map->drawableObjects[i] = drawableObjects[i];
     }
     
@@ -25,7 +27,7 @@ Map_t* loadGame(){
     }
 
     Monster_t* monsters[55];
-    DrawableObject_t* drawableObjects[56];
+    DrawableObject_t* drawableObjects[57];
 
     int i = 0;
     drawableObjects[i] = player->drawableObject;
@@ -56,17 +58,20 @@ Map_t* loadGame(){
         i++;
     }
 
-    Map_t* map = createMap(player, monsters, drawableObjects);
+    Bullet_t* bullet = createBullet(0, 40, 4, UP);
+    if(bullet == NULL){
+        printf("Error creating bullet\n");
+        return NULL;
+    }
+    drawableObjects[i] = bullet->drawableObject;
+
+    Map_t* map = createMap(player, monsters, bullet, drawableObjects);
 
     return map;
 }
 
 void drawMap(Map_t* map){
-    if(timer_counter % 30 == 0){
-        animateMonsters(map->monsters);
-    }
-
-    for(int i = 0; i < 56; i++){
+    for(int i = 0; i < 57; i++){
         if(map->drawableObjects[i] != NULL){
             drawdrawableObject(map->drawableObjects[i]);
         }

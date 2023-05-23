@@ -80,3 +80,19 @@ bool monstersCollide(Monster_t* monsters[55]){
   }
   return false;
 }
+
+void moveBullet(Map_t* map){
+
+  Bullet_t* bullet = map->bullet;
+
+  bullet->drawableObject->old_x = bullet->drawableObject->x;
+  bullet->drawableObject->old_y = bullet->drawableObject->y;
+
+  if(bullet->direction == UP){
+    bullet->drawableObject->y -= bullet->speedY;
+  }
+  if(bullet->direction == DOWN){
+    bullet->drawableObject->y += bullet->speedY;
+  }
+
+}

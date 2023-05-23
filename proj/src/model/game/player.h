@@ -7,7 +7,7 @@
 
 typedef struct Player {
   DrawableObject_t* drawableObject;
-  bool canShoot;
+  bool isShooting;
   int lives;
   int score;
   int speedX;
