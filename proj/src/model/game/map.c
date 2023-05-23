@@ -16,6 +16,8 @@ Map_t* createMap(Player_t* player, Monster_t* monsters[55], Bullet_t* bullet, Dr
         map->drawableObjects[i] = drawableObjects[i];
     }
     
+    map->visibleMonsters = 55;
+
     return map;
 }
 
@@ -73,6 +75,8 @@ Map_t* loadGame(){
 }
 
 void drawMap(Map_t* map){
+    if(map->visibleMonsters==0){resetMap(map, false, false, true);}
+
     for(int i = 0; i < 57; i++){
         if(map->drawableObjects[i] != NULL && map->drawableObjects[i]->isVisible == true){
             drawdrawableObject(map->drawableObjects[i]);
@@ -97,13 +101,18 @@ void drawLiveBar(int lives) {
   }
 }
 
-void resetMap(Map_t* map){
+void resetMap(Map_t* map, bool decreaseLives, bool resetScore, bool resetLives){
     map->player->isShooting = false;
     map->player->drawableObject->x = (mode_info.XResolution/2)-(game_xpm[0].width/2);
     map->player->drawableObject->old_x = (mode_info.XResolution/2)-(game_xpm[0].width/2);
     map->player->drawableObject->y = mode_info.YResolution - game_xpm[0].height - 10;
     map->player->drawableObject->old_y = mode_info.YResolution - game_xpm[0].height - 10;
+    
+    map->visibleMonsters = 55;
 
+    if(decreaseLives){map->player->lives--;}
+    if(resetScore){map->player->score = 0;}
+    if(resetLives){map->player->lives = 3;}
     
     int i = 0;
     i++;

@@ -34,10 +34,10 @@ void moveMonsters(Map_t* map){
     if(collideWithPlayer){
         map->player->lives--;
         if(map->player->lives == 0){
-            map->player->drawableObject->isVisible = false;
+            resetMap(map, false, true, true);
         }
         else{
-            resetMap(map);
+            resetMap(map, true, false, false);
         }
     }
     
@@ -124,6 +124,7 @@ void moveBullet(Map_t* map){
 
         vg_draw_rectangle(map->monsters[i]->drawableObject->x, map->monsters[i]->drawableObject->y, map->monsters[i]->drawableObject->img.width+5, map->monsters[i]->drawableObject->img.height, 0);
         map->monsters[i]->drawableObject->isVisible = false;
+        map->visibleMonsters--;
 
         map->player->score += map->monsters[i]->points;
         map->player->isShooting = false;
@@ -134,7 +135,7 @@ void moveBullet(Map_t* map){
   }
 
   if(bullet->drawableObject->y-bullet->drawableObject->img.height <= 0 || bullet->drawableObject->y >= mode_info.YResolution){
-    vg_draw_rectangle(bullet->drawableObject->x, bullet->drawableObject->y, bullet->drawableObject->img.width, bullet->drawableObject->img.height+5, 0);
+    vg_draw_rectangle(bullet->drawableObject->old_x, bullet->drawableObject->old_y, bullet->drawableObject->img.width, bullet->drawableObject->img.height, 0);
   
     bullet->drawableObject->isVisible = false;
     map->player->isShooting = false;
