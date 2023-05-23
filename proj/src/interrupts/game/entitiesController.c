@@ -95,4 +95,25 @@ void moveBullet(Map_t* map){
     bullet->drawableObject->y += bullet->speedY;
   }
 
+  for(int i = 0; i < 55; i++){
+    if(map->monsters[i]->drawableObject->isVisible){
+      if(detectCollision(bullet->drawableObject, map->monsters[i]->drawableObject)){
+        bullet->drawableObject->isVisible = false;
+        map->monsters[i]->drawableObject->isVisible = false;
+        map->player->score += map->monsters[i]->points;
+        map->player->isShooting = false;
+      }
+    }
+  }
+}
+
+
+bool detectCollision(DrawableObject_t* obj1, DrawableObject_t* obj2){
+  if(obj1->x + obj1->img.width < obj2->x || obj1->x > obj2->x + obj2->img.width){
+    return false;
+  }
+  if(obj1->y + obj1->img.height < obj2->y || obj1->y > obj2->y + obj2->img.height){
+    return false;
+  }
+  return true;
 }

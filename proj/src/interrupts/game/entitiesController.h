@@ -18,3 +18,4 @@ bool monstersCollide(Monster_t* monsters[55]);
 
 void moveBullet(Map_t* map);
 
+bool detectCollision(DrawableObject_t* obj1, DrawableObject_t* obj2);
