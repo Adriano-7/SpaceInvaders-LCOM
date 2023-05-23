@@ -39,7 +39,7 @@ void (drawNumber)(int number, uint16_t x, uint16_t y) {
     for (int i = digits-1; i >= 0; i--) {
         int digit = aux % 10;
         aux /= 10;
-        draw_xpm(numbers_xpm[digit], numbers_xpm_map[digit], x + i * 23, y);
+        draw_xpm(numbers_xpm[digit], numbers_xpm_map[digit], x + i * 22, y);
     }
 }
 

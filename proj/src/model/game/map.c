@@ -34,7 +34,6 @@ Map_t* loadGame(){
     i++;
 
     while (i < 56) {
-        
         int x = (i % 11) * 60;
         int y = (i / 11) * 50 + mode_info.YResolution / 8;
         if(i % 11 == 0) y -= 50;
@@ -72,7 +71,7 @@ Map_t* loadGame(){
 
 void drawMap(Map_t* map){
     for(int i = 0; i < 57; i++){
-        if(map->drawableObjects[i] != NULL){
+        if(map->drawableObjects[i] != NULL && map->drawableObjects[i]->isVisible == true){
             drawdrawableObject(map->drawableObjects[i]);
         }
     }
@@ -83,6 +82,8 @@ void drawMap(Map_t* map){
 }
 
 void drawScore(int score){
+    vg_draw_rectangle(0, 0, mode_info.XResolution / 2, mode_info.YResolution / 30, 0);
+
     drawString("score:", mode_info.XResolution / 40, mode_info.YResolution / 40);
     drawNumber(score, mode_info.XResolution / 40 + 6 * 23, mode_info.YResolution / 40);
 }

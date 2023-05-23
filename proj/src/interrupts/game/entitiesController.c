@@ -98,12 +98,24 @@ void moveBullet(Map_t* map){
   for(int i = 0; i < 55; i++){
     if(map->monsters[i]->drawableObject->isVisible){
       if(detectCollision(bullet->drawableObject, map->monsters[i]->drawableObject)){
+        
+        vg_draw_rectangle(bullet->drawableObject->old_x, bullet->drawableObject->old_y, bullet->drawableObject->img.width, bullet->drawableObject->img.height, 0);
         bullet->drawableObject->isVisible = false;
+
+        vg_draw_rectangle(map->monsters[i]->drawableObject->x, map->monsters[i]->drawableObject->y, map->monsters[i]->drawableObject->img.width+5, map->monsters[i]->drawableObject->img.height, 0);
         map->monsters[i]->drawableObject->isVisible = false;
+
         map->player->score += map->monsters[i]->points;
         map->player->isShooting = false;
       }
     }
+  }
+
+  if(bullet->drawableObject->y-bullet->drawableObject->img.height <= 0 || bullet->drawableObject->y >= mode_info.YResolution){
+    vg_draw_rectangle(bullet->drawableObject->x, bullet->drawableObject->y, bullet->drawableObject->img.width, bullet->drawableObject->img.height+5, 0);
+  
+    bullet->drawableObject->isVisible = false;
+    map->player->isShooting = false;
   }
 }
 
