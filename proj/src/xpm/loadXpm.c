@@ -20,6 +20,27 @@ void loadXpms(){
     }
 }
 
+void cleanXpms(){
+    for(unsigned int i = 0; i < sizeof(game_xpm_map); i++){
+        free(game_xpm_map[i]);
+    }
+    for (int i = 0; i < 10; i++){
+        free(numbers_xpm_map[i]);
+    }
+
+    for(int i = 0; i < 2; i++){
+        free(symbol_xpm_map[i]);
+    }
+
+    for(int i = 0; i < 2; i++){
+        free(menu_xpm_map[i]);
+    }
+
+    for(int i = 0; i < 26; i++){
+        free(letters_xpm_map[i]);
+    }
+}
+
 void (drawLetter)(char letter, uint16_t x, uint16_t y) {
     int index = letter - 'a';
     draw_xpm(letters_xpm[index], letters_xpm_map[index], x, y);

@@ -25,8 +25,8 @@ Monster_t* createMonster(enum MonsterType monsterType, int x, int y, int speedX,
     int i = getMonsterImageIndex(monsterType);
     monster->points = 10*i;
     monster->drawableObject = createdrawableObject(x, y, img ,img_colors,true);
-    monster->direction = RIGHT;
     monster->isAlive = true;
+    monster->direction = RIGHT;
     monster->speedX = speedX;
     monster->speedY = speedY;
 

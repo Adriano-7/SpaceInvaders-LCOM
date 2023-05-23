@@ -11,11 +11,5 @@ enum Keys get_key(uint8_t bytes[2]) {
                 return KEY_NONE;
         }
     } 
-    else{
-        switch(bytes[0]){
-            case 0x39:
-                return Make_Spacebar;
-        }
-    }
     return KEY_NONE;
 }

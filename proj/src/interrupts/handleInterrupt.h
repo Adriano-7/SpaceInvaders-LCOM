@@ -9,6 +9,6 @@
 #include "model/game/player.h"
 #include "../model/game/map.h"
 
-int (handle_keyboard)(enum State* state, uint8_t bytes[2], Map_t* map);
+int (handle_keyboard)(enum State* state, uint8_t bytes[2], Player_t* player);
 
 int (handle_timer)(enum State* state, Map_t *map);

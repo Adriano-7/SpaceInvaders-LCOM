@@ -13,7 +13,7 @@ PROG=proj
 
 
 
-SRCS= graphics.c kbc.c keyboard.c timer.c utils.c gameController.c entitiesController.c handleInterrupt.c keys.c monster.c player.c bullet.c menu.c drawableObject.c loadXpm.c game.c main.c map.c
+SRCS= graphics.c kbc.c keyboard.c timer.c utils.c gameController.c entitiesController.c handleInterrupt.c keys.c monster.c player.c menu.c drawableObject.c loadXpm.c game.c main.c map.c
 
 CFLAGS += -pedantic -D__LCOM_OPTIMIZED__
 

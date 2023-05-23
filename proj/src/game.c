@@ -46,7 +46,7 @@ int game_loop(){
 			if(secondByte){
 				secondByte=false;
 				bytes[1]=output;
-				handle_keyboard(state, bytes, map);
+				handle_keyboard(state, bytes,map->player);
 			}
 			else{
 				bytes[0] = output;
@@ -54,7 +54,7 @@ int game_loop(){
 				secondByte = true;
 				}
 				else{
-				handle_keyboard(state, bytes, map);
+				handle_keyboard(state, bytes,map->player);
 				}
 			}
 			}
@@ -69,6 +69,7 @@ int game_loop(){
 	} 
 
 	//3rd Loop/Receive interrupts
+	cleanXpms();
 	destroyMap(map);
 
 	//4th Unsubscribe interrupts

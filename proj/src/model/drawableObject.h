@@ -10,9 +10,9 @@ typedef struct drawableObject {
     xpm_image_t img[2];
     uint8_t* img_colors[2];
     int cur_image;
-    bool isVisible;
+    bool isAlive;
 } drawableObject_t;
 
-drawableObject_t* createdrawableObject(int x, int y, xpm_image_t img[2], uint8_t* img_colors[2],bool isVisible);
+drawableObject_t* createdrawableObject(int x, int y, xpm_image_t img[2], uint8_t* img_colors[2],bool isAlive);
 void drawdrawableObject(drawableObject_t* obj);
 //void erasedrawableObject(drawableObject_t* obj);

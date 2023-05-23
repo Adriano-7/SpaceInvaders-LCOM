@@ -33,3 +33,4 @@ void (drawString)(char string[], uint16_t x, uint16_t y);
 
 
 void loadXpms();
+void cleanXpms();

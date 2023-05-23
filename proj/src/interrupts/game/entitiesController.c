@@ -2,7 +2,7 @@
 
 extern vbe_mode_info_t mode_info;
 
-void movePlayer(Player_t* player, enum DirectionX direction) {
+void movePlayer(Player_t* player, enum Direction direction) {
   if(player == NULL) {
     printf("Error: player is NULL in movePlayer\n");
     exit(EXIT_FAILURE);
@@ -55,7 +55,7 @@ void moveMonstersY(Monster_t* monsters[55]){
 void moveMonstersX(Monster_t* monsters[55]){
     for (int i = 0; i < 55; i++) {
         if (monsters[i]->isAlive) {
-           enum DirectionX direction = monsters[i]->direction;
+           enum Direction direction = monsters[i]->direction;
             monsters[i]->drawableObject->old_x = monsters[i]->drawableObject->x;
            if(direction == RIGHT){
                 monsters[i]->drawableObject->x += monsters[i]->speedX;
