@@ -20,7 +20,7 @@ DrawableObject_t* createdrawableObject(int x, int y, xpm_image_t img, uint8_t* i
 }
 
 void drawdrawableObject(DrawableObject_t* obj) {
-    vg_draw_rectangle(obj->old_x, obj->old_y, obj->img.width, obj->img.height, 0);
+    vg_draw_rectangle(obj->old_x, obj->old_y, obj->img.width, obj->img.height+5, 0);
 
     if (obj->isVisible) {
         draw_xpm(obj->img, obj->img_colors, obj->x, obj->y);

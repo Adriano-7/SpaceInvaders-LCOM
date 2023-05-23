@@ -8,13 +8,15 @@
 
 void movePlayer(Player_t* player, enum DirectionX direction);
 
-void moveMonsters(Monster_t* monsters[55]);
+void moveMonsters(Map_t* map);
 
 void moveMonstersY(Monster_t* monsters[55]);
 
 void moveMonstersX(Monster_t* monsters[55]);
 
-bool monstersCollide(Monster_t* monsters[55]);
+bool monstersCollidePlayer(Monster_t* monsters[55], Player_t* player);
+
+bool monstersCollideWalls(Monster_t* monsters[55]);
 
 void moveBullet(Map_t* map);
 

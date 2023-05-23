@@ -27,16 +27,23 @@ void movePlayer(Player_t* player, enum DirectionX direction) {
   }
 }
 
-void moveMonsters(Monster_t* monsters[55]){
-    bool collide = monstersCollide(monsters);
-   
+void moveMonsters(Map_t* map){
+    bool collideWithWalls = monstersCollideWalls(map->monsters);
+    bool collideWithPlayer = monstersCollidePlayer(map->monsters, map->player);
+
+    if(collideWithPlayer){
+        map->player->lives--;
+        if(map->player->lives == 0){
+            map->player->drawableObject->isVisible = false;
+        }
+    }
     
-    if(collide){
-        moveMonstersY(monsters);
-        moveMonstersX(monsters);
+    if(collideWithWalls){
+        moveMonstersY(map->monsters);
+        moveMonstersX(map->monsters);
     }
     else{
-        moveMonstersX(monsters);
+        moveMonstersX(map->monsters);
     }
 }          
 
@@ -67,13 +74,24 @@ void moveMonstersX(Monster_t* monsters[55]){
     }
 }
 
-bool monstersCollide(Monster_t* monsters[55]){
+bool monstersCollideWalls(Monster_t* monsters[55]){
   for(int i = 0; i < 55; i++){
     if(monsters[i]->drawableObject->isVisible){
       if((monsters[i]->direction==RIGHT) && (monsters[i]->drawableObject->x + monsters[i]->speedX + monsters[i]->drawableObject->img.width >= mode_info.XResolution)){
         return true;
       }
       else if((monsters[i]->direction==LEFT) && (monsters[i]->drawableObject->x - monsters[i]->speedX <= 0)){
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+bool monstersCollidePlayer(Monster_t* monsters[55], Player_t* player){
+  for(int i = 0; i < 55; i++){
+    if(monsters[i]->drawableObject->isVisible){
+      if(detectCollision(monsters[i]->drawableObject, player->drawableObject)){
         return true;
       }
     }
@@ -107,6 +125,8 @@ void moveBullet(Map_t* map){
 
         map->player->score += map->monsters[i]->points;
         map->player->isShooting = false;
+
+        return;
       }
     }
   }

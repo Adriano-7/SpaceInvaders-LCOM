@@ -21,7 +21,7 @@ void (game_handle_timer)(Map_t* map){
         animateMonsters(map->monsters);
     }
 
-    moveMonsters(map->monsters);
+    moveMonsters(map);
     if(map->bullet->drawableObject->isVisible==true){
         moveBullet(map);
     }

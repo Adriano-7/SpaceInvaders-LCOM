@@ -10,12 +10,9 @@ int game_loop(){
 	int ipc_status, r;
 	message msg;
 
-	//Keyboard
 	bool secondByte = false;
 	uint8_t bytes[2];
 	uint8_t keyboard_bit_no;
-
-	//Timer
 	uint8_t timer_bit_no;
 
 	loadXpms();
@@ -31,7 +28,6 @@ int game_loop(){
 	return 1;
 	}
 
-	//2nd Initialize game
 	while(output != BREAK_ESC){
 	if((r = driver_receive(ANY, &msg, &ipc_status))) {
 		printf("driver_receive failed with: %d", r);
@@ -68,10 +64,8 @@ int game_loop(){
 		}
 	} 
 
-	//3rd Loop/Receive interrupts
 	destroyMap(map);
 
-	//4th Unsubscribe interrupts
 	if(timer_unsubscribe_int()){
 	printf("Error while unsubscribing timer interrupt\n");
 	return 1;

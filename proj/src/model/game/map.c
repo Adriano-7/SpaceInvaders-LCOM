@@ -21,6 +21,7 @@ Map_t* createMap(Player_t* player, Monster_t* monsters[55], Bullet_t* bullet, Dr
 
 Map_t* loadGame(){
     Player_t* player = createPlayer(30);
+
     if(player == NULL){
         printf("Error creating player\n");
         return NULL;
@@ -34,7 +35,7 @@ Map_t* loadGame(){
     i++;
 
     while (i < 56) {
-        int x = (i % 11) * 60;
+        int x = (i % 11) * 70;
         int y = (i / 11) * 50 + mode_info.YResolution / 8;
         if(i % 11 == 0) y -= 50;
 
@@ -46,7 +47,7 @@ Map_t* loadGame(){
         else if(i < 34) type = OSVALDO;
         else type = IVAN;
 
-        Monster_t* monster = createMonster(type, x, y, 2, 4);
+        Monster_t* monster = createMonster(type, x+150, y, 1, 4);
         if(monster == NULL){
             printf("Error creating monster\n");
             return NULL;
@@ -57,7 +58,9 @@ Map_t* loadGame(){
         i++;
     }
 
-    Bullet_t* bullet = createBullet(0, 40, 4, UP);
+
+
+    Bullet_t* bullet = createBullet(0, 40, 10, UP);
     if(bullet == NULL){
         printf("Error creating bullet\n");
         return NULL;
