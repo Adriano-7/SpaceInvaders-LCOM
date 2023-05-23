@@ -22,7 +22,7 @@ Player_t* createPlayer(int speedX) {
 
   player->canShoot = true;
   player->lives = 3;
-  player->score = 10;
+  player->score = 0;
   player->drawableObject = createdrawableObject((mode_info.XResolution/2)-(game_xpm[0].width/2), mode_info.YResolution-game_xpm[0].height-30, img ,img_colors,true);
   player->speedX = speedX;
 

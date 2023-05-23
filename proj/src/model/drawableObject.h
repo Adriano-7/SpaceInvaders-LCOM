@@ -2,7 +2,7 @@
 #include <lcom/lcf.h>
 #include "../devices/graphics.h"
 
-typedef struct drawableObject {
+typedef struct DrawableObject {
     int x;
     int y;
     int old_x;
@@ -11,8 +11,8 @@ typedef struct drawableObject {
     uint8_t* img_colors[2];
     int cur_image;
     bool isAlive;
-} drawableObject_t;
+} DrawableObject_t;
 
-drawableObject_t* createdrawableObject(int x, int y, xpm_image_t img[2], uint8_t* img_colors[2],bool isAlive);
-void drawdrawableObject(drawableObject_t* obj);
-//void erasedrawableObject(drawableObject_t* obj);
+DrawableObject_t* createdrawableObject(int x, int y, xpm_image_t img[2], uint8_t* img_colors[2],bool isAlive);
+void drawdrawableObject(DrawableObject_t* obj);
+//void erasedrawableObject(DrawableObject_t* obj);

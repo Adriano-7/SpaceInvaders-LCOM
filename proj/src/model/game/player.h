@@ -6,7 +6,7 @@
 #include "../../xpm/loadXpm.h"
 
 typedef struct Player {
-  drawableObject_t* drawableObject;
+  DrawableObject_t* drawableObject;
   bool canShoot;
   int lives;
   int score;

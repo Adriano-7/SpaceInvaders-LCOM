@@ -2,7 +2,7 @@
 
 extern vbe_mode_info_t mode_info;
 
-Map_t* createMap(Player_t* player, Monster_t* monsters[55], drawableObject_t* drawableObjects[56]){
+Map_t* createMap(Player_t* player, Monster_t* monsters[55], DrawableObject_t* drawableObjects[56]){
     Map_t* map = malloc(sizeof(Map_t));
     map->player = player;
 
@@ -25,7 +25,7 @@ Map_t* loadGame(){
     }
 
     Monster_t* monsters[55];
-    drawableObject_t* drawableObjects[56];
+    DrawableObject_t* drawableObjects[56];
 
     int i = 0;
     drawableObjects[i] = player->drawableObject;
@@ -67,6 +67,7 @@ void drawMap(Map_t* map){
             drawdrawableObject(map->drawableObjects[i]);
         }
     }
+
     if(timer_counter % 30 == 0){
         for(int i = 0; i < 56; i++){
             if(map->drawableObjects[i] != NULL){
@@ -81,20 +82,8 @@ void drawMap(Map_t* map){
 }
 
 void drawScore(int score){
-  drawString("score:", mode_info.XResolution / 40, mode_info.YResolution / 40);
-  int digits = 0;
-  while (score != 0) {
-    score /= 10;
-    digits++;
-  }
-
-    //There needs to be a function to draw a number
-    int tempScore = score;
-    for (int i = digits - 1; i >= 0; i--) {
-    int currentDigit = tempScore % 10;
-    draw_xpm(numbers_xpm[currentDigit], numbers_xpm_map[currentDigit], mode_info.XResolution / 40 + 7 * letters_xpm[0].width + i * numbers_xpm[0].width, mode_info.YResolution / 40);
-    tempScore /= 10;
-    }
+    drawString("score:", mode_info.XResolution / 40, mode_info.YResolution / 40);
+    drawNumber(score, mode_info.XResolution / 40 + 6 * 23, mode_info.YResolution / 40);
 }
 
 void drawLiveBar(int lives) {
