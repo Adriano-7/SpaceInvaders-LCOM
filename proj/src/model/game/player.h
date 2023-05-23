@@ -7,7 +7,7 @@
 
 typedef struct Player {
   drawableObject_t* drawableObject;
-  bool canShoot;
+  bool isShooting;
   int lives;
   int score;
   int speedX;
@@ -15,8 +15,3 @@ typedef struct Player {
 
 Player_t* createPlayer(int speedX);
 void destroyPlayer(Player_t* player);
-void drawLiveBar(Player_t* player);
-void drawScore(Player_t* player);
-
-
-

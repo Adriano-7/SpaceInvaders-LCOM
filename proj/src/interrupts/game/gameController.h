@@ -11,6 +11,6 @@
 
 #include "entitiesController.h"
 
-void (game_handle_keyboard)(enum Keys key, Player_t* player);
+void (game_handle_keyboard)(enum Keys key, Map_t* map);
 
 void (game_handle_timer)(Map_t* map);

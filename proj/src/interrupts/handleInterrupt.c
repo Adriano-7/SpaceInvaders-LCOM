@@ -1,6 +1,6 @@
 #include "handleInterrupt.h"
 
-int handle_keyboard(enum State* state, uint8_t bytes[2], Player_t* player){
+int handle_keyboard(enum State* state, uint8_t bytes[2], Map_t* map){
     enum Keys key = get_key(bytes);    
 
     switch(*state){
@@ -14,7 +14,7 @@ int handle_keyboard(enum State* state, uint8_t bytes[2], Player_t* player){
             //TODO
             break;
         case GAME:
-            game_handle_keyboard(key, player);
+            game_handle_keyboard(key, map);
             break;
         case PAUSE:
             //TODO
