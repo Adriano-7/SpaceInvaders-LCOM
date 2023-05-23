@@ -36,6 +36,9 @@ void moveMonsters(Map_t* map){
         if(map->player->lives == 0){
             map->player->drawableObject->isVisible = false;
         }
+        else{
+            resetMap(map);
+        }
     }
     
     if(collideWithWalls){
@@ -100,7 +103,6 @@ bool monstersCollidePlayer(Monster_t* monsters[55], Player_t* player){
 }
 
 void moveBullet(Map_t* map){
-
   Bullet_t* bullet = map->bullet;
 
   bullet->drawableObject->old_x = bullet->drawableObject->x;

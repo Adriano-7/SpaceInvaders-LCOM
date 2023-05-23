@@ -47,7 +47,7 @@ Map_t* loadGame(){
         else if(i < 34) type = OSVALDO;
         else type = IVAN;
 
-        Monster_t* monster = createMonster(type, x+150, y, 1, 4);
+        Monster_t* monster = createMonster(type, x+150, y, 1, 20);
         if(monster == NULL){
             printf("Error creating monster\n");
             return NULL;
@@ -95,6 +95,45 @@ void drawLiveBar(int lives) {
   for (int i = 0; i < lives; i++) {
     draw_xpm(symbol_xpm[0], symbol_xpm_map[0], mode_info.XResolution - (i+1)*symbol_xpm[0].width - mode_info.XResolution / 40, mode_info.YResolution / 40);
   }
+}
+
+void resetMap(Map_t* map){
+    map->player->isShooting = false;
+    map->player->drawableObject->x = (mode_info.XResolution/2)-(game_xpm[0].width/2);
+    map->player->drawableObject->old_x = (mode_info.XResolution/2)-(game_xpm[0].width/2);
+    map->player->drawableObject->y = mode_info.YResolution - game_xpm[0].height - 10;
+    map->player->drawableObject->old_y = mode_info.YResolution - game_xpm[0].height - 10;
+
+    
+    int i = 0;
+    i++;
+
+    while (i < 56) {
+        int x = (i % 11) * 70;
+        int y = (i / 11) * 50 + mode_info.YResolution / 8;
+        if(i % 11 == 0) y -= 50;
+
+        if(i < 12){
+            x += 5;
+        } 
+
+        map->monsters[i - 1]->drawableObject->x = x+150;
+        map->monsters[i - 1]->drawableObject->old_x = x+150;
+        map->monsters[i - 1]->drawableObject->y = y;
+        map->monsters[i - 1]->drawableObject->old_y = y;
+        map->monsters[i - 1]->drawableObject->isVisible = true;
+        map->monsters[i - 1]->direction = RIGHT;
+
+        i++;
+    }
+
+    map->bullet->drawableObject->isVisible = false;
+    map->bullet->drawableObject->x = 0;
+    map->bullet->drawableObject->old_x = 40;
+    map->bullet->drawableObject->y = 0;
+    map->bullet->drawableObject->old_y = 40;
+
+    vg_draw_rectangle(0, 0, mode_info.XResolution, mode_info.YResolution, 0);
 }
 
 void destroyMap(Map_t* map){;

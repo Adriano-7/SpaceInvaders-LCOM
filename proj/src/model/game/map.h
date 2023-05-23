@@ -20,5 +20,6 @@ Map_t* loadGame();
 void drawMap(Map_t* map);
 void drawScore(int score);
 void drawLiveBar(int lives);
+void resetMap(Map_t* map);
 
 void destroyMap(Map_t* map);
