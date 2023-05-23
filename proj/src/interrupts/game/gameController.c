@@ -7,12 +7,12 @@ extern vbe_mode_info_t mode_info;
 
 extern int timer_counter;
 
-void (game_handle_keyboard)(enum Keys key, Player_t* player){
+void (game_handle_keyboard)(enum Keys key, Map_t* map){
     if(key == Make_Arrow_left){
-        movePlayer(player, LEFT);
+        movePlayer(map->player, LEFT);
     }
     else if(key == Make_Arrow_right){
-        movePlayer(player, RIGHT);
+        movePlayer(map->player, RIGHT);
     } 
 }
 

@@ -4,7 +4,7 @@
 #include "model/direction.h"
 
 
-void movePlayer(Player_t* player, enum Direction direction);
+void movePlayer(Player_t* player, enum DirectionX direction);
 
 void moveMonsters(Monster_t* monsters[55]);
 

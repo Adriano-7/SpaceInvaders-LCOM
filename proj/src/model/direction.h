@@ -1,7 +1,12 @@
 #pragma once
 #include <lcom/lcf.h>
 
-enum Direction {
+enum DirectionX {
     LEFT,
     RIGHT
 };
+
+enum DirectionY{
+    UP,
+    DOWN
+}
