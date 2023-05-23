@@ -50,8 +50,8 @@ void moveMonsters(Map_t* map){
     }
 }          
 
-void moveMonstersY(Monster_t* monsters[55]){
-    for (int i = 0; i < 55; i++) {
+void moveMonstersY(Monster_t* monsters[NUM_MONSTERS]){
+    for (int i = 0; i < NUM_MONSTERS; i++) {
         bool canMoveDown = monsters[i]->drawableObject->y + monsters[i]->speedY + monsters[i]->drawableObject->img.height < mode_info.YResolution;
 
         if (monsters[i]->drawableObject->isVisible && canMoveDown) {
@@ -62,8 +62,8 @@ void moveMonstersY(Monster_t* monsters[55]){
     }
 }
 
-void moveMonstersX(Monster_t* monsters[55]){
-    for (int i = 0; i < 55; i++) {
+void moveMonstersX(Monster_t* monsters[NUM_MONSTERS]){
+    for (int i = 0; i < NUM_MONSTERS; i++) {
         if (monsters[i]->drawableObject->isVisible) {
            enum DirectionX direction = monsters[i]->direction;
             monsters[i]->drawableObject->old_x = monsters[i]->drawableObject->x;
@@ -77,8 +77,8 @@ void moveMonstersX(Monster_t* monsters[55]){
     }
 }
 
-bool monstersCollideWalls(Monster_t* monsters[55]){
-  for(int i = 0; i < 55; i++){
+bool monstersCollideWalls(Monster_t* monsters[NUM_MONSTERS]){
+  for(int i = 0; i < NUM_MONSTERS; i++){
     if(monsters[i]->drawableObject->isVisible){
       if((monsters[i]->direction==RIGHT) && (monsters[i]->drawableObject->x + monsters[i]->speedX + monsters[i]->drawableObject->img.width >= mode_info.XResolution)){
         return true;
@@ -91,8 +91,8 @@ bool monstersCollideWalls(Monster_t* monsters[55]){
   return false;
 }
 
-bool monstersCollidePlayer(Monster_t* monsters[55], Player_t* player){
-  for(int i = 0; i < 55; i++){
+bool monstersCollidePlayer(Monster_t* monsters[NUM_MONSTERS], Player_t* player){
+  for(int i = 0; i < NUM_MONSTERS; i++){
     if(monsters[i]->drawableObject->isVisible){
       if(detectCollision(monsters[i]->drawableObject, player->drawableObject)){
         return true;
@@ -115,7 +115,7 @@ void moveBullet(Map_t* map){
     bullet->drawableObject->y += bullet->speedY;
   }
 
-  for(int i = 0; i < 55; i++){
+  for(int i = 0; i < NUM_MONSTERS; i++){
     if(map->monsters[i]->drawableObject->isVisible){
       if(detectCollision(bullet->drawableObject, map->monsters[i]->drawableObject)){
         

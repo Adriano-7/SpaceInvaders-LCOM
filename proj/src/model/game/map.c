@@ -2,21 +2,21 @@
 
 extern vbe_mode_info_t mode_info;
 
-Map_t* createMap(Player_t* player, Monster_t* monsters[55], Bullet_t* bullet, DrawableObject_t* drawableObjects[57]){
+Map_t* createMap(Player_t* player, Monster_t* monsters[NUM_MONSTERS], Bullet_t* bullet, DrawableObject_t* drawableObjects[NUM_DRAWABLE_OBJECTS]){
     Map_t* map = malloc(sizeof(Map_t));
     map->player = player;
 
-    for(int i = 0; i < 55; i++){
+    for(int i = 0; i < NUM_MONSTERS; i++){
         map->monsters[i] = monsters[i];
     }
     
     map->bullet = bullet;
 
-    for(int i = 0; i < 57; i++){
+    for(int i = 0; i < NUM_DRAWABLE_OBJECTS; i++){
         map->drawableObjects[i] = drawableObjects[i];
     }
     
-    map->visibleMonsters = 55;
+    map->visibleMonsters = NUM_MONSTERS;
 
     return map;
 }
@@ -29,8 +29,8 @@ Map_t* loadGame(){
         return NULL;
     }
 
-    Monster_t* monsters[55];
-    DrawableObject_t* drawableObjects[57];
+    Monster_t* monsters[NUM_MONSTERS];
+    DrawableObject_t* drawableObjects[NUM_DRAWABLE_OBJECTS];
 
     int i = 0;
     drawableObjects[i] = player->drawableObject;
@@ -77,7 +77,7 @@ Map_t* loadGame(){
 void drawMap(Map_t* map){
     if(map->visibleMonsters==0){resetMap(map, false, false, true);}
 
-    for(int i = 0; i < 57; i++){
+    for(int i = 0; i < NUM_DRAWABLE_OBJECTS; i++){
         if(map->drawableObjects[i] != NULL && map->drawableObjects[i]->isVisible == true){
             drawdrawableObject(map->drawableObjects[i]);
         }
@@ -108,7 +108,7 @@ void resetMap(Map_t* map, bool decreaseLives, bool resetScore, bool resetLives){
     map->player->drawableObject->y = mode_info.YResolution - game_xpm[0].height - 10;
     map->player->drawableObject->old_y = mode_info.YResolution - game_xpm[0].height - 10;
     
-    map->visibleMonsters = 55;
+    map->visibleMonsters = NUM_MONSTERS;
 
     if(decreaseLives){map->player->lives--;}
     if(resetScore){map->player->score = 0;}
@@ -147,7 +147,7 @@ void resetMap(Map_t* map, bool decreaseLives, bool resetScore, bool resetLives){
 
 void destroyMap(Map_t* map){;
     destroyPlayer(map->player);
-    for(int i = 0; i < 55; i++){
+    for(int i = 0; i < NUM_MONSTERS; i++){
         destroyMonster(map->monsters[i]);
     }
     free(map);

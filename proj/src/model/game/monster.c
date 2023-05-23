@@ -44,8 +44,8 @@ int getMonsterImageIndex(enum MonsterType monsterType){
     return i;
 }
 
-void animateMonsters(Monster_t* monsters[55]){
-    for(int i=0; i<55; i++){
+void animateMonsters(Monster_t* monsters[NUM_MONSTERS]){
+    for(int i=0; i<NUM_MONSTERS; i++){
         xpm_image_t img;
         uint8_t* img_colors;
         getMonsterImage(monsters[i], monsters[i]->cur_image, &img, &img_colors);

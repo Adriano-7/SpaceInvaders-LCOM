@@ -5,18 +5,19 @@
 #include "bullet.h"
 #include "../drawableObject.h"
 
+#include "constants.h"
 
 typedef struct Map{
     Player_t* player;
-    Monster_t* monsters[55];
+    Monster_t* monsters[NUM_MONSTERS];
     Bullet_t* bullet;
-    DrawableObject_t* drawableObjects[57];
+    DrawableObject_t* drawableObjects[NUM_DRAWABLE_OBJECTS];
 
     int visibleMonsters;
 } Map_t;
 
 
-Map_t* createMap(Player_t* player, Monster_t* monsters[55], Bullet_t* bullet, DrawableObject_t* drawableObjects[57]);
+Map_t* createMap(Player_t* player, Monster_t* monsters[NUM_MONSTERS], Bullet_t* bullet, DrawableObject_t* drawableObjects[NUM_DRAWABLE_OBJECTS]);
 Map_t* loadGame();
 
 void drawMap(Map_t* map);
