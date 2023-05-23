@@ -9,4 +9,4 @@ enum DirectionX {
 enum DirectionY{
     UP,
     DOWN
-}
+};
