@@ -11,24 +11,18 @@ Monster_t* createMonster(enum MonsterType monsterType, int x, int y, int speedX,
         exit(EXIT_FAILURE);
     }
 
-    xpm_image_t img[2];
-    uint8_t* img_colors[2];
-
-    img[0] = game_xpm[getMonsterImageIndex(monsterType)];
-    img_colors[0] = game_xpm_map[getMonsterImageIndex(monsterType)];
-
-    img[1] = game_xpm[getMonsterImageIndex(monsterType) + 1];
-    img_colors[1] = game_xpm_map[getMonsterImageIndex(monsterType) + 1];
-
-    
 
     int i = getMonsterImageIndex(monsterType);
+
+    xpm_image_t img = game_xpm[i];
+    uint8_t* img_colors = game_xpm_map[i];
     monster->points = 10*i;
     monster->drawableObject = createdrawableObject(x, y, img ,img_colors,true);
     monster->isAlive = true;
     monster->direction = RIGHT;
     monster->speedX = speedX;
     monster->speedY = speedY;
+    monster->monsterType = monsterType;
 
     return monster;
 }
@@ -50,6 +44,30 @@ int getMonsterImageIndex(enum MonsterType monsterType){
     }
     return i;
 }
+
+void animateMonsters(Monster_t* monsters[55]){
+    for(int i=0; i<55; i++){
+        xpm_image_t img;
+        uint8_t* img_colors;
+        getMonsterImage(monsters[i], monsters[i]->cur_image, &img, &img_colors);
+
+        if(monsters[i]->cur_image == 0){
+            monsters[i]->cur_image = 1;
+        }
+        else{
+            monsters[i]->cur_image = 0;
+        }
+
+        monsters[i]->drawableObject->img = img;
+        monsters[i]->drawableObject->img_colors = img_colors;
+    }
+}
+
+void getMonsterImage(Monster_t* monster, int cur_image, xpm_image_t* img, uint8_t** img_colors){
+    *img = game_xpm[getMonsterImageIndex(monster->monsterType) + cur_image];
+    *img_colors = game_xpm_map[getMonsterImageIndex(monster->monsterType) + cur_image];
+}
+
 
 void destroyMonster(Monster_t* monster){
     free(monster->drawableObject);

@@ -2,9 +2,9 @@
 
 extern vbe_mode_info_t mode_info;
 
-DrawableObject_t* createdrawableObject(int x, int y, xpm_image_t img[2], uint8_t* img_colors[2],bool isAlive) {
+DrawableObject_t* createdrawableObject(int x, int y, xpm_image_t img, uint8_t* img_colors,bool isAlive) {
     DrawableObject_t* obj = (DrawableObject_t*) malloc(sizeof(DrawableObject_t));
-    if (obj == NULL) {
+    if (obj == NULL){
         printf("Error creating drawableObject\n");
         return NULL;
     }
@@ -13,24 +13,16 @@ DrawableObject_t* createdrawableObject(int x, int y, xpm_image_t img[2], uint8_t
     obj->x = x;
     obj->y = y;
     obj->isAlive = isAlive;
-    obj->cur_image = 0;
+    obj->img = img;
+    obj->img_colors = img_colors;
 
-    for (int i = 0; i < 2; i++) {
-        obj->img[i] = img[i];
-    }
-    for (int i = 0; i < 2; i++) {
-        obj->img_colors[i] = img_colors[i];
-    }
     return obj;
 }
 
 void drawdrawableObject(DrawableObject_t* obj) {
-    vg_draw_rectangle(obj->old_x, obj->old_y, obj->img[obj->cur_image].width, obj->img[obj->cur_image].height, 0);
+    vg_draw_rectangle(obj->old_x, obj->old_y, obj->img.width, obj->img.height, 0);
 
     if (obj->isAlive) {
-        draw_xpm(obj->img[obj->cur_image],obj->img_colors[obj->cur_image], obj->x, obj->y);
+        draw_xpm(obj->img, obj->img_colors, obj->x, obj->y);
     }
 }
-
-
-

@@ -11,14 +11,8 @@ Player_t* createPlayer(int speedX) {
     exit(EXIT_FAILURE);
   }
 
-  xpm_image_t img[2];
-  uint8_t* img_colors[2];
-
-  img[0] = game_xpm[0];
-  img_colors[0] = game_xpm_map[0];
-
-  img[1] = game_xpm[0];
-  img_colors[1] = game_xpm_map[0];
+  xpm_image_t img = game_xpm[0];
+  uint8_t* img_colors = game_xpm_map[0];
 
   player->canShoot = true;
   player->lives = 3;
