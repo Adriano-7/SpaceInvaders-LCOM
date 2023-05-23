@@ -2,7 +2,7 @@
 
 extern vbe_mode_info_t mode_info;
 
-DrawableObject_t* createdrawableObject(int x, int y, xpm_image_t img, uint8_t* img_colors,bool isAlive) {
+DrawableObject_t* createdrawableObject(int x, int y, xpm_image_t img, uint8_t* img_colors,bool isVisible) {
     DrawableObject_t* obj = (DrawableObject_t*) malloc(sizeof(DrawableObject_t));
     if (obj == NULL){
         printf("Error creating drawableObject\n");
@@ -12,7 +12,7 @@ DrawableObject_t* createdrawableObject(int x, int y, xpm_image_t img, uint8_t* i
     obj->old_y = y;
     obj->x = x;
     obj->y = y;
-    obj->isAlive = isAlive;
+    obj->isVisible = isVisible;
     obj->img = img;
     obj->img_colors = img_colors;
 
@@ -22,7 +22,7 @@ DrawableObject_t* createdrawableObject(int x, int y, xpm_image_t img, uint8_t* i
 void drawdrawableObject(DrawableObject_t* obj) {
     vg_draw_rectangle(obj->old_x, obj->old_y, obj->img.width, obj->img.height, 0);
 
-    if (obj->isAlive) {
+    if (obj->isVisible) {
         draw_xpm(obj->img, obj->img_colors, obj->x, obj->y);
     }
 }

@@ -44,7 +44,7 @@ void moveMonstersY(Monster_t* monsters[55]){
     for (int i = 0; i < 55; i++) {
         bool canMoveDown = monsters[i]->drawableObject->y + monsters[i]->speedY + monsters[i]->drawableObject->img.height < mode_info.YResolution;
 
-        if (monsters[i]->isAlive && canMoveDown) {
+        if (monsters[i]->drawableObject->isVisible && canMoveDown) {
             changeMonsterDirection(monsters[i]);
             monsters[i]->drawableObject->old_y = monsters[i]->drawableObject->y;
             monsters[i]->drawableObject->y += monsters[i]->speedY;
@@ -54,7 +54,7 @@ void moveMonstersY(Monster_t* monsters[55]){
 
 void moveMonstersX(Monster_t* monsters[55]){
     for (int i = 0; i < 55; i++) {
-        if (monsters[i]->isAlive) {
+        if (monsters[i]->drawableObject->isVisible) {
            enum DirectionX direction = monsters[i]->direction;
             monsters[i]->drawableObject->old_x = monsters[i]->drawableObject->x;
            if(direction == RIGHT){
@@ -69,8 +69,7 @@ void moveMonstersX(Monster_t* monsters[55]){
 
 bool monstersCollide(Monster_t* monsters[55]){
   for(int i = 0; i < 55; i++){
-    if(monsters[i]->isAlive){
-      
+    if(monsters[i]->drawableObject->isVisible){
       if((monsters[i]->direction==RIGHT) && (monsters[i]->drawableObject->x + monsters[i]->speedX + monsters[i]->drawableObject->img.width >= mode_info.XResolution)){
         return true;
       }

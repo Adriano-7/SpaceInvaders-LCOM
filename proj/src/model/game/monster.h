@@ -14,7 +14,6 @@ typedef struct Monster {
   DrawableObject_t* drawableObject;
   enum MonsterType monsterType;
   int points;
-  bool isAlive;
   enum DirectionX direction;
   int speedX;
   int speedY;

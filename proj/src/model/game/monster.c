@@ -18,7 +18,6 @@ Monster_t* createMonster(enum MonsterType monsterType, int x, int y, int speedX,
     uint8_t* img_colors = game_xpm_map[i];
     monster->points = 10*i;
     monster->drawableObject = createdrawableObject(x, y, img ,img_colors,true);
-    monster->isAlive = true;
     monster->direction = RIGHT;
     monster->speedX = speedX;
     monster->speedY = speedY;
