@@ -19,11 +19,10 @@ Bullet_t* createBullet(int x, int y, int speedY, enum DirectionY direction, enum
 }
 
 void fireBullet(Bullet_t* bullet, DrawableObject_t* shooter, enum DirectionY direction){    
-    if(bullet->drawableObject->isVisible == false){
+    if(bullet->drawableObject->isVisible == false && shooter->isVisible == true){
         bullet->drawableObject->x = shooter->x + (shooter->img.width/2) - (bullet->drawableObject->img.width/2);
 
         if(direction == UP){
-            printf("Player shooting\n");
             bullet->drawableObject->y = shooter->y - bullet->drawableObject->img.height;
         }
 

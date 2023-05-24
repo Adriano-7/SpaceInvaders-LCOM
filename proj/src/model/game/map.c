@@ -39,7 +39,7 @@ Map_t* loadGame(){
     drawableObjects[i] = player->drawableObject;
     i++;
 
-    while (i < 56) {
+    while (i < NUM_MONSTERS+1) {
         int x = (i % 11) * 70;
         int y = (i / 11) * 50 + mode_info.YResolution / 8;
         if(i % 11 == 0) y -= 50;
@@ -124,7 +124,7 @@ void resetMap(Map_t* map, bool decreaseLives, bool resetScore, bool resetLives, 
     int i = 0;
     i++;
 
-    while (i < 56) {
+    while (i < NUM_MONSTERS+1) {
         int x = (i % 11) * 70;
         int y = (i / 11) * 50 + mode_info.YResolution / 8;
         if(i % 11 == 0) y -= 50;
