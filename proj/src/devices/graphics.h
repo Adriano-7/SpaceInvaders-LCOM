@@ -22,7 +22,7 @@ int vg_draw_pattern(uint8_t no_rectangles, uint32_t first, uint8_t step);
 
 int (draw_xpm)(xpm_image_t xpm,uint8_t* img_colors, uint16_t x, uint16_t y);
 
-int (erase_screen)(uint16_t x, uint16_t y, xpm_image_t img);
+int (erase_screen)();
 
 bool coordinates_update(uint16_t* x, uint16_t* y, uint16_t xf, uint16_t yf, int16_t speed, int* frameCounter, bool verticalMovement, bool positiveMovement);
 

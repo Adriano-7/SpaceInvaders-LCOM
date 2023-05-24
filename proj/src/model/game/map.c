@@ -152,7 +152,7 @@ void resetMap(Map_t* map, bool decreaseLives, bool resetScore, bool resetLives, 
         map->bullets[i]->drawableObject->old_y = 40;
     }
     
-    vg_draw_rectangle(0, 0, mode_info.XResolution, mode_info.YResolution, 0);
+    erase_screen();
 }
 
 void destroyMap(Map_t* map){;

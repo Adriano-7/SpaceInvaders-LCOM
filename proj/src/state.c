@@ -4,6 +4,6 @@
 extern vbe_mode_info_t mode_info;
 
 void changeState(enum State newState){
-    vg_draw_rectangle(0, 0, mode_info.XResolution, mode_info.YResolution, 0);
+    erase_screen();
     *state = newState;
 }
