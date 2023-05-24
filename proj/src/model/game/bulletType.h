@@ -1,0 +1,1 @@
+enum BulletType {PLAYER, MONSTER};

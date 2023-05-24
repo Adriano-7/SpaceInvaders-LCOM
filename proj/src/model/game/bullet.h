@@ -3,13 +3,15 @@
 #include "model/direction.h"
 #include "../drawableObject.h"
 #include "../../xpm/loadXpm.h"
+#include "bulletType.h"
 
 typedef struct Bullet {
   DrawableObject_t* drawableObject;
+  enum BulletType type;
   enum DirectionY direction;
   int speedY;
 } Bullet_t;
 
-Bullet_t* createBullet(int x, int y, int speedX, enum DirectionY direction);
+Bullet_t* createBullet(int x, int y, int speedX, enum DirectionY direction, enum BulletType type);
 void fireBullet(Bullet_t* bullet, DrawableObject_t* shooter, enum DirectionY direction);
 void destroyBullet(Bullet_t* bullet);

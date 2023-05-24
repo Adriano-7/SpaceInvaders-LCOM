@@ -8,10 +8,7 @@ void (game_handle_keyboard)(enum Keys key, Map_t* map){
         movePlayer(map->player, RIGHT);
     } 
     else if(key == Make_Spacebar){
-        if(!map->player->isShooting){
-            map->player->isShooting = true;
-            fireBullet(map->bullet, map->player->drawableObject, UP);
-        }
+        fireBullet(map->bullets[0], map->player->drawableObject, UP);
     }
 }
 
@@ -21,9 +18,7 @@ void (game_handle_timer)(Map_t* map){
     }
 
     moveMonsters(map);
-    if(map->bullet->drawableObject->isVisible==true){
-        moveBullet(map);
-    }
+    moveBullets(map);
     drawMap(map);
 }  
 

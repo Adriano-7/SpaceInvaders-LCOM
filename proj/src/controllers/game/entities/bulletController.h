@@ -3,8 +3,16 @@
 #include "model/game/map.h"
 #include "model/direction.h"
 
+#include "../../../state.h"
+
 extern vbe_mode_info_t mode_info;
 
-void moveBullet(Map_t* map);
+void moveBullets(Map_t* map);
 
-bool detectBulletCollision(DrawableObject_t* obj1, DrawableObject_t* obj2);
+void playerBulletCollision(Map_t* map, Bullet_t* bullet);
+
+void monsterBulletCollision(Map_t* map, Bullet_t* bullet);
+
+bool detectObjectCollision(DrawableObject_t* obj1, DrawableObject_t* obj2);
+
+void wallCollision(Bullet_t* bullet);

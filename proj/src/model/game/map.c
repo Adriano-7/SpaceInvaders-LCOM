@@ -2,7 +2,7 @@
 
 extern vbe_mode_info_t mode_info;
 
-Map_t* createMap(Player_t* player, Monster_t* monsters[NUM_MONSTERS], Bullet_t* bullet, DrawableObject_t* drawableObjects[NUM_DRAWABLE_OBJECTS]){
+Map_t* createMap(Player_t* player, Monster_t* monsters[NUM_MONSTERS], Bullet_t* bullets[NUM_BULLETS], DrawableObject_t* drawableObjects[NUM_DRAWABLE_OBJECTS]){
     Map_t* map = malloc(sizeof(Map_t));
     map->player = player;
 
@@ -10,7 +10,9 @@ Map_t* createMap(Player_t* player, Monster_t* monsters[NUM_MONSTERS], Bullet_t* 
         map->monsters[i] = monsters[i];
     }
     
-    map->bullet = bullet;
+    for(int i = 0; i < NUM_BULLETS; i++){
+        map->bullets[i] = bullets[i];
+    }
 
     for(int i = 0; i < NUM_DRAWABLE_OBJECTS; i++){
         map->drawableObjects[i] = drawableObjects[i];
@@ -31,6 +33,7 @@ Map_t* loadGame(){
 
     Monster_t* monsters[NUM_MONSTERS];
     DrawableObject_t* drawableObjects[NUM_DRAWABLE_OBJECTS];
+    Bullet_t* bullets[NUM_BULLETS];
 
     int i = 0;
     drawableObjects[i] = player->drawableObject;
@@ -60,22 +63,26 @@ Map_t* loadGame(){
         i++;
     }
 
+    int j = 0;
+    bullets[j] = createBullet(0, 0, 10, UP, PLAYER);
+    drawableObjects[i] = bullets[j]->drawableObject;
+    i++;
+    j++;
 
-
-    Bullet_t* bullet = createBullet(0, 40, 10, UP);
-    if(bullet == NULL){
-        printf("Error creating bullet\n");
-        return NULL;
+    while(j < NUM_BULLETS){
+        bullets[j] = createBullet(0, 0, 10, DOWN, MONSTER);
+        drawableObjects[i] = bullets[j]->drawableObject;
+        i++;
+        j++;
     }
-    drawableObjects[i] = bullet->drawableObject;
 
-    Map_t* map = createMap(player, monsters, bullet, drawableObjects);
+    Map_t* map = createMap(player, monsters, bullets, drawableObjects);
 
     return map;
 }
 
 void drawMap(Map_t* map){
-    if(map->visibleMonsters==0){resetMap(map, false, false, true);}
+    if(map->visibleMonsters==0){resetMap(map, false, false, true, true);}
 
     for(int i = 0; i < NUM_DRAWABLE_OBJECTS; i++){
         if(map->drawableObjects[i] != NULL && map->drawableObjects[i]->isVisible == true){
@@ -101,8 +108,7 @@ void drawLiveBar(int lives) {
   }
 }
 
-void resetMap(Map_t* map, bool decreaseLives, bool resetScore, bool resetLives){
-    map->player->isShooting = false;
+void resetMap(Map_t* map, bool decreaseLives, bool resetScore, bool resetLives, bool resetMonsters){
     map->player->drawableObject->x = (mode_info.XResolution/2)-(game_xpm[0].width/2);
     map->player->drawableObject->old_x = (mode_info.XResolution/2)-(game_xpm[0].width/2);
     map->player->drawableObject->y = mode_info.YResolution - game_xpm[0].height - 10;
@@ -114,6 +120,7 @@ void resetMap(Map_t* map, bool decreaseLives, bool resetScore, bool resetLives){
     if(resetScore){map->player->score = 0;}
     if(resetLives){map->player->lives = 3;}
     
+    if(resetMonsters){
     int i = 0;
     i++;
 
@@ -135,13 +142,16 @@ void resetMap(Map_t* map, bool decreaseLives, bool resetScore, bool resetLives){
 
         i++;
     }
+    }
 
-    map->bullet->drawableObject->isVisible = false;
-    map->bullet->drawableObject->x = 0;
-    map->bullet->drawableObject->old_x = 40;
-    map->bullet->drawableObject->y = 0;
-    map->bullet->drawableObject->old_y = 40;
-
+    for(int i = 0; i < NUM_BULLETS; i++){
+        map->bullets[i]->drawableObject->isVisible = false;
+        map->bullets[i]->drawableObject->x = 0;
+        map->bullets[i]->drawableObject->old_x = 40;
+        map->bullets[i]->drawableObject->y = 0;
+        map->bullets[i]->drawableObject->old_y = 40;
+    }
+    
     vg_draw_rectangle(0, 0, mode_info.XResolution, mode_info.YResolution, 0);
 }
 

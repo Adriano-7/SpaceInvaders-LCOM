@@ -2,11 +2,10 @@
 
 extern uint8_t output;
 
+enum State* state = &(enum State){MENU};
+
 int game_loop(){
 	//bool running = true;
-	enum State st = MENU;
-	enum State* state = &st;
-
 	int ipc_status, r;
 	message msg;
 

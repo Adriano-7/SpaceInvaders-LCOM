@@ -3,6 +3,8 @@
 #include "model/game/monster.h"
 #include "model/game/map.h"
 #include "model/direction.h"
+#include "../../../state.h"
+
 
 extern vbe_mode_info_t mode_info;
 
