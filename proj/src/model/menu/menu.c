@@ -1,51 +1,28 @@
 #include "menu.h"
 #include "../../xpm/loadXpm.h"
 
+extern vbe_mode_info_t mode_info;
+
 Menu_t* createMenu() {
     Menu_t* menu = (Menu_t*) malloc(sizeof(Menu_t));
 
-
-
     for(int i=0; i<4; i++){
+        xpm_image_t img = menu_xpm[i];
+        uint8_t* img_colors = menu_xpm_map[i];
 
-        xpm_image_t img[4];
-        uint8_t* img_colors[4];
+        int x = (mode_info.XResolution - img.width)/2;
+        int y = (mode_info.YResolution/8)*(i+1);
 
-        img[0] = menu_xpm[i];
-        img_colors[0] = menu_xpm_map[i];
-
-        img[1] = menu_xpm[i];
-        img_colors[1] = menu_xpm_map[i];
-
-        img[2] = menu_xpm[i];
-        img_colors[2] = menu_xpm_map[i];
-
-        img[3] = menu_xpm[i];
-        img_colors[3] = menu_xpm_map[i];
+        i!=0 ? y+=140 : y; //space between logo and options
 
 
-        //GameObject_t* createGameObject(int x, int y, int speedX, int speedY, xpm_image_t img[2], uint8_t* img_colors[2],bool isAlive) {
-        GameObject_t* gameObject;
-
-        if(i == 0){
-            gameObject = createGameObject(175, 90, 0, 0, img, img_colors, true);
-        }
-        else if (i == 1) {
-            gameObject = createGameObject(401, 349, 0, 0, img, img_colors, true);
-        }
-        else if (i == 2){
-            gameObject = createGameObject(383, 437, 0, 0, img, img_colors, true);
-        }
-        else{
-            gameObject = createGameObject(396, 525, 0, 0, img, img_colors, true);
-        }
-
-        if(gameObject == NULL){
-            printf("Error creating gameObject\n");
+        DrawableObject_t* drawableObject = createdrawableObject(x, y, img, img_colors, true);
+        if(drawableObject == NULL){
+            printf("Error creating drawableObject\n");
             return NULL;
         }
 
-        menu->gameObjects[i] = gameObject;
+        menu->drawableObjects[i] = drawableObject;
     }
 
     return menu;
@@ -53,6 +30,6 @@ Menu_t* createMenu() {
 
 void drawMenu(Menu_t* menu) {
     for(int i=0; i<4; i++){
-        drawGameObject(menu->gameObjects[i]);
+        drawdrawableObject(menu->drawableObjects[i]);
     }
 }

@@ -3,11 +3,11 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include "../gameObject.h"
+#include "../drawableObject.h"
 
 typedef struct Menu{
     //Option_t* options[2];
-    GameObject_t* gameObjects[4];
+    DrawableObject_t* drawableObjects[4];
 } Menu_t;
 
 Menu_t* createMenu();

@@ -27,3 +27,4 @@ void animateMonsters(Monster_t* monsters[NUM_MONSTERS]);
 void getMonsterImage(Monster_t* monster, int cur_image, xpm_image_t* img, uint8_t** img_colors);
 int getMonsterImageIndex(enum MonsterType monsterType);
 void changeMonsterDirection(Monster_t* monster);
+
