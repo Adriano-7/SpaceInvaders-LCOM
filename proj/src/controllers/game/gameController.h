@@ -9,7 +9,9 @@
 #include "../../model/game/map.h"
 #include "../../xpm/loadXpm.h"
 
-#include "entitiesController.h"
+#include "entities/monsterController.h"
+#include "entities/playerController.h"
+#include "entities/bulletController.h"
 
 extern int timer_counter;
 

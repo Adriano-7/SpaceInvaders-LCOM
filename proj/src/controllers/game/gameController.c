@@ -8,7 +8,6 @@ void (game_handle_keyboard)(enum Keys key, Map_t* map){
         movePlayer(map->player, RIGHT);
     } 
     else if(key == Make_Spacebar){
-        printf("Hey");
         if(!map->player->isShooting){
             map->player->isShooting = true;
             fireBullet(map->bullet, map->player->drawableObject, UP);

@@ -1,31 +1,4 @@
-#include "entitiesController.h"
-
-extern vbe_mode_info_t mode_info;
-
-void movePlayer(Player_t* player, enum DirectionX direction) {
-  if(player == NULL) {
-    printf("Error: player is NULL in movePlayer\n");
-    exit(EXIT_FAILURE);
-  }
-  
-  player->drawableObject->old_x = player->drawableObject->x;
-  player->drawableObject->old_y = player->drawableObject->y;
-    
-  switch (direction) {
-    case LEFT:
-      if (player->drawableObject->x - player->speedX >= 0) {
-        player->drawableObject->x -= player->speedX;
-      }
-      break;
-    case RIGHT:
-      if (player->drawableObject->x + player->speedX + player->drawableObject->img.width < mode_info.XResolution) {
-        player->drawableObject->x += player->speedX;
-      }
-      break;
-    default:
-      break;
-  }
-}
+#include "monsterController.h"
 
 void moveMonsters(Map_t* map){
     bool collideWithWalls = monstersCollideWalls(map->monsters);
@@ -102,47 +75,6 @@ bool monstersCollidePlayer(Monster_t* monsters[NUM_MONSTERS], Player_t* player){
   return false;
 }
 
-void moveBullet(Map_t* map){
-  Bullet_t* bullet = map->bullet;
-
-  bullet->drawableObject->old_x = bullet->drawableObject->x;
-  bullet->drawableObject->old_y = bullet->drawableObject->y;
-
-  if(bullet->direction == UP){
-    bullet->drawableObject->y -= bullet->speedY;
-  }
-  if(bullet->direction == DOWN){
-    bullet->drawableObject->y += bullet->speedY;
-  }
-
-  for(int i = 0; i < NUM_MONSTERS; i++){
-    if(map->monsters[i]->drawableObject->isVisible){
-      if(detectCollision(bullet->drawableObject, map->monsters[i]->drawableObject)){
-        
-        vg_draw_rectangle(bullet->drawableObject->old_x, bullet->drawableObject->old_y, bullet->drawableObject->img.width, bullet->drawableObject->img.height, 0);
-        bullet->drawableObject->isVisible = false;
-
-        vg_draw_rectangle(map->monsters[i]->drawableObject->x, map->monsters[i]->drawableObject->y, map->monsters[i]->drawableObject->img.width+5, map->monsters[i]->drawableObject->img.height, 0);
-        map->monsters[i]->drawableObject->isVisible = false;
-        map->visibleMonsters--;
-
-        map->player->score += map->monsters[i]->points;
-        map->player->isShooting = false;
-
-        return;
-      }
-    }
-  }
-
-  if(bullet->drawableObject->y-bullet->drawableObject->img.height <= 0 || bullet->drawableObject->y >= mode_info.YResolution){
-    vg_draw_rectangle(bullet->drawableObject->old_x, bullet->drawableObject->old_y, bullet->drawableObject->img.width, bullet->drawableObject->img.height, 0);
-  
-    bullet->drawableObject->isVisible = false;
-    map->player->isShooting = false;
-  }
-}
-
-
 bool detectCollision(DrawableObject_t* obj1, DrawableObject_t* obj2){
   if(obj1->x + obj1->img.width < obj2->x || obj1->x > obj2->x + obj2->img.width){
     return false;
@@ -152,4 +84,3 @@ bool detectCollision(DrawableObject_t* obj1, DrawableObject_t* obj2){
   }
   return true;
 }
-

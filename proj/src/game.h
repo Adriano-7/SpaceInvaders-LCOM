@@ -6,7 +6,8 @@
 
 #include "model/game/map.h"
 #include "xpm/loadXpm.h"
-#include "interrupts/handleInterrupt.h"
+
+#include "controllers/handleInterrupt.h"
 
 #include "devices/keyboard.h"
 #include "devices/timer.h"
