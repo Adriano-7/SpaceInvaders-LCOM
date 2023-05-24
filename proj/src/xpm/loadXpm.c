@@ -21,7 +21,7 @@ void loadXpms(){
 }
 
 void cleanXpms(){
-    for(unsigned int i = 0; i < sizeof(game_xpm_map); i++){
+    for(unsigned int i = 0; i < 8; i++){
         free(game_xpm_map[i]);
     }
     for (int i = 0; i < 10; i++){
@@ -47,7 +47,21 @@ void (drawLetter)(char letter, uint16_t x, uint16_t y) {
 }
 
 void (drawNumber)(int number, uint16_t x, uint16_t y) {
-    draw_xpm(numbers_xpm[number], numbers_xpm_map[number], x, y);
+    int digits = 0;
+    int aux = number;
+    while (aux != 0) {
+        aux /= 10;
+        digits++;
+    }
+
+    if (digits == 0) digits = 1;
+    aux = number;
+
+    for (int i = digits-1; i >= 0; i--) {
+        int digit = aux % 10;
+        aux /= 10;
+        draw_xpm(numbers_xpm[digit], numbers_xpm_map[digit], x + i * 22, y);
+    }
 }
 
 void (drawString)(char string[], uint16_t x, uint16_t y) {
@@ -58,5 +72,3 @@ void (drawString)(char string[], uint16_t x, uint16_t y) {
         drawLetter(string[i], x + i * letterSpacing, y);
     }
 }
-
-

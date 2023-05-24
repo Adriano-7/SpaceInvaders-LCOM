@@ -1,10 +1,11 @@
 #include "handleInterrupt.h"
 
-int handle_keyboard(enum State* state, uint8_t bytes[2], Player_t* player){
+int handle_keyboard(enum State* state, uint8_t bytes[2], Map_t* map, Menu_t* menu){
     enum Keys key = get_key(bytes);    
 
     switch(*state){
         case MENU:
+            menu_handle_keyboard(key, menu, state);
             break;
         case LEADERBOARD:
             //TODO
@@ -13,7 +14,7 @@ int handle_keyboard(enum State* state, uint8_t bytes[2], Player_t* player){
             //TODO
             break;
         case GAME:
-            game_handle_keyboard(key, player);
+            game_handle_keyboard(key, map);
             break;
         case PAUSE:
             //TODO
@@ -29,7 +30,7 @@ int handle_keyboard(enum State* state, uint8_t bytes[2], Player_t* player){
 int handle_timer(enum State* state, Map_t *map, Menu_t* menu){
     switch(*state){
         case MENU:
-            drawMenu(menu);
+            menu_handle_timer(menu);
             break;
         case LEADERBOARD:
             //TODO
@@ -46,7 +47,6 @@ int handle_timer(enum State* state, Map_t *map, Menu_t* menu){
         case GAMEOVER:
             //TODO
             break;
-          
     }
     return 0;
 }
