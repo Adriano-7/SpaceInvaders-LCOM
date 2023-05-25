@@ -66,8 +66,8 @@ void mouse_build_packet(){
   pp.rb = (packet[0] & MOUSE_RB) >> 1;
   pp.mb = (packet[0] & MOUSE_MB) >> 2;
 
-  pp.delta_x =  twoComplement(&packet[1], (packet[0] & MOUSE_X_OVF));
-  pp.delta_y =  twoComplement(&packet[2], (packet[0] & MOUSE_Y_OVF));
+  pp.delta_x =  twoComplement(&packet[1], (packet[0] & MOUSE_X_MSB));
+  pp.delta_y =  twoComplement(&packet[2], (packet[0] & MOUSE_Y_MSB));
 
   pp.x_ov = (packet[0] & MOUSE_X_OVF);
   pp.y_ov = (packet[0] & MOUSE_Y_OVF);
@@ -75,9 +75,8 @@ void mouse_build_packet(){
 
 int write_mouse_cmd(uint8_t cmd){
   uint8_t ack;
-  uint8_t tries = 0;
 
-  do{
+  for(int tries = 0; tries < MAX_TRIES; tries++){
     if(write_KBC_command(KBC_IN_CMD, MOUSE_WRITE_BYTE)){
       printf("Error writing mouse command\n");
       return 1;
@@ -98,7 +97,7 @@ int write_mouse_cmd(uint8_t cmd){
     if(ack == MOUSE_ACK){return 0;}
     if(ack == MOUSE_NACK){tries++; continue;}
 
-  } while(tries < MAX_TRIES);
+  }
 
   printf("Error writing mouse command\n");
   return 1;
@@ -112,9 +111,6 @@ int disable_data_report(){
   return write_mouse_cmd(MOUSE_DISABLE_DATA_REPORTING);
 }
 
-uint16_t twoComplement(uint8_t* number, uint8_t overflow){
-  if(overflow){
-    return (uint16_t) (0xFF00 | *number); 
-  }
-  return (uint16_t) (0x0000 | *number);
+uint16_t twoComplement(uint8_t* number, uint8_t msb){
+  return (msb) ? (uint16_t) (0xFF00 | *number) : (uint16_t) (0x0000 | *number);
 }

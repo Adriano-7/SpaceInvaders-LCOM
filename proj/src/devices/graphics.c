@@ -125,7 +125,7 @@ int (draw_xpm)(xpm_image_t img, uint8_t* img_colors, uint16_t x, uint16_t y){
 }
 
 int (erase_screen)(){
-  if(vg_draw_rectangle(0, 0, mode_info.XResolution, mode_info.YResolution, 20)) {printf("Error erasing screen\n"); return 1;}
+  if(vg_draw_rectangle(0, 0, mode_info.XResolution, mode_info.YResolution, 0)) {printf("Error erasing screen\n"); return 1;}
   return 0;
 }
 

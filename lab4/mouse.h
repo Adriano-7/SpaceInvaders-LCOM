@@ -19,4 +19,4 @@ int disable_data_report();
 
 int enable_data_report();
 
-uint16_t twoComplement(uint8_t* number, uint8_t overflow);
+uint16_t twoComplement(uint8_t* number, uint8_t msb);

@@ -52,8 +52,6 @@ int(mouse_test_packet)(uint32_t cnt){
   }
 
   while (cnt > 0){
-    printf("cnt: %d\n", cnt);
-
     if (driver_receive(ANY, &msg, &ipc_status)){
       printf("driver_receive failed");
       continue;
@@ -66,8 +64,6 @@ int(mouse_test_packet)(uint32_t cnt){
           printf("Mouse interrupt received\n");
           mouse_ih();
 
-          printf("output: %x\n", output);
-
           if(mouse_parse_output()){
             printf("packet: received\n");
             
@@ -75,17 +71,10 @@ int(mouse_test_packet)(uint32_t cnt){
             mouse_print_packet(&pp);
             cnt--;
           }
-          
-          else{
-            printf("Still more packets to go\n");
-          }
-
         }
       }
     }
   }
-
-  printf("left the loop\n");
 
   // Reset the mouse configuration
   if (disable_data_report()){
