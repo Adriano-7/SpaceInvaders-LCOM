@@ -45,6 +45,7 @@ int handle_timer(enum State* state, Map_t *map, Menu_t* menu){
 int handle_mouse(enum State* state, Map_t* map, Menu_t* menu){
     switch(*state){
         case MENU:
+            menu_handle_mouse(menu);
             break;
         case LEADERBOARD:
             break;
@@ -57,6 +58,6 @@ int handle_mouse(enum State* state, Map_t* map, Menu_t* menu){
         case GAMEOVER:
             break;
     }
-
+    
     return 0;
 }

@@ -3,14 +3,16 @@
 
 extern vbe_mode_info_t mode_info;
 
-Menu_t* createMenu(Option_t* options[NUM_OPTIONS], DrawableObject_t* drawableObjects[NUM_OPTIONS+1]) {
+Menu_t* createMenu(Option_t* options[NUM_OPTIONS], DrawableObject_t* drawableObjects[NUM_OPTIONS+2], Cursor_t* cursor) {
     Menu_t* menu = (Menu_t*) malloc(sizeof(Menu_t));
 
     for(int i=0; i<NUM_OPTIONS; i++){
         menu->options[i] = options[i];
     }
 
-    for(int i=0; i<NUM_OPTIONS+1; i++){
+    menu->cursor = cursor;
+
+    for(int i=0; i<NUM_OPTIONS+2; i++){
         menu->drawableObjects[i] = drawableObjects[i];
     }
 
@@ -19,7 +21,8 @@ Menu_t* createMenu(Option_t* options[NUM_OPTIONS], DrawableObject_t* drawableObj
 
 Menu_t* loadMenu(){
     Option_t* options[NUM_OPTIONS];
-    DrawableObject_t* drawableObjects[NUM_OPTIONS+1];
+    DrawableObject_t* drawableObjects[NUM_OPTIONS+2];
+    Cursor_t*cursor = createCursor();
 
     enum State state[NUM_OPTIONS] = {GAME, LEADERBOARD, EXIT};
 
@@ -39,11 +42,13 @@ Menu_t* loadMenu(){
         }
     }
 
-    return createMenu(options, drawableObjects);
+    drawableObjects[NUM_OPTIONS+1] = cursor->drawableObject;
+
+    return createMenu(options, drawableObjects, cursor);
 }
 
 void drawMenu(Menu_t* menu) {
-    for(int i=0; i<4; i++){
+    for(int i=0; i<NUM_OPTIONS+2; i++){
         drawdrawableObject(menu->drawableObjects[i]);
     }
 }

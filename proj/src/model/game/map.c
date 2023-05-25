@@ -103,7 +103,7 @@ void drawScore(int score){
 
 void drawLiveBar(int lives) {
   for (int i = 0; i < lives; i++) {
-    draw_xpm(symbol_xpm[0], symbol_xpm_map[0], mode_info.XResolution - (i+1)*symbol_xpm[0].width - mode_info.XResolution / 40, mode_info.YResolution / 40);
+    draw_xpm(game_xpm[8], game_xpm_map[8], mode_info.XResolution - (i+1)*game_xpm[8].width - mode_info.XResolution / 40, mode_info.YResolution / 40);
   }
 }
 

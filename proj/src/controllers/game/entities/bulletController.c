@@ -19,7 +19,7 @@ void moveBullets(Map_t* map){
       if(bullet->type==PLAYER){playerBulletCollision(map, bullet);}
       if(bullet->type==MONSTER){monsterBulletCollision(map, bullet);}
     }
-    else if(bullet->type==MONSTER  && rand()%(50)==0){
+    else if(bullet->type==MONSTER  && rand()%(90)==0){
       int randomMonster = rand()%NUM_MONSTERS;
       if(map->monsters[randomMonster]->drawableObject->isVisible){
         fireBullet(bullet, map->monsters[randomMonster]->drawableObject, DOWN);
