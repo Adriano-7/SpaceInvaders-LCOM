@@ -1,5 +1,11 @@
 #include "menuController.h"
 
+void (menu_handle_keyboard)(enum Keys key){
+    if(key==Make_Esc){
+        changeState(EXIT);
+    }
+}
+
 void (menu_handle_timer)(Menu_t* menu){
     drawMenu(menu);
 }

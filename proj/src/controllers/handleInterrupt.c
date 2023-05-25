@@ -5,6 +5,7 @@ int handle_keyboard(enum State* state, uint8_t bytes[2], Map_t* map, Menu_t* men
 
     switch(*state){
         case MENU:
+            menu_handle_keyboard(key);
             break;
         case LEADERBOARD:
             break;

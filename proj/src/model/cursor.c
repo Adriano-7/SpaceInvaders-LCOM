@@ -26,6 +26,8 @@ void updateCursor(Cursor_t* cursor, struct packet pp){
     cursor->drawableObject->old_x = cursor->drawableObject->x;
     cursor->drawableObject->old_y = cursor->drawableObject->y;
     
+    vg_draw_rectangle(cursor->drawableObject->x, cursor->drawableObject->y, cursor->drawableObject->img.width, cursor->drawableObject->img.height, 0);
+
     if(pp.x_ov || pp.y_ov){
         return;
     }
