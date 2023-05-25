@@ -5,7 +5,9 @@
 #include "bullet.h"
 #include "../drawableObject.h"
 
-#include "constants.h"
+#include "../constants.h"
+
+extern vbe_mode_info_t mode_info;
 
 typedef struct Map{
     Player_t* player;

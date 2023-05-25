@@ -14,3 +14,5 @@
 int (handle_keyboard)(enum State* state, uint8_t bytes[2], Map_t* map, Menu_t* menu);
 
 int (handle_timer)(enum State* state, Map_t *map, Menu_t* menu);
+
+int (handle_mouse)(enum State* state, Map_t* map, Menu_t* menu);

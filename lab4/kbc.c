@@ -22,13 +22,11 @@ int (read_KBC_output)(uint8_t port, uint8_t *output, uint8_t mouse){
   uint8_t attempts = MAX_TRIES;
 
   while(attempts){
-    /*Ler o status register*/
     if(read_KBC_status(&st)){
       printf("An error has occured while reading the status\n");
       return 1;
     }
 
-    /*Só lemos se o output buffer estiver full*/
     if(st & FULL_OUT_BUFFER){
       if(util_sys_inb(port, output)){
         printf("Error while using sys_inb\n");

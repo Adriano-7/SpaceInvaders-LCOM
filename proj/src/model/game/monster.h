@@ -3,7 +3,7 @@
 #include <lcom/lcf.h>
 #include "../drawableObject.h"
 #include "../direction.h"
-#include "constants.h"
+#include "../constants.h"
 
 enum MonsterType {
   OSVALDO,

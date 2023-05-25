@@ -10,7 +10,7 @@ PROG=proj
 .PATH: ${.CURDIR}/model/game
 .PATH: ${.CURDIR}/xpm
 
-SRCS= graphics.c kbc.c keyboard.c timer.c utils.c gameController.c monsterController.c playerController.c bulletController.c handleInterrupt.c keys.c monster.c player.c bullet.c menu.c drawableObject.c loadXpm.c game.c main.c map.c menuController.c state.c
+SRCS= graphics.c kbc.c keyboard.c timer.c utils.c mouse.c gameController.c monsterController.c playerController.c bulletController.c handleInterrupt.c keys.c monster.c player.c bullet.c menu.c option.c drawableObject.c loadXpm.c game.c main.c map.c menuController.c state.c
 
 CFLAGS += -pedantic -D__LCOM_OPTIMIZED__
 

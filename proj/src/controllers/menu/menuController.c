@@ -7,4 +7,3 @@ void (menu_handle_keyboard)(enum Keys key, Menu_t* menu, enum State* state){
 void (menu_handle_timer)(Menu_t* menu){
     drawMenu(menu);
 }
-

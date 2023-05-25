@@ -1,6 +1,5 @@
 #include "map.h"
 
-extern vbe_mode_info_t mode_info;
 
 Map_t* createMap(Player_t* player, Monster_t* monsters[NUM_MONSTERS], Bullet_t* bullets[NUM_BULLETS], DrawableObject_t* drawableObjects[NUM_DRAWABLE_OBJECTS]){
     Map_t* map = malloc(sizeof(Map_t));

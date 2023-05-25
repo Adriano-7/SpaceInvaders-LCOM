@@ -8,6 +8,7 @@
 
 extern uint8_t output;
 extern struct packet pp;
+extern int timer_counter; 
 
 // Any header files included below this line should have been created by you
 int main(int argc, char *argv[]){
@@ -41,7 +42,7 @@ int(mouse_test_packet)(uint32_t cnt){
   uint8_t mouse_bit_no;
 
   // Configure the mouse
-  if (mouse_enable_data_reporting()){
+  if (enable_data_report()){
     printf("Error while enabling the mouse data report\n");
     return 1;
   }
@@ -60,13 +61,10 @@ int(mouse_test_packet)(uint32_t cnt){
     if (is_ipc_notify(ipc_status)){
       switch (_ENDPOINT_P(msg.m_source)){
       case HARDWARE:
-        if (msg.m_notify.interrupts & BIT(4)){
-          printf("Mouse interrupt received\n");
+        if (msg.m_notify.interrupts & BIT(mouse_bit_no)){
           mouse_ih();
 
-          if(mouse_parse_output()){
-            printf("packet: received\n");
-            
+          if(mouse_parse_output()){            
             mouse_build_packet();
             mouse_print_packet(&pp);
             cnt--;
@@ -91,9 +89,76 @@ int(mouse_test_packet)(uint32_t cnt){
 }
 
 int(mouse_test_async)(uint8_t idle_time){
-  /* To be completed */
-  printf("%s(%u): under construction\n", __func__, idle_time);
-  return 1;
+ int ipc_status;
+  message msg;
+
+  uint8_t mouse_bit_no, timer_bit_no;
+
+  if (enable_data_report()){
+    printf("Error while enabling the mouse data report\n");
+    return 1;
+  }
+
+  if (mouse_subscribe_interrupts(&mouse_bit_no)){
+    printf("Error while subscribing the mouse interrupts\n");
+    return 1;
+  }
+
+  if(timer_subscribe_int(&timer_bit_no)){
+    printf("Error while subscribing timer interrupt\n");
+    return 1;
+  }
+
+  uint8_t aux_idle_time = idle_time;
+
+  while (aux_idle_time > 0){
+    if (driver_receive(ANY, &msg, &ipc_status)){
+      printf("driver_receive failed");
+      continue;
+    }
+
+    if (is_ipc_notify(ipc_status)){
+      switch (_ENDPOINT_P(msg.m_source)){
+      case HARDWARE:
+        if (msg.m_notify.interrupts & BIT(mouse_bit_no)){
+          mouse_ih();
+
+          if(mouse_parse_output()){
+            mouse_build_packet();
+            mouse_print_packet(&pp);
+          }
+          aux_idle_time = idle_time;
+        }
+
+        if (msg.m_notify.interrupts & BIT(timer_bit_no)){
+          timer_int_handler();
+
+          if(timer_counter%sys_hz() == 0){
+            aux_idle_time--;
+            timer_print_elapsed_time();
+          }
+        }
+        break;
+      }
+    }
+  }
+
+  if (disable_data_report()){
+    printf("Error while disabling the mouse data report\n");
+    return 1;
+  }
+
+  if(timer_unsubscribe_int()){
+    printf("Error while unsubscribing timer interrupt\n");
+    return 1;
+  }
+
+  if (mouse_unsubscribe_interrupts()){
+    printf("Error while unsubscribing the mouse interrupts\n");
+    return 1;
+  }
+
+  return 0;
 }
 
 int(mouse_test_gesture)(uint8_t x_len, uint8_t tolerance){
