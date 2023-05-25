@@ -37,7 +37,7 @@ int game_loop(){
     	return 1;
   	}
 
-	while(output != BREAK_ESC){
+	while(*state != EXIT){
 	if((r = driver_receive(ANY, &msg, &ipc_status))) {
 		printf("driver_receive failed with: %d", r);
 		continue;

@@ -2,6 +2,7 @@
 #include <lcom/lcf.h>
 #include "drawableObject.h"
 #include "../devices/mouse.h"
+#include "../state.h"
 
 typedef struct Cursor {
   DrawableObject_t* drawableObject;

@@ -17,7 +17,9 @@ typedef struct Menu{
 } Menu_t;
 
 Menu_t* createMenu(Option_t* options[NUM_OPTIONS], DrawableObject_t* drawableObjects[NUM_OPTIONS+2], Cursor_t* cursor);
+
 Menu_t* loadMenu();
+
 void drawMenu(Menu_t* menu);
 
 void destroyMenu(Menu_t* menu);

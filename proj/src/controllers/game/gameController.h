@@ -13,6 +13,8 @@
 #include "entities/playerController.h"
 #include "entities/bulletController.h"
 
+#include "../../state.h"
+
 extern int timer_counter;
 
 void (game_handle_keyboard)(enum Keys key, Map_t* map);

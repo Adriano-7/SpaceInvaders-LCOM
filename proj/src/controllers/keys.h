@@ -6,6 +6,7 @@ enum Keys {
     Make_Arrow_left,
     Make_Arrow_right,
     Make_Spacebar,
+    Make_Esc,
     KEY_NONE,
 };
 

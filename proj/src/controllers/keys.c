@@ -15,6 +15,8 @@ enum Keys get_key(uint8_t bytes[2]) {
         switch (bytes[0]) {
             case 0x39:
                 return Make_Spacebar;
+            case 0x01:
+                return Make_Esc;
             default:
                 return KEY_NONE;
         }

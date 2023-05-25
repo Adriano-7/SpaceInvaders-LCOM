@@ -10,6 +10,9 @@ void (game_handle_keyboard)(enum Keys key, Map_t* map){
     else if(key == Make_Spacebar){
         fireBullet(map->bullets[0], map->player->drawableObject, UP);
     }
+    else if(key==Make_Esc){
+        changeState(MENU);
+    }
 }
 
 void (game_handle_timer)(Map_t* map){
