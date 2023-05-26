@@ -4,8 +4,25 @@ uint8_t count_mode;
 int rtc_hook_id = 5; 
 real_time_info time_info;   
 
+int rtc_read_from_reg(uint8_t *output) {
+   
+    if (util_sys_inb(READ_REG, output) != 0){
+        printf("Error reading from register\n");
+        return 1;
+    }
+    return 0;
+}
+
+int rtc_write_to_reg(uint8_t commandWord) {
+    if (sys_outb(WRITE_REG, commandWord) != 0){
+        printf("Error writing to register\n");
+        return 1;
+    }
+    return 0;
+}
+
 void start_rtc() {
-    count_mode = rtc_is_binary();
+    count_mode = is_binary();
     rtc_update_time();
 }
 
@@ -17,67 +34,82 @@ int rtc_unsubscribe_interrupts() {
     return sys_irqrmpolicy(&rtc_hook_id);
 }
 
-// Leitura do output do RTC, dado um comando
-int rtc_output(uint8_t command, uint8_t *output) {
-    if (sys_outb(REG_INPUT, command) != 0) return 1;
-	if (util_sys_inb(REG_OUTPUT, output) != 0) return 1;
-    return 0;
-}
-
-// Retorna 1 se naquele momento o RTC está a atualizar os seus valores internos
-// Nesse caso não devemos ler nenhum registo
-int rtc_is_updating() {
+int is_updating() {
     uint8_t result;
     if (rtc_output(REG_UPD, &result)) return 1;
-	return result & UPDATING;
+    result &= UPDATING;
+	return result;
 }
 
-// Retorna 1 se o modo de contagem for binário
-int rtc_is_binary() {
+int rtc_output(uint8_t commandWord, uint8_t *output) {
+    if(rtc_write_to_reg(commandWord)){
+        printf("Error writing to register\n");
+        return 1;
+    };
+
+    if(rtc_read_from_reg(output)){
+        printf("Error reading from register\n");
+        return 1;
+    };
+    return 0;}
+
+
+int is_binary() {
     uint8_t result;
     if (rtc_output(REG_CNT, &result)) return 1;
 	return result & BINARY;
 }
 
-// Retorna 1 se o modo de contagem for BCD
 int rtc_is_bcd() {
-    return !rtc_is_binary();
+    return !is_binary();
 }
 
-// Transforma um valor de 8 bits BCD em binário
-uint8_t to_binary(uint8_t bcd_number) {
-    return ((bcd_number >> 4) * 10) + (bcd_number & 0xF);
+uint8_t to_binary(uint8_t bcd) {
+    unsigned int binary = 0;
+    unsigned int factor = 1;
+
+    while (bcd > 0) {
+        unsigned int digit = bcd & 0x0F; 
+
+        binary += digit * factor;
+        factor *= 10;
+
+        bcd >>= 4;  
+    }
+
+    return binary;
 }
+
 
 int rtc_update_time() {
     
-    // Se o RTC estiver ocupado a atualizar os registos não devemos ler dados
-    if (rtc_is_updating() != 0) return 1;
+    if (is_updating()) return 1;
+
     uint8_t output;
 
-    // Seconds
-    if (rtc_output(S, &output) != 0) return 1;
-    time_info.seconds = count_mode ? output : to_binary(output);
+    if (rtc_output(S, &output)) return 1;
+    if(count_mode) time_info.seconds = output;
+    else time_info.seconds = to_binary(output);
 
-    // Minutes
-    if (rtc_output(MINUTES, &output) != 0) return 1;
-    time_info.minutes = count_mode ? output : to_binary(output);
+    if (rtc_output(MINUTES, &output)) return 1;
+    if(count_mode) time_info.minutes = output;
+    else time_info.minutes = to_binary(output);
 
-    // Hours
-    if (rtc_output(H, &output) != 0) return 1;
-    time_info.hours = count_mode ? output : to_binary(output);
+    if (rtc_output(H, &output)) return 1;
+    if(count_mode) time_info.hours = output;
+    else time_info.hours = to_binary(output);
 
-    // Day
-    if (rtc_output(D, &output) != 0) return 1;
-    time_info.day = count_mode ? output : to_binary(output);
+    if (rtc_output(D, &output)) return 1;
+    if(count_mode) time_info.day = output;
+    else time_info.day = to_binary(output);
 
-    // Month
-    if (rtc_output(M, &output) != 0) return 1;
-    time_info.month = count_mode ? output : to_binary(output);
-
-    // Year
+    if (rtc_output(M, &output)) return 1;
+    if(count_mode) time_info.month = output;
+    else time_info.month = to_binary(output);
+    
     if (rtc_output(Y, &output) != 0) return 1;
-    time_info.year = count_mode ? output : to_binary(output);
+    if(count_mode) time_info.year = output;
+    else time_info.year = to_binary(output);
 
     return 0;
 }

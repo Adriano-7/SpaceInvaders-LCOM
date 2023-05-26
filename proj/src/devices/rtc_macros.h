@@ -9,6 +9,9 @@
 #define REG_UPD   10
 #define REG_CNT   11
 
+#define WRITE_REG           0x70
+#define READ_REG          0x71
+
 #define D      7
 #define M      8
 #define Y      9
@@ -16,5 +19,3 @@
 #define MINUTES    2
 #define H      4   
 
-#define REG_INPUT           0x70
-#define REG_OUTPUT          0x71
