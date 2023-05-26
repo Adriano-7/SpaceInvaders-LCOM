@@ -5,14 +5,7 @@ void moveMonsters(Map_t* map){
     bool collideWithPlayer = monstersCollidePlayer(map->monsters, map->player);
 
     if(collideWithPlayer){
-        map->player->lives--;
-        if(map->player->lives == 0){
-            resetMap(map, false, true, true, true);
-            changeState(MENU);
-        }
-        else{
-            resetMap(map, true, false, false, false);
-        }
+      resetMap(map, true, false, false, false);
     }
     
     if(collideWithWalls){

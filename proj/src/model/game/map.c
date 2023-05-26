@@ -69,7 +69,7 @@ Map_t* loadGame(){
     j++;
 
     while(j < NUM_BULLETS){
-        bullets[j] = createBullet(0, 0, 10, DOWN, MONSTER);
+        bullets[j] = createBullet(0, 0, 8, DOWN, MONSTER);
         drawableObjects[i] = bullets[j]->drawableObject;
         i++;
         j++;
@@ -81,7 +81,9 @@ Map_t* loadGame(){
 }
 
 void drawMap(Map_t* map){
-    if(map->visibleMonsters==0){resetMap(map, false, false, true, true);}
+    if(map->visibleMonsters == 0){
+        resetMap(map, false, false, true, true);
+    }
 
     for(int i = 0; i < NUM_DRAWABLE_OBJECTS; i++){
         if(map->drawableObjects[i] != NULL && map->drawableObjects[i]->isVisible == true){
@@ -115,7 +117,14 @@ void resetMap(Map_t* map, bool decreaseLives, bool resetScore, bool resetLives, 
     
     map->visibleMonsters = NUM_MONSTERS;
 
-    if(decreaseLives){map->player->lives--;}
+    if(decreaseLives){
+        map->player->lives--;
+        if(map->player->lives==0){
+            leaderboardAdd(map->player->score);
+            resetMap(map, false, true, true, true);
+            changeState(MENU);
+        }
+    }
     if(resetScore){map->player->score = 0;}
     if(resetLives){map->player->lives = 3;}
     

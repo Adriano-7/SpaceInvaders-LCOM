@@ -6,6 +6,9 @@
 #include "../drawableObject.h"
 
 #include "../constants.h"
+#include "../../state.h"
+#include "../menu/leaderboard.h"
+
 
 extern vbe_mode_info_t mode_info;
 

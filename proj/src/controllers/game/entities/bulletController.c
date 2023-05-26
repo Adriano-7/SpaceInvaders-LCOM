@@ -19,7 +19,7 @@ void moveBullets(Map_t* map){
       if(bullet->type==PLAYER){playerBulletCollision(map, bullet);}
       if(bullet->type==MONSTER){monsterBulletCollision(map, bullet);}
     }
-    else if(bullet->type==MONSTER  && rand()%(90)==0){
+    else if(bullet->type==MONSTER  && rand()%(150)==0){
       int randomMonster = rand()%NUM_MONSTERS;
       if(map->monsters[randomMonster]->drawableObject->isVisible){
         fireBullet(bullet, map->monsters[randomMonster]->drawableObject, DOWN);
@@ -56,15 +56,7 @@ void monsterBulletCollision(Map_t* map, Bullet_t* bullet){
 
     map->bullets[0]->drawableObject->isVisible = false;
 
-    map->player->lives--;
-    if(map->player->lives == 0){
-      leaderboardAdd(map->player->score);
-      resetMap(map, false, true, true, true);
-      changeState(MENU);
-    }
-    else{
-      resetMap(map, true, false, false, false);
-    }
+    resetMap(map, true, false, false, false);
   }
 }
 
