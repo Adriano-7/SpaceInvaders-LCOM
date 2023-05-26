@@ -8,6 +8,7 @@ int handle_keyboard(enum State* state, uint8_t bytes[2], Map_t* map, Menu_t* men
             menu_handle_keyboard(key);
             break;
         case LEADERBOARD:
+            leaderboard_handle_keyboard(key);
             break;
         case EXIT:
             break;
@@ -28,6 +29,7 @@ int handle_timer(enum State* state, Map_t *map, Menu_t* menu){
             menu_handle_timer(menu);
             break;
         case LEADERBOARD:
+            leaderboard_handle_timer();
             break;
         case EXIT:
             break;

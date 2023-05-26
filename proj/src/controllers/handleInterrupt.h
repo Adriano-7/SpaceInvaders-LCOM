@@ -7,6 +7,8 @@
 
 #include "game/gameController.h"
 #include "menu/menuController.h"
+#include "menu/leaderboardController.h"
+
 #include "model/game/player.h"
 #include "../model/game/map.h"
 #include "../model/menu/menu.h"

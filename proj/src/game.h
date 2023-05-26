@@ -7,6 +7,8 @@
 #include "model/game/map.h"
 #include "xpm/loadXpm.h"
 
+#include "model/menu/leaderboard.h"
+
 #include "controllers/handleInterrupt.h"
 
 #include "devices/keyboard.h"
@@ -14,6 +16,8 @@
 #include "devices/vbe.h"
 #include "devices/graphics.h"
 #include "devices/mouse.h"
+#include "devices/rtc.h"
+
 
 
 int (game_loop)();

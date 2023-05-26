@@ -4,6 +4,8 @@ extern uint8_t output;
 extern struct packet pp;
 
 enum State* state = &(enum State){MENU};
+extern real_time_info time_info;   
+
 
 int game_loop(){
 	int ipc_status, r;
@@ -12,6 +14,7 @@ int game_loop(){
 	bool secondByte = false;
 	uint8_t bytes[2];
 	uint8_t keyboard_bit_no, timer_bit_no, mouse_bit_no;
+
 
 	loadXpms();
 	Map_t* map =  loadGame();
@@ -66,6 +69,7 @@ int game_loop(){
 
 			if (msg.m_notify.interrupts & BIT(timer_bit_no)){
 				timer_int_handler();
+				if(timer_counter % 60 == 0) rtc_update_time();
 				handle_timer(state, map, menu);
 			}
 

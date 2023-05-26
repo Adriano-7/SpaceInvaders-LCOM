@@ -58,6 +58,7 @@ void monsterBulletCollision(Map_t* map, Bullet_t* bullet){
 
     map->player->lives--;
     if(map->player->lives == 0){
+      leaderboardAdd(map->player->score);
       resetMap(map, false, true, true, true);
       changeState(MENU);
     }

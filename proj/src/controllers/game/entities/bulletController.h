@@ -2,6 +2,7 @@
 #include "model/game/bullet.h"
 #include "model/game/map.h"
 #include "model/direction.h"
+#include "../../../model/menu/leaderboard.h"
 
 #include "../../../state.h"
 
