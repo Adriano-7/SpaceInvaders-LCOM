@@ -30,8 +30,9 @@ ___
 
 ### Running the Game
 - Open the terminal on the diretory where Makefile is.
-- Then proceed to run the command:```make```
-- Once compiled, run the  just run the command:```lcom_run pro```
+- Then proceed to run the command:```make clean ```
+- Run the command : ``` make ```
+- Once compiled, run the  just run the command:```lcom_run proj``
 ___
 
 ## Important Notes:

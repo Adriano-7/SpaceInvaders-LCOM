@@ -19,6 +19,9 @@ void loadXpms(){
     for (int i = 0; i < 10; i++){
         numbers_xpm_map[i] = xpm_load(numbers_xpm_name[i], XPM_INDEXED, &numbers_xpm[i]);
     }
+    for (int i = 0; i < 4; i++){
+        gameover_xpm_map[i] = xpm_load(gamerover_xpm_name[i], XPM_INDEXED, &numbers_xpm[i]);
+    }
 }
 
 void cleanXpms(){
@@ -40,6 +43,10 @@ void cleanXpms(){
 
     for (int i = 0; i < 10; i++){
         free(numbers_xpm_map[i]);
+    }
+
+    for (int i = 0; i < 4; i++){
+        free(gameover_xpm_map[i]);
     }
 }
 
