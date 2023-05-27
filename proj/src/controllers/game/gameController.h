@@ -17,7 +17,23 @@
 
 extern int timer_counter;
 
-void (game_handle_keyboard)(enum Keys key, Map_t* map);
+/**
+ * @brief Handles keyboard input during the game.
+ * @param key The key that was pressed.
+ * @param map Pointer to the game map.
+ *
+ * This function is responsible for handling keyboard input during the game. It takes the key that was pressed
+ * as input and updates the game state accordingly. The map parameter is a pointer to the game map, which is
+ * used to update the player's movement or perform other actions based on the key input.
+ */
+void game_handle_keyboard(enum Keys key, Map_t* map);
 
-void (game_handle_timer)(Map_t* map);
-
+/**
+ * @brief Handles timer interrupts during the game.
+ * @param map Pointer to the game map.
+ *
+ * This function is called on every timer interrupt during the game. It updates the game state based on the
+ * elapsed time. The map parameter is a pointer to the game map, which is used to update the game entities
+ * and perform other time-dependent operations.
+ */
+void game_handle_timer(Map_t* map);

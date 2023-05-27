@@ -1,6 +1,11 @@
 #ifndef _LCOM_GAME_H_
 #define _LCOM_GAME_H_
 
+/**
+ * @file game.h
+ * @brief Main header file for the game.
+ */
+
 #include <lcom/lcf.h>
 #include "state.h"
 
@@ -19,9 +24,14 @@
 #include "devices/mouse.h"
 #include "devices/rtc.h"
 
+/**
+ * @brief Main function for running the game loop.
+ * @return Return 0 upon success and non-zero otherwise.
+ *
+ * This function is the entry point for running the game loop. It initializes the necessary components,
+ * handles interrupts, and updates the game state based on user input and timers. It continues to run
+ * until the game is exited or an error occurs.
+ */
+int game_loop();
 
-
-int (game_loop)();
-
-#endif
-
+#endif /* _LCOM_GAME_H_ */
