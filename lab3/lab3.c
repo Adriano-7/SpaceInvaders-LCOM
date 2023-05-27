@@ -4,11 +4,16 @@
 
 #include <stdbool.h>
 #include <stdint.h>
+
 #include "keyboard.h"
 
-extern uint8_t output;
+extern uint8_t scancode;
+extern uint8_t kbd_bytes[2];
+extern int kbd_bytesCounter;
+
+extern int timer_counter;
+
 extern int count_sys_inb;
-extern int timer_counter; 
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -34,103 +39,76 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
-int(kbd_test_scan)() {
-  int ipc_status, r;
-  message msg;
+int(kbd_test_scan)() { 
+    int ipc_status, r;
+    message msg;
 
-  bool make, secondByte = false;
-  uint8_t bytes[2];
-
-  uint8_t keyboard_bit_no;
-
-  if(keyboard_subscribe_interrupts(&keyboard_bit_no)){
-    printf("kbd_test_scan() -> Error subscribing keyboard interrupts\n");
-    return 1;
-  }
-  
-  while(output != BREAK_ESC){
-    if((r = driver_receive(ANY, &msg, &ipc_status))) {
-      printf("driver_receive failed with: %d", r);
-      continue;
+    uint8_t keyboard_bit_no;
+    if(keyboard_subscribe_int(&keyboard_bit_no)){
+        printf("Error subscribing keyboard\n");
+        return 1;
     }
 
-    if (is_ipc_notify(ipc_status)) {
-      switch (_ENDPOINT_P(msg.m_source)) {
-        case HARDWARE:
-          if (msg.m_notify.interrupts & BIT(keyboard_bit_no)) {
-            kbc_ih();
-            make = !(output & BREAK_CODE);
+    bool make;
 
-            if(secondByte){
-              secondByte=false;
-              bytes[1]=output;
-              kbd_print_scancode(make, 2, bytes);
+    while(scancode != KEY_ESC_BREAK){
+        if((r = driver_receive(ANY, &msg, &ipc_status)) != 0){
+            printf("driver_receive failed with: %d", r);
+            continue;
+        }
+
+        if(is_ipc_notify(ipc_status)){
+            switch(_ENDPOINT_P(msg.m_source)){
+                case HARDWARE:
+                    if(msg.m_notify.interrupts & BIT(keyboard_bit_no)){
+                        keyboard_int_handler();
+                        if(keyboard_parse_output()){
+                            make = !(scancode & KEYBOARD_SCANCODE_BREAK);
+                            kbd_print_scancode(make, kbd_bytesCounter+1, kbd_bytes);
+                        }
+                    }
+                    break;
+                default:
+                    break;
             }
-            else{
-              bytes[0] = output;
-              if(output == TWO_BYTES){
-                secondByte = true;
-              }
-              else kbd_print_scancode(make, 1, bytes);
-            }
-          }
-          break;
-      }
-    } 
-  }
+        }
+    }
 
-  if(keyboard_unsubscribe_interrupts()){
-    printf("kbd_test_scan() -> Error unsubscribing keyboard interrupt's\n");
-    return 1;
-  }
+    if(keyboard_unsubscribe_int()){
+        printf("Error unsubscribing keyboard\n");
+        return 1;
+    }
 
-  return kbd_print_no_sysinb(count_sys_inb);
+    return kbd_print_no_sysinb(count_sys_inb);
 }
 
 int(kbd_test_poll)() {
-  bool make, secondByte = false;
-  uint8_t bytes[2];
-  uint8_t st;
-
-  while(output != BREAK_ESC){
-    if(read_KBC_status(&st)){
-      printf("kbd_test_poll() -> Error reading KBC status\n");
-      return 1;
-    }
-
-    if((st & FULL_OUT_BUFFER) && !(st & AUX)){
-      kbc_ih();
-      make = !(output & BREAK_CODE);
-
-      if(secondByte){
-        secondByte=false;
-        bytes[1]=output;
-        kbd_print_scancode(make, 2, bytes);
-      }
-      else{
-        bytes[0] = output;
-        if(output==TWO_BYTES){
-          secondByte = true;
+    uint8_t st;
+    bool make;
+    while(scancode != KEY_ESC_BREAK){
+        if(keyboard_get_status(&st)){
+            printf("Error getting keyboard status\n");
+            return 1;
         }
-        else kbd_print_scancode(make, 1, bytes);
-      }
+
+        if((st & KEYBOARD_ST_OBF) && !(st & KEYBOARD_ST_AUX)){
+            keyboard_int_handler();
+            if(keyboard_parse_output()){
+                make = !(scancode & KEYBOARD_SCANCODE_BREAK);
+                kbd_print_scancode(make, kbd_bytesCounter+1, kbd_bytes);
+            }
+        }
     }
-  }
 
-  if(keyboard_restore()){
-    printf("kbd_test_poll() -> Error restoring keyboard interrupts\n");
-    return 1;
-  }
+    //missing the keyboard_restore function
 
-  return kbd_print_no_sysinb(count_sys_inb);
+    return kbd_print_no_sysinb(count_sys_inb);
 }
 
 int(kbd_test_timed_scan)(uint8_t n) {
   int ipc_status, r;
   message msg;
 
-  bool make, secondByte = false;
-  uint8_t bytes[2];
   uint8_t keyboard_bit_no, timer_bit_no;
   int idle_time = n;
 
@@ -139,12 +117,13 @@ int(kbd_test_timed_scan)(uint8_t n) {
     return 1;
   }
 
-  if(keyboard_subscribe_interrupts(&keyboard_bit_no)){
+  if(keyboard_subscribe_int(&keyboard_bit_no)){
     printf("Error subscribing keyboard interrupts\n");
     return 1;
   }
-
-  while(idle_time > 0 && (output != BREAK_ESC)){
+    
+    bool make;
+  while(idle_time > 0 && (scancode != KEY_ESC_BREAK)){
     if((r = driver_receive(ANY, &msg, &ipc_status))) {
       printf("driver_receive failed with: %d", r);
       continue;
@@ -154,19 +133,10 @@ int(kbd_test_timed_scan)(uint8_t n) {
       switch (_ENDPOINT_P(msg.m_source)) {
         case HARDWARE:
           if (msg.m_notify.interrupts & BIT(keyboard_bit_no)) {
-            kbc_ih();
-            make = !(output & BIT(7));
-            if(secondByte){
-              secondByte=false;
-              bytes[1]=output;
-              kbd_print_scancode(make, 2, bytes);
-            }
-            else{
-              bytes[0] = output;
-              if(output==0xE0){
-                secondByte = true;
-              }
-              else kbd_print_scancode(make, 1, bytes);
+            keyboard_int_handler();
+            if(keyboard_parse_output()){
+                make = !(scancode & KEYBOARD_SCANCODE_BREAK);
+                kbd_print_scancode(make, kbd_bytesCounter+1, kbd_bytes);
             }
             idle_time = n;
             timer_counter = 0;
@@ -193,7 +163,7 @@ int(kbd_test_timed_scan)(uint8_t n) {
     return 1;
   }
 
-  if(keyboard_unsubscribe_interrupts()){
+  if(keyboard_unsubscribe_int()){
     printf("Error unsubscribing keyboard interrupts\n");
     return 1;
   }
