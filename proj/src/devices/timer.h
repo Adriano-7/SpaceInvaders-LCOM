@@ -2,6 +2,8 @@
 #define _LCOM_TIMER_H_
 
 #include <lcom/lcf.h>
+#include <stdint.h>
+#include "macros.h"
 
 int (timer_set_frequency)(uint8_t timer, uint32_t freq);
 

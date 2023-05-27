@@ -45,7 +45,7 @@ void cleanXpms(){
 
 void (drawLetter)(char letter, uint16_t x, uint16_t y) {
     int index = letter - 'a';
-    draw_xpm(letters_xpm[index], letters_xpm_map[index], x, y);
+    video_draw_xpm(letters_xpm[index], letters_xpm_map[index], x, y);
 }
 
 void (drawNumber)(int number, uint16_t x, uint16_t y) {
@@ -62,17 +62,17 @@ void (drawNumber)(int number, uint16_t x, uint16_t y) {
     for (int i = digits-1; i >= 0; i--) {
         int digit = aux % 10;
         aux /= 10;
-        draw_xpm(numbers_xpm[digit], numbers_xpm_map[digit], x + i * 22, y);
+        video_draw_xpm(numbers_xpm[digit], numbers_xpm_map[digit], x + i * 22, y);
     }
 }
 
 void (drawString)(char string[], uint16_t x, uint16_t y) {
     for (size_t i = 0; i < strlen(string); i++) {
         if (string[i] == ':'){
-            draw_xpm(symbol_xpm[0], symbol_xpm_map[0], x + i * letterSpacing, y);
+            video_draw_xpm(symbol_xpm[0], symbol_xpm_map[0], x + i * letterSpacing, y);
         }
         else if (string[i] == '/'){
-            draw_xpm(symbol_xpm[2], symbol_xpm_map[2], x + i * letterSpacing, y);
+            video_draw_xpm(symbol_xpm[2], symbol_xpm_map[2], x + i * letterSpacing, y);
         }
 
         drawLetter(string[i], x + i * letterSpacing, y);

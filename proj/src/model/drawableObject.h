@@ -1,6 +1,6 @@
 #pragma once
 #include <lcom/lcf.h>
-#include "../devices/graphics.h"
+#include "../devices/video.h"
 
 typedef struct DrawableObject {
     int x;

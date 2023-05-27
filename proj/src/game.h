@@ -13,12 +13,9 @@
 
 #include "devices/keyboard.h"
 #include "devices/timer.h"
-#include "devices/vbe.h"
-#include "devices/graphics.h"
+#include "devices/video.h"
 #include "devices/mouse.h"
 #include "devices/rtc.h"
-
-
 
 int (game_loop)();
 

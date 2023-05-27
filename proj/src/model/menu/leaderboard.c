@@ -26,7 +26,7 @@ int count_digits(int number) {
 }
 
 int drawLeaderboard(){
-    draw_xpm(menu_xpm[4], menu_xpm_map[4], mode_info.XResolution/2 - menu_xpm[4].width/2, 70);
+    video_draw_xpm(menu_xpm[4], menu_xpm_map[4], mode_info.XResolution/2 - menu_xpm[4].width/2, 70);
     
     for(int i = 0; i < 10; i++){
         if(leaderboard[i] != NULL){

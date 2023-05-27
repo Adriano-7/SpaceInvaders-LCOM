@@ -13,7 +13,7 @@
 #include "../model/game/map.h"
 #include "../model/menu/menu.h"
 
-int (handle_keyboard)(enum State* state, uint8_t bytes[2], Map_t* map, Menu_t* menu);
+int (handle_keyboard)(enum State* state, Map_t* map, Menu_t* menu);
 
 int (handle_timer)(enum State* state, Map_t *map, Menu_t* menu);
 

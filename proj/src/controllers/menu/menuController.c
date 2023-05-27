@@ -11,12 +11,12 @@ void (menu_handle_timer)(Menu_t* menu){
 }
 
 void menu_handle_mouse(Menu_t* menu){
-    updateCursor(menu->cursor, pp);
-    selectOption(menu, pp);
+    updateCursor(menu->cursor);
+    selectOption(menu);
 }
 
 
-void selectOption(Menu_t* menu, struct packet pp){
+void selectOption(Menu_t* menu){
     Cursor_t* cursor = menu->cursor;
     if(cursor->lbPressed){
         for(int i=0; i<NUM_OPTIONS; i++){

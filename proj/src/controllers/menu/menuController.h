@@ -6,7 +6,7 @@
 #include "model/menu/menu.h"
 #include "../../state.h"
 
-extern struct packet pp;
+extern struct packet pkt;
 
 void (menu_handle_keyboard)(enum Keys key);
 
@@ -14,5 +14,5 @@ void (menu_handle_timer)(Menu_t* menu);
 
 void (menu_handle_mouse)(Menu_t* menu);
 
-void selectOption(Menu_t* menu, struct packet pp);
+void selectOption(Menu_t* menu);
 

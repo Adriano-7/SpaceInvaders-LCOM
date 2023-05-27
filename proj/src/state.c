@@ -1,5 +1,4 @@
 #include "state.h"
-#include "devices/graphics.h"
 
 extern vbe_mode_info_t mode_info;
 
