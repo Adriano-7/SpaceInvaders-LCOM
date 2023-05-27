@@ -19,6 +19,7 @@ int game_loop(){
 	loadXpms();
 	Map_t* map =  loadGame();
 	Menu_t* menu = loadMenu();
+	Over_t* over = loadOver();
 
 	if(timer_subscribe_int(&timer_bit_no)){
 		printf("Error while subscribing timer interrupt\n");
@@ -54,7 +55,7 @@ int game_loop(){
 				if(secondByte){
 					secondByte=false;
 					bytes[1]=output;
-					handle_keyboard(state, bytes, map, menu);
+					handle_keyboard(state, bytes, map, menu, over);
 				}
 				else{
 					bytes[0] = output;
@@ -62,7 +63,7 @@ int game_loop(){
 						secondByte = true;
 					}
 					else{
-						handle_keyboard(state, bytes,map, menu);
+						handle_keyboard(state, bytes,map, menu, over);
 					}
 				}
 			}
@@ -70,7 +71,7 @@ int game_loop(){
 			if (msg.m_notify.interrupts & BIT(timer_bit_no)){
 				timer_int_handler();
 				if(timer_counter % 60 == 0) rtc_update_time();
-				handle_timer(state, map, menu);
+				handle_timer(state, map, menu, over);
 			}
 
 			if (msg.m_notify.interrupts & BIT(mouse_bit_no)){
@@ -78,7 +79,7 @@ int game_loop(){
 
           		if(mouse_parse_output()){            
             		mouse_build_packet();
-					handle_mouse(state, map, menu);
+					handle_mouse(state, map, menu, over);
           		}
         	}
 			break;

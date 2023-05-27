@@ -20,7 +20,7 @@ void loadXpms(){
         numbers_xpm_map[i] = xpm_load(numbers_xpm_name[i], XPM_INDEXED, &numbers_xpm[i]);
     }
     for (int i = 0; i < 4; i++){
-        gameover_xpm_map[i] = xpm_load(gamerover_xpm_name[i], XPM_INDEXED, &numbers_xpm[i]);
+        gameover_xpm_map[i] = xpm_load(gameover_xpm_name[i], XPM_INDEXED, &numbers_xpm[i]);
     }
 }
 

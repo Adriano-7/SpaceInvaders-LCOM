@@ -8,6 +8,7 @@
 #include "xpm/loadXpm.h"
 
 #include "model/menu/leaderboard.h"
+#include "model/menu/over.h"
 
 #include "controllers/handleInterrupt.h"
 

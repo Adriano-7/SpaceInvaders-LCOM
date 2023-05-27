@@ -1,6 +1,6 @@
 #include "handleInterrupt.h"
 
-int handle_keyboard(enum State* state, uint8_t bytes[2], Map_t* map, Menu_t* menu){
+int handle_keyboard(enum State* state, uint8_t bytes[2], Map_t* map, Menu_t* menu, Over_t* over){
     enum Keys key = get_key(bytes);    
 
     switch(*state){
@@ -18,12 +18,13 @@ int handle_keyboard(enum State* state, uint8_t bytes[2], Map_t* map, Menu_t* men
         case PAUSE:
             break;
         case GAMEOVER:
+            over_handle_keyboard(key);
             break;
     }
     return 0;
 }
 
-int handle_timer(enum State* state, Map_t *map, Menu_t* menu){
+int handle_timer(enum State* state, Map_t *map, Menu_t* menu, Over_t* over){
     switch(*state){
         case MENU:
             menu_handle_timer(menu);
@@ -39,12 +40,13 @@ int handle_timer(enum State* state, Map_t *map, Menu_t* menu){
         case PAUSE:
             break;
         case GAMEOVER:
+            over_handle_timer(over);
             break;
     }
     return 0;
 }
 
-int handle_mouse(enum State* state, Map_t* map, Menu_t* menu){
+int handle_mouse(enum State* state, Map_t* map, Menu_t* menu, Over_t* over){
     switch(*state){
         case MENU:
             menu_handle_mouse(menu);
@@ -58,6 +60,7 @@ int handle_mouse(enum State* state, Map_t* map, Menu_t* menu){
         case PAUSE:
             break;
         case GAMEOVER:
+            over_handle_mouse(over);
             break;
     }
     
