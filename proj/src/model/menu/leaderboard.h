@@ -5,15 +5,12 @@
 #include <stdio.h>
 #include "../../devices/rtc.h"
 
-
 typedef struct Score {
-
-    real_time_info time;
+    Date_t date;
     int score;
-
 } Score_t;
 
-
+Score_t* createScore (int score, Date_t date);
 int drawLeaderboard();
 int writeFile();
 void drawText();

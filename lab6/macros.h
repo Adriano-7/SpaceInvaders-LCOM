@@ -93,4 +93,15 @@
 #define RTC_REG_MONTH 8
 #define RTC_REG_YEAR 9
 
+#define RTC_REG_A 10
+#define RTC_REG_B 11
+#define RTC_REG_C 12
+#define RTC_REG_D 13
 
+
+#define RTC_A_UIP_BIT BIT(7)
+
+#define RTC_B_SET_BIT BIT(7)
+#define RTC_B_UIE_BIT BIT(4)
+
+#define RTC_C_UF_BIT BIT(4)

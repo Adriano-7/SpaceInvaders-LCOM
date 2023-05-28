@@ -76,5 +76,32 @@
 #define VIDEO_DIRECT_COLOR_MODE 0x06
 #define VIDEO_1024x768_MODE 0x105
 
-#define TRANSPARENCY_COLOR 13
+/*RTC*/
+#define RTC_IRQ 8
 
+#define RTC_ADDR_REG 0x70
+#define RTC_DATA_REG 0x71
+
+#define RTC_REG_SECONDS 0
+#define RTC_REG_SECONDS_ALARM 1
+#define RTC_REG_MINUTES 2
+#define RTC_REG_MINUTES_ALARM 3
+#define RTC_REG_HOURS 4
+#define RTC_REG_HOURS_ALARM 5
+#define RTC_REG_DAY_WEEK 6
+#define RTC_REG_DAY_MONTH 7
+#define RTC_REG_MONTH 8
+#define RTC_REG_YEAR 9
+
+#define RTC_REG_A 10
+#define RTC_REG_B 11
+#define RTC_REG_C 12
+#define RTC_REG_D 13
+
+
+#define RTC_A_UIP_BIT BIT(7)
+
+#define RTC_B_SET_BIT BIT(7)
+#define RTC_B_UIE_BIT BIT(4)
+
+#define RTC_C_UF_BIT BIT(4)

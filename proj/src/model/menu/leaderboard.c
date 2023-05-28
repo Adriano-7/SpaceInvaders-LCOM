@@ -1,14 +1,14 @@
 #include "leaderboard.h"
 
-extern real_time_info time_info;   
+extern Date_t date;   
 extern vbe_mode_info_t mode_info;
 
 Score_t* leaderboard[10];
 
-Score_t* createScore (int score, real_time_info time){
+Score_t* createScore (int score, Date_t date){
     Score_t* new_score = malloc(sizeof(struct Score));
     new_score->score = score;
-    new_score->time = time;
+    new_score->date = date;
     return new_score;
 }
 
@@ -22,6 +22,7 @@ int count_digits(int number) {
         aux /= 10;
         digits++;
     }
+
     return digits;
 }
 
@@ -34,44 +35,43 @@ int drawLeaderboard(){
             drawNumber(leaderboard[i]->score, x, 300 + i*60);
             //draw the date and time in front of it
             x += count_digits(leaderboard[i]->score) * 20 + 50;
-            drawNumber(leaderboard[i]->time.day, x, 300 + i*60);
-            x += count_digits(leaderboard[i]->time.day) * 20;
+            drawNumber(leaderboard[i]->date.day, x, 300 + i*60);
+            x += count_digits(leaderboard[i]->date.day) * 20;
             drawString("/", x, 300 + i*60);
             x += 20;
-            drawNumber(leaderboard[i]->time.month, x, 300 + i*60);
-            x += count_digits(leaderboard[i]->time.month) * 30;
+            drawNumber(leaderboard[i]->date.month, x, 300 + i*60);
+            x += count_digits(leaderboard[i]->date.month) * 30;
             drawString("/", x, 300 + i*60);
             x += 20;
-            drawNumber(leaderboard[i]->time.year, x, 300 + i*60);
+            drawNumber(leaderboard[i]->date.year, x, 300 + i*60);
 
-            x += count_digits(leaderboard[i]->time.year) * 20 + 50;
+            x += count_digits(leaderboard[i]->date.year) * 20 + 50;
 
-            drawNumber(leaderboard[i]->time.hours, x, 300 + i*60);
-            x += count_digits(leaderboard[i]->time.hours) * 30;
+            drawNumber(leaderboard[i]->date.hours, x, 300 + i*60);
+            x += count_digits(leaderboard[i]->date.hours) * 30;
             drawString(":", x, 300 + i*60);
             x += 20;
-            drawNumber(leaderboard[i]->time.minutes, x, 300 + i*60);
-            x += count_digits(leaderboard[i]->time.minutes) * 30;
+            drawNumber(leaderboard[i]->date.minutes, x, 300 + i*60);
+            x += count_digits(leaderboard[i]->date.minutes) * 30;
             drawString(":", x, 300 + i*60);
             x += 20;
-            drawNumber(leaderboard[i]->time.seconds, x, 300 + i*60);
+            drawNumber(leaderboard[i]->date.seconds, x, 300 + i*60);
         }
     }
     return 0;
 
 }
 
-void leaderboardAdd(int score)
-{
-    Score_t* newScore1 = createScore(1, time_info);
-    Score_t* newScore2 = createScore(2, time_info);
-    Score_t* newScore3 = createScore(3, time_info);
+void leaderboardAdd(int score){
+    Score_t* newScore1 = createScore(1, date);
+    Score_t* newScore2 = createScore(2, date);
+    Score_t* newScore3 = createScore(3, date);
 
     leaderboard[0] = newScore1;
     leaderboard[1] = newScore2;
     leaderboard[2] = newScore3;
 
-    Score_t* newScore = createScore(score, time_info);
+    Score_t* newScore = createScore(score, date);
     
     int position = -1;  // variable to track the position where the new score will be inserted
 

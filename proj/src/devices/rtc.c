@@ -1,115 +1,165 @@
 #include "rtc.h"
 
-uint8_t count_mode;        
-int rtc_hook_id = 5; 
-real_time_info time_info;   
+int rtc_hook_id = 3;
+Date_t date;
 
-int rtc_read_from_reg(uint8_t *output) {
-   
-    if (util_sys_inb(READ_REG, output) != 0){
-        printf("Error reading from register\n");
+uint8_t regA, regB, regC, regD;
+
+int (rtc_subscribe_int)(uint8_t *bit_no){
+    if(bit_no==NULL){printf("Bit_no is a null pointer\n"); return 1;}
+    *bit_no = rtc_hook_id;
+  
+    if(sys_irqsetpolicy(RTC_IRQ, (IRQ_REENABLE | IRQ_EXCLUSIVE), &rtc_hook_id)){
+        printf("Error subscribing the rtc\n"); 
+        return 1;
+    }
+
+    if(rtc_startup()){
+        printf("Error starting up the UIE interrupts\n");
+        return 1;
+    }
+
+    return 0;
+}
+
+int (rtc_unsubscribe_int)(){
+    if(sys_irqrmpolicy(&rtc_hook_id)){
+        printf("Error unsubscribing the rtc\n"); 
+        return 1;
+    }
+
+    if(rtc_startdown()){
+        printf("Error disabiling the UIE interrupts\n");
+        return 1;
+    }
+
+    return 0;
+}
+
+int (rtc_read_register)(uint8_t reg, uint8_t *data){
+    if(data==NULL){printf("Data is a null pointer\n"); return 1;}
+
+    if(sys_outb(RTC_ADDR_REG, reg)){
+        printf("Error writing the register\n");
+        return 1;
+    }
+
+    if(util_sys_inb(RTC_DATA_REG, data)){
+        printf("Error reading the register\n");
+        return 1;
+    }
+
+    rtc_convert_bcd(data);
+
+    return 0;
+}
+
+int (rtc_write_register)(uint8_t reg, uint8_t data){
+    if(sys_outb(RTC_ADDR_REG, reg)){
+        printf("Error writing the register\n");
+        return 1;
+    }
+
+    if(sys_outb(RTC_DATA_REG, data)){
+        printf("Error writing the data\n");
+        return 1;
+    }
+
+    return 0;
+}
+
+int (rtc_startup)(){
+    if(rtc_read_register(RTC_REG_B, &regB)){
+        printf("Error reading register B\n");
+        return 1;
+    }
+
+    regB |= RTC_B_UIE_BIT;
+
+    if(rtc_write_register(RTC_REG_B, regB)){
+        printf("Error writing register B\n");
+        return 1;
+    }
+
+    return 0;
+}
+
+int (rtc_startdown)(){
+    if(rtc_read_register(RTC_REG_B, &regB)){
+        printf("Error reading register B\n");
+        return 1;
+    }
+
+    regB &= ~RTC_B_UIE_BIT;
+
+    if(rtc_write_register(RTC_REG_B, regB)){
+        printf("Error writing register B\n");
+        return 1;
+    }
+
+    return 0;
+}
+
+int (rtc_convert_bcd)(uint8_t *data){
+    if(data==NULL){printf("Data is a null pointer\n"); return 1;}
+
+    *data = (*data >> 4) * 10 + (*data & 0x0F);
+
+    return 0;
+}
+
+int (rtc_update_date)(){
+    regA = 0;
+
+    while (regA & RTC_A_UIP_BIT) {
+        if(rtc_read_register(RTC_REG_A, &regA)){
+            printf("Error reading register A\n");
+            return 1;
+        }
+    }
+
+    if(rtc_read_register(RTC_REG_SECONDS, &date.seconds)){
+        printf("Error reading seconds\n");
+        return 1;
+    }
+
+    if(rtc_read_register(RTC_REG_MINUTES, &date.minutes)){
+        printf("Error reading minutes\n");
+        return 1;
+    }
+
+    if(rtc_read_register(RTC_REG_HOURS, &date.hours)){
+        printf("Error reading hours\n");
+        return 1;
+    }
+
+    if(rtc_read_register(RTC_REG_DAY_MONTH, &date.day)){
+        printf("Error reading day\n");
+        return 1;
+    }
+
+    if(rtc_read_register(RTC_REG_MONTH, &date.month)){
+        printf("Error reading month\n");
+        return 1;
+    }
+
+    if(rtc_read_register(RTC_REG_YEAR, &date.year)){
+        printf("Error reading year\n");
         return 1;
     }
     return 0;
 }
 
-int rtc_write_to_reg(uint8_t commandWord) {
-    if (sys_outb(WRITE_REG, commandWord) != 0){
-        printf("Error writing to register\n");
-        return 1;
-    }
-    return 0;
-}
-
-void start_rtc() {
-    count_mode = is_binary();
-    rtc_update_time();
-}
-
-int rtc_subscribe_interrupts() {
-    return sys_irqsetpolicy(8, IRQ_REENABLE, &rtc_hook_id);
-}
-
-int rtc_unsubscribe_interrupts() {
-    return sys_irqrmpolicy(&rtc_hook_id);
-}
-
-int is_updating() {
-    uint8_t result;
-    if (rtc_output(REG_UPD, &result)) return 1;
-    result &= UPDATING;
-	return result;
-}
-
-int rtc_output(uint8_t commandWord, uint8_t *output) {
-    if(rtc_write_to_reg(commandWord)){
-        printf("Error writing to register\n");
-        return 1;
-    };
-
-    if(rtc_read_from_reg(output)){
-        printf("Error reading from register\n");
-        return 1;
-    };
-    return 0;}
-
-
-int is_binary() {
-    uint8_t result;
-    if (rtc_output(REG_CNT, &result)) return 1;
-	return result & BINARY;
-}
-
-int rtc_is_bcd() {
-    return !is_binary();
-}
-
-uint8_t to_binary(uint8_t bcd) {
-    unsigned int binary = 0;
-    unsigned int factor = 1;
-
-    while (bcd > 0) {
-        unsigned int digit = bcd & 0x0F; 
-
-        binary += digit * factor;
-        factor *= 10;
-
-        bcd >>= 4;  
+void (rtc_int_handler)(){
+    if(rtc_read_register(RTC_REG_C, &regC)){
+        printf("Error reading register C\n");
+        return;
     }
 
-    return binary;
-}
-
-
-int rtc_update_time() {
-    
-    if (is_updating()) return 1;
-
-    uint8_t output;
-
-    if (rtc_output(S, &output)) return 1;
-    if(count_mode) time_info.seconds = output;
-    else time_info.seconds = to_binary(output);
-
-    if (rtc_output(MINUTES, &output)) return 1;
-    if(count_mode) time_info.minutes = output;
-    else time_info.minutes = to_binary(output);
-
-    if (rtc_output(H, &output)) return 1;
-    if(count_mode) time_info.hours = output;
-    else time_info.hours = to_binary(output);
-
-    if (rtc_output(D, &output)) return 1;
-    if(count_mode) time_info.day = output;
-    else time_info.day = to_binary(output);
-
-    if (rtc_output(M, &output)) return 1;
-    if(count_mode) time_info.month = output;
-    else time_info.month = to_binary(output);
-    
-    if (rtc_output(Y, &output) != 0) return 1;
-    if(count_mode) time_info.year = output;
-    else time_info.year = to_binary(output);
-
-    return 0;
+    if(regC & RTC_C_UF_BIT){
+        if(rtc_update_date()){
+            printf("Error updating the date\n");
+            return;
+        }
+    }
 }

@@ -1,14 +1,12 @@
 #include "game.h"
 
 enum State* state = &(enum State){MENU};
-extern real_time_info time_info;   
-
 
 int game_loop(){
 	int ipc_status, r;
 	message msg;
 
-	uint8_t keyboard_bit_no, timer_bit_no, mouse_bit_no;
+	uint8_t keyboard_bit_no, timer_bit_no, mouse_bit_no, rtc_bit_no;
 
 
 	loadXpms();
@@ -35,6 +33,11 @@ int game_loop(){
     	return 1;
   	}
 
+	if(rtc_subscribe_int(&rtc_bit_no)){
+  		printf("Error while subscribing the rtc interrupts\n");
+  		return 1;
+  	}
+
 	while(*state != EXIT){
 	if((r = driver_receive(ANY, &msg, &ipc_status))) {
 		printf("driver_receive failed with: %d", r);
@@ -53,7 +56,6 @@ int game_loop(){
 
 			if (msg.m_notify.interrupts & BIT(timer_bit_no)){
 				timer_int_handler();
-				if(timer_counter % 60 == 0) rtc_update_time();
 				handle_timer(state, map, menu);
 			}
 
@@ -64,6 +66,10 @@ int game_loop(){
 					handle_mouse(state, map, menu);
           		}
         	}
+			if (msg.m_notify.interrupts & BIT(rtc_bit_no)){
+				rtc_int_handler();
+			}
+
 			break;
 			}
 		}
@@ -89,6 +95,11 @@ int game_loop(){
   	if (mouse_unsubscribe_int()){
     	printf("Error while unsubscribing the mouse interrupts\n");
     	return 1;
+  	}
+
+	if(rtc_unsubscribe_int()){
+  		printf("Error while unsubscribing the rtc interrupts\n");
+  		return 1;
   	}
 
 	if(vg_exit()){
