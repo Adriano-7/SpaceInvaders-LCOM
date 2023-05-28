@@ -32,10 +32,10 @@ void playerBulletCollision(Map_t* map, Bullet_t* bullet){
   for(int i = 0; i < NUM_MONSTERS; i++){
     if(map->monsters[i]->drawableObject->isVisible){
       if(detectObjectCollision(bullet->drawableObject, map->monsters[i]->drawableObject)){
-        vg_draw_rectangle(bullet->drawableObject->old_x, bullet->drawableObject->old_y, bullet->drawableObject->img.width, bullet->drawableObject->img.height, 0);
+        video_draw_rectangle(bullet->drawableObject->old_x, bullet->drawableObject->old_y, bullet->drawableObject->img.width, bullet->drawableObject->img.height, 0);
         bullet->drawableObject->isVisible = false;
 
-        vg_draw_rectangle(map->monsters[i]->drawableObject->x, map->monsters[i]->drawableObject->y, map->monsters[i]->drawableObject->img.width+5, map->monsters[i]->drawableObject->img.height, 0);
+        video_draw_rectangle(map->monsters[i]->drawableObject->x, map->monsters[i]->drawableObject->y, map->monsters[i]->drawableObject->img.width+5, map->monsters[i]->drawableObject->img.height, 0);
         map->monsters[i]->drawableObject->isVisible = false;
         map->visibleMonsters--;
 
@@ -49,10 +49,10 @@ void playerBulletCollision(Map_t* map, Bullet_t* bullet){
 
 void monsterBulletCollision(Map_t* map, Bullet_t* bullet){
   if(detectObjectCollision(bullet->drawableObject, map->player->drawableObject)){
-    vg_draw_rectangle(bullet->drawableObject->old_x, bullet->drawableObject->old_y, bullet->drawableObject->img.width, bullet->drawableObject->img.height, 0);
+    video_draw_rectangle(bullet->drawableObject->old_x, bullet->drawableObject->old_y, bullet->drawableObject->img.width, bullet->drawableObject->img.height, 0);
     bullet->drawableObject->isVisible = false;
 
-    vg_draw_rectangle(map->player->drawableObject->x, map->player->drawableObject->y, map->player->drawableObject->img.width, map->player->drawableObject->img.height, 0);
+    video_draw_rectangle(map->player->drawableObject->x, map->player->drawableObject->y, map->player->drawableObject->img.width, map->player->drawableObject->img.height, 0);
 
     map->bullets[0]->drawableObject->isVisible = false;
 
@@ -72,7 +72,7 @@ bool detectObjectCollision(DrawableObject_t* obj1, DrawableObject_t* obj2){
 
 void wallCollision(Bullet_t* bullet){
   if(bullet->drawableObject->y - bullet->drawableObject->img.height <= 0 || bullet->drawableObject->y + bullet->drawableObject->img.height >= mode_info.YResolution-30){
-    vg_draw_rectangle(bullet->drawableObject->x, bullet->drawableObject->y, bullet->drawableObject->img.width, bullet->drawableObject->img.height, 0);
+    video_draw_rectangle(bullet->drawableObject->x, bullet->drawableObject->y, bullet->drawableObject->img.width, bullet->drawableObject->img.height, 0);
     bullet->drawableObject->isVisible = false;
   }
 }

@@ -1,137 +1,72 @@
 #include "leaderboard.h"
 
-extern real_time_info time_info;   
+extern Date_t date;   
 extern vbe_mode_info_t mode_info;
 
-Score_t* leaderboard[10];
+extern Leaderboard_t* leaderboard;
 
-Score_t* createScore (int score, real_time_info time){
+Leaderboard_t* createLeaderboard(){
+    Leaderboard_t* new_leaderboard = malloc(sizeof(struct Leaderboard));
+
+    new_leaderboard->scores[0] = createScore(0);
+    new_leaderboard->scores[1] = createScore(0);
+    new_leaderboard->scores[2] = createScore(0);
+
+    return new_leaderboard;
+}
+
+Score_t* createScore(int score){
     Score_t* new_score = malloc(sizeof(struct Score));
+
+    new_score->date = date;
     new_score->score = score;
-    new_score->time = time;
+
     return new_score;
 }
 
-int count_digits(int number) {
-    int digits = 0;
-    int aux = number;
+int addScore(int scorePts){
+    int position = -1;
 
-    if(number == 0) return 1;
+    Score_t* score = createScore(scorePts);
 
-    while (aux != 0) {
-        aux /= 10;
-        digits++;
-    }
-    return digits;
-}
-
-int drawLeaderboard(){
-    draw_xpm(menu_xpm[4], menu_xpm_map[4], mode_info.XResolution/2 - menu_xpm[4].width/2, 70);
-    
-    for(int i = 0; i < 10; i++){
-        if(leaderboard[i] != NULL){
-            int x = 100;
-            drawNumber(leaderboard[i]->score, x, 300 + i*60);
-            //draw the date and time in front of it
-            x += count_digits(leaderboard[i]->score) * 20 + 50;
-            drawNumber(leaderboard[i]->time.day, x, 300 + i*60);
-            x += count_digits(leaderboard[i]->time.day) * 20;
-            drawString("/", x, 300 + i*60);
-            x += 20;
-            drawNumber(leaderboard[i]->time.month, x, 300 + i*60);
-            x += count_digits(leaderboard[i]->time.month) * 30;
-            drawString("/", x, 300 + i*60);
-            x += 20;
-            drawNumber(leaderboard[i]->time.year, x, 300 + i*60);
-
-            x += count_digits(leaderboard[i]->time.year) * 20 + 50;
-
-            drawNumber(leaderboard[i]->time.hours, x, 300 + i*60);
-            x += count_digits(leaderboard[i]->time.hours) * 30;
-            drawString(":", x, 300 + i*60);
-            x += 20;
-            drawNumber(leaderboard[i]->time.minutes, x, 300 + i*60);
-            x += count_digits(leaderboard[i]->time.minutes) * 30;
-            drawString(":", x, 300 + i*60);
-            x += 20;
-            drawNumber(leaderboard[i]->time.seconds, x, 300 + i*60);
-        }
-    }
-    return 0;
-
-}
-
-void leaderboardAdd(int score)
-{
-    Score_t* newScore1 = createScore(1, time_info);
-    Score_t* newScore2 = createScore(2, time_info);
-    Score_t* newScore3 = createScore(3, time_info);
-
-    leaderboard[0] = newScore1;
-    leaderboard[1] = newScore2;
-    leaderboard[2] = newScore3;
-
-    Score_t* newScore = createScore(score, time_info);
-    
-    int position = -1;  // variable to track the position where the new score will be inserted
-
-    for (int i = 0; i < 10; i++) {
-        if (leaderboard[i] == NULL || newScore->score > leaderboard[i]->score) {
+    for (int i = 0; i < 3; i++) {
+        if (leaderboard->scores[i] == NULL || score->score > leaderboard->scores[i]->score) {
             position = i;
             break;
         }
     }
 
     if (position != -1) {
-        // Shift the scores down to make room for the new score
-        for (int i = 9; i > position; i--) {
-            leaderboard[i] = leaderboard[i - 1];
+        for (int i = 2; i > position; i--) {
+            leaderboard->scores[i] = leaderboard->scores[i - 1];
         }
-
-        // Insert the new score at the desired position
-        leaderboard[position] = newScore;
-    } else {
-        // The new score does not qualify for the leaderboard
-        printf("The new score is not high enough for the leaderboard.");
+        leaderboard->scores[position] = score;
     }
-        
-        return;
-}
 
-int writeFile(){
- /*   FILE *file = fopen("../../leaderboard.txt", "w");
-
-    if (file == NULL) {
-        printf("Failed to open the file.\n");
-        return 1;
-    }
-    printf("Success\n");
-
-    for(int i = 0; i < 10; i++){
-        fprintf(file, "%d\n", leaderboard[i].score);
-    }
-    */
     return 0;
 }
 
-void drawText(){
-    /*
-    struct Score scores[10];
+int drawLeaderboard(){
+    video_draw_xpm(menu_xpm[4], menu_xpm_map[4], (mode_info.XResolution - menu_xpm[4].width)/2, (mode_info.YResolution/8));
 
-    FILE *file = fopen("../../leaderboard.txt", "r");
+    for(int i=0; i<3; i++){
+        if(leaderboard->scores[i] != NULL){
+            char score[20];
+            sprintf(score, "%d", leaderboard->scores[i]->score);
 
-    if (file == NULL) {
-        printf("Failed to open the file.\n");
-        return;
+            char date[20];
+            sprintf(date, "%d/%d/%d %02d:%02d:%02d", leaderboard->scores[i]->date.day, leaderboard->scores[i]->date.month, leaderboard->scores[i]->date.year, leaderboard->scores[i]->date.hours, leaderboard->scores[i]->date.minutes, leaderboard->scores[i]->date.seconds);
+            char* text = malloc(sizeof(char) * (strlen(score) + strlen(date) + 2));
+            strcpy(text, score);
+            strcat(text, " ");
+            strcat(text, date);
+
+            int textWidth = strlen(text) * 26;
+
+            drawString(text, (mode_info.XResolution - textWidth) / 2, (mode_info.YResolution/8)*(i+1)+140);
+        }
     }
 
-   int i = 0;
-    while (fscanf(file, "%d %s %s", &scores[i].score, scores[i].date, scores[i].time) == 3) {
-        printf("Entered %d time\n",i);
-        i++;
-    }
-
-    fclose(file);
-    */
-   return;
+    return 0;
 }
+

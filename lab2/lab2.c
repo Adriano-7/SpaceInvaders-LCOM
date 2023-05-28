@@ -33,20 +33,21 @@ int main(int argc, char *argv[]) {
 int(timer_test_read_config)(uint8_t timer, enum timer_status_field field) {
   uint8_t st;
   if(timer_get_conf(timer, &st)){
-    printf("timer_test_read_config() -> Error geting the timer configuration\n");
+    printf("Error retrieving the timer configuration\n");
     return 1;
   }
 
-  if(timer_display_conf (timer, st, field)){
-    printf("timer_test_read_config() -> Error while displaying the timer's configuration");
+  if(timer_display_conf(timer, st, field)){
+    printf("Error displaying the timer configuration\n");
     return 1;
   }
+
   return 0;
 }
 
 int(timer_test_time_base)(uint8_t timer, uint32_t freq) {
   if(timer_set_frequency(timer, freq)){
-    printf("timer_test_time_base() -> Error setting timer %d frequency", timer);
+    printf("Error setting timer %d frequency", timer);
     return 1;
   }
   return 0;
@@ -58,7 +59,7 @@ int(timer_test_int)(uint8_t time) {
   uint8_t timer_bit_no;
 
   if(timer_subscribe_int(&timer_bit_no)){
-    printf("timer_test_int() -> Error subscribing timer interrupts\n");
+    printf("Error subscribing timer interrupts\n");
     return 1;
   }
 
@@ -72,7 +73,7 @@ int(timer_test_int)(uint8_t time) {
         case HARDWARE:	
           if (msg.m_notify.interrupts & BIT(timer_bit_no)) {
             timer_int_handler();
-            if(timer_counter % 60==0){
+            if(timer_counter%60==0){
               time--;
               timer_print_elapsed_time();
             }
@@ -85,7 +86,7 @@ int(timer_test_int)(uint8_t time) {
   }
 
   if(timer_unsubscribe_int()){
-    printf("timer_test_int() -> Error unsubscribing timer interrupts\n");
+    printf("Error unsubscribing timer interrupts\n");
     return 1;
   }
   

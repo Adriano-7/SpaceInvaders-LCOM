@@ -1,17 +1,19 @@
 #ifndef _LCOM_KEYBOARD_H_
 #define _LCOM_KEYBOARD_H_
 
-#include <minix/sysutil.h>
 #include <lcom/lcf.h>
-#include "i8042.h"
-#include "kbc.h"
+#include <stdint.h>
+#include "macros.h"
 
-int (keyboard_subscribe_interrupts)(uint8_t *bit_no);
+int (keyboard_subscribe_int)(uint8_t *bit_no);
 
-int (keyboard_unsubscribe_interrupts)();
+int (keyboard_unsubscribe_int)();
 
-void (kbc_ih)();
+int (keyboard_get_status(uint8_t *st));
 
-int (keyboard_restore)();
+void (keyboard_int_handler)();
+
+bool keyboard_parse_output();
 
 #endif
+

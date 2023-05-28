@@ -1,0 +1,111 @@
+/*Timer*/
+#define TIMER_0_IRQ 0
+#define TIMER_CLOCK_FREQ 1193182
+
+#define TIMER_REG(timer) 0x40+timer
+#define TIMER_CNTRL_REG 0x43
+
+#define TIMER_RBK (BIT(7) | BIT(6))
+#define TIMER_RBK_NOT_COUNT BIT(5)
+#define TIMER_RBK_NOT_STATUS BIT(4)
+#define TIMER_RBK_SEL(timer) BIT((timer) + 1)
+
+#define TIMER_CNTRL_WORD_SEL(timer) (timer << 6)
+#define TIMER_CNTRL_INIT_LSB_MSB (BIT(4) | BIT(5))
+
+#define TIMER_ST_ACCESS (BIT(4) | BIT(5))
+#define TIMER_ST_OP_MODE (BIT(3) | BIT(2) | BIT(1))
+#define TIMER_ST_BCD BIT(0)
+
+/*Keyboard*/
+#define KEYBOARD_IRQ 1
+
+#define KEYBOARD_ST_REG 0x64
+#define KEYBOARD_CMD_REG 0x64
+#define KEYBOARD_OUT_BUF 0x60
+
+#define KEYBOARD_ST_PARITY BIT(7)
+#define KEYBOARD_ST_TIMEOUT BIT(6)
+#define KEYBOARD_ST_IBF BIT(1)
+#define KEYBOARD_ST_OBF BIT(0)
+#define KEYBOARD_ST_AUX BIT(5)
+
+#define KEYBOARD_TWO_BYTE 0xE0
+
+#define KEYBOARD_SCANCODE_BREAK BIT(7)
+
+/*Keys*/
+#define KEY_ESC_BREAK 0x81
+#define KEY_ARROW_LEFT_MAKE 0x4B
+#define KEY_ARROW_RIGHT_MAKE 0x4D
+#define KEY_SPACEBAR_MAKE 0x39
+#define KEY_ESC_MAKE 0x01
+
+/*Mouse*/
+#define MOUSE_IRQ 12
+
+#define MOUSE_ST_REG 0x64
+#define MOUSE_CMD_REG 0x64
+#define MOUSE_OUT_BUF 0x60
+
+#define MOUSE_ST_PARITY BIT(7)
+#define MOUSE_ST_TIMEOUT BIT(6)
+#define MOUSE_ST_IBF BIT(1)
+#define MOUSE_ST_OBF BIT(0)
+#define MOUSE_ST_AUX BIT(5)
+
+#define MOUSE_ENABLE_DATA_REPORTING 0xF4
+#define MOUSE_DISABLE_DATA_REPORTING 0xF5
+
+#define MOUSE_ACK 0xFA
+#define MOUSE_NACK 0xFE
+
+#define MOUSE_FIRST_BYTE BIT(3)
+#define MOUSE_LEFT_BUTTON BIT(0)
+#define MOUSE_RIGHT_BUTTON BIT(1)
+#define MOUSE_MIDDLE_BUTTON BIT(2)
+#define MOUSE_X_MSB BIT(4)
+#define MOUSE_Y_MSB BIT(5)
+#define MOUSE_X_OVF BIT(6)
+#define MOUSE_Y_OVF BIT(7)
+
+#define MOUSE_DELAY 20000
+
+/*Kbc*/
+#define KBC_OUT_CMD 0x60
+#define KBC_IN_CMD 0x64
+#define MOUSE_WRITE_BYTE 0xD4
+
+/*Graphics*/
+#define VIDEO_DIRECT_COLOR_MODE 0x06
+#define VIDEO_1024x768_MODE 0x105
+
+/*RTC*/
+#define RTC_IRQ 8
+
+#define RTC_ADDR_REG 0x70
+#define RTC_DATA_REG 0x71
+
+#define RTC_REG_SECONDS 0
+#define RTC_REG_SECONDS_ALARM 1
+#define RTC_REG_MINUTES 2
+#define RTC_REG_MINUTES_ALARM 3
+#define RTC_REG_HOURS 4
+#define RTC_REG_HOURS_ALARM 5
+#define RTC_REG_DAY_WEEK 6
+#define RTC_REG_DAY_MONTH 7
+#define RTC_REG_MONTH 8
+#define RTC_REG_YEAR 9
+
+#define RTC_REG_A 10
+#define RTC_REG_B 11
+#define RTC_REG_C 12
+#define RTC_REG_D 13
+
+
+#define RTC_A_UIP_BIT BIT(7)
+
+#define RTC_B_SET_BIT BIT(7)
+#define RTC_B_UIE_BIT BIT(4)
+
+#define RTC_C_UF_BIT BIT(4)

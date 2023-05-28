@@ -1,7 +1,7 @@
 #include "map.h"
 
 
-Map_t* createMap(Player_t* player, Monster_t* monsters[NUM_MONSTERS], Bullet_t* bullets[NUM_BULLETS], DrawableObject_t* drawableObjects[NUM_DRAWABLE_OBJECTS]){
+Map_t* createMap(Player_t* player, Monster_t* monsters[NUM_MONSTERS], Bullet_t* bullets[NUM_BULLETS], DrawableObject_t* drawableObjects[GAME_NUM_DRAWABLE_OBJECTS]){
     Map_t* map = malloc(sizeof(Map_t));
     map->player = player;
 
@@ -13,7 +13,7 @@ Map_t* createMap(Player_t* player, Monster_t* monsters[NUM_MONSTERS], Bullet_t* 
         map->bullets[i] = bullets[i];
     }
 
-    for(int i = 0; i < NUM_DRAWABLE_OBJECTS; i++){
+    for(int i = 0; i < GAME_NUM_DRAWABLE_OBJECTS; i++){
         map->drawableObjects[i] = drawableObjects[i];
     }
     
@@ -31,7 +31,7 @@ Map_t* loadGame(){
     }
 
     Monster_t* monsters[NUM_MONSTERS];
-    DrawableObject_t* drawableObjects[NUM_DRAWABLE_OBJECTS];
+    DrawableObject_t* drawableObjects[GAME_NUM_DRAWABLE_OBJECTS];
     Bullet_t* bullets[NUM_BULLETS];
 
     int i = 0;
@@ -85,7 +85,7 @@ void drawMap(Map_t* map){
         resetMap(map, false, false, true, true);
     }
 
-    for(int i = 0; i < NUM_DRAWABLE_OBJECTS; i++){
+    for(int i = 0; i < GAME_NUM_DRAWABLE_OBJECTS; i++){
         if(map->drawableObjects[i] != NULL && map->drawableObjects[i]->isVisible == true){
             drawdrawableObject(map->drawableObjects[i]);
         }
@@ -97,7 +97,7 @@ void drawMap(Map_t* map){
 }
 
 void drawScore(int score){
-    vg_draw_rectangle(0, 0, mode_info.XResolution / 2, mode_info.YResolution / 30, 0);
+    video_draw_rectangle(0, 0, mode_info.XResolution / 2, mode_info.YResolution / 30, 0);
 
     drawString("score:", mode_info.XResolution / 40, mode_info.YResolution / 40);
     drawNumber(score, mode_info.XResolution / 40 + 6 * 23, mode_info.YResolution / 40);
@@ -105,7 +105,7 @@ void drawScore(int score){
 
 void drawLiveBar(int lives) {
   for (int i = 0; i < lives; i++) {
-    draw_xpm(game_xpm[8], game_xpm_map[8], mode_info.XResolution - (i+1)*game_xpm[8].width - mode_info.XResolution / 40, mode_info.YResolution / 40);
+    video_draw_xpm(game_xpm[8], game_xpm_map[8], mode_info.XResolution - (i+1)*game_xpm[8].width - mode_info.XResolution / 40, mode_info.YResolution / 40);
   }
 }
 
@@ -115,41 +115,41 @@ void resetMap(Map_t* map, bool decreaseLives, bool resetScore, bool resetLives, 
     map->player->drawableObject->y = mode_info.YResolution - game_xpm[0].height - 10;
     map->player->drawableObject->old_y = mode_info.YResolution - game_xpm[0].height - 10;
     
-    map->visibleMonsters = NUM_MONSTERS;
-
     if(decreaseLives){
         map->player->lives--;
         if(map->player->lives==0){
-            leaderboardAdd(map->player->score);
+            addScore(map->player->score);
             resetMap(map, false, true, true, true);
-            changeState(MENU);
+            changeState(GAMEOVER);
         }
     }
     if(resetScore){map->player->score = 0;}
     if(resetLives){map->player->lives = 3;}
     
     if(resetMonsters){
-    int i = 0;
-    i++;
+        map->visibleMonsters = NUM_MONSTERS;
 
-    while (i < NUM_MONSTERS+1) {
-        int x = (i % 11) * 70;
-        int y = (i / 11) * 50 + mode_info.YResolution / 8;
-        if(i % 11 == 0) y -= 50;
-
-        if(i < 12){
-            x += 5;
-        } 
-
-        map->monsters[i - 1]->drawableObject->x = x+150;
-        map->monsters[i - 1]->drawableObject->old_x = x+150;
-        map->monsters[i - 1]->drawableObject->y = y;
-        map->monsters[i - 1]->drawableObject->old_y = y;
-        map->monsters[i - 1]->drawableObject->isVisible = true;
-        map->monsters[i - 1]->direction = RIGHT;
-
+        int i = 0;
         i++;
-    }
+
+        while (i < NUM_MONSTERS+1) {
+            int x = (i % 11) * 70;
+            int y = (i / 11) * 50 + mode_info.YResolution / 8;
+            if(i % 11 == 0) y -= 50;
+    
+            if(i < 12){
+                x += 5;
+            } 
+    
+            map->monsters[i - 1]->drawableObject->x = x+150;
+            map->monsters[i - 1]->drawableObject->old_x = x+150;
+            map->monsters[i - 1]->drawableObject->y = y;
+            map->monsters[i - 1]->drawableObject->old_y = y;
+            map->monsters[i - 1]->drawableObject->isVisible = true;
+            map->monsters[i - 1]->direction = RIGHT;
+    
+            i++;
+        }
     }
 
     for(int i = 0; i < NUM_BULLETS; i++){

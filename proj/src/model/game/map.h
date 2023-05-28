@@ -16,13 +16,13 @@ typedef struct Map{
     Player_t* player;
     Monster_t* monsters[NUM_MONSTERS];
     Bullet_t* bullets[NUM_BULLETS];
-    DrawableObject_t* drawableObjects[NUM_DRAWABLE_OBJECTS];
+    DrawableObject_t* drawableObjects[GAME_NUM_DRAWABLE_OBJECTS];
 
     int visibleMonsters;
 } Map_t;
 
 
-Map_t* createMap(Player_t* player, Monster_t* monsters[NUM_MONSTERS], Bullet_t* bullets[NUM_BULLETS], DrawableObject_t* drawableObjects[NUM_DRAWABLE_OBJECTS]);
+Map_t* createMap(Player_t* player, Monster_t* monsters[NUM_MONSTERS], Bullet_t* bullets[NUM_BULLETS], DrawableObject_t* drawableObjects[GAME_NUM_DRAWABLE_OBJECTS]);
 Map_t* loadGame();
 
 void drawMap(Map_t* map);

@@ -1,7 +1,9 @@
 #include "handleInterrupt.h"
 
-int handle_keyboard(enum State* state, uint8_t bytes[2], Map_t* map, Menu_t* menu){
-    enum Keys key = get_key(bytes);    
+extern uint8_t kbd_bytes[2];
+
+int handle_keyboard(enum State* state){
+    enum Keys key = get_key(kbd_bytes);    
 
     switch(*state){
         case MENU:
@@ -13,20 +15,21 @@ int handle_keyboard(enum State* state, uint8_t bytes[2], Map_t* map, Menu_t* men
         case EXIT:
             break;
         case GAME:
-            game_handle_keyboard(key, map);
+            game_handle_keyboard(key);
             break;
         case PAUSE:
             break;
         case GAMEOVER:
+            game_over_handle_keyboard(key);
             break;
     }
     return 0;
 }
 
-int handle_timer(enum State* state, Map_t *map, Menu_t* menu){
+int handle_timer(enum State* state){
     switch(*state){
         case MENU:
-            menu_handle_timer(menu);
+            menu_handle_timer();
             break;
         case LEADERBOARD:
             leaderboard_handle_timer();
@@ -34,20 +37,22 @@ int handle_timer(enum State* state, Map_t *map, Menu_t* menu){
         case EXIT:
             break;
         case GAME:
-            game_handle_timer(map);
+            game_handle_timer();
             break;
         case PAUSE:
             break;
         case GAMEOVER:
+            game_over_handle_timer();
             break;
     }
     return 0;
 }
 
-int handle_mouse(enum State* state, Map_t* map, Menu_t* menu){
+
+int handle_mouse(enum State* state){
     switch(*state){
         case MENU:
-            menu_handle_mouse(menu);
+            menu_handle_mouse();
             break;
         case LEADERBOARD:
             break;
@@ -58,6 +63,7 @@ int handle_mouse(enum State* state, Map_t* map, Menu_t* menu){
         case PAUSE:
             break;
         case GAMEOVER:
+            game_over_handle_mouse();
             break;
     }
     
