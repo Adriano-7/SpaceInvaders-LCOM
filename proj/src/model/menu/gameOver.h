@@ -10,6 +10,11 @@
 
 extern vbe_mode_info_t mode_info;
 
+/**
+ * @struct GameOver
+ * @brief Responsible for Game Over.
+ * 
+ */
 typedef struct GameOver{
     bool firstTime;
     Option_t* options[GAMEOVER_OPTIONS];
@@ -17,10 +22,33 @@ typedef struct GameOver{
     DrawableObject_t* drawableObjects[GAMEOVER_NUM_DRAWABLE_OBJECTS];
 } GameOver_t;
 
+/**
+ * @brief Create a Game Over object
+ * 
+ * @param options 
+ * @param drawableObjects 
+ * @param cursor 
+ * @return GameOver_t* 
+ */
 GameOver_t* createGameOver(Option_t* options[GAMEOVER_OPTIONS], DrawableObject_t* drawableObjects[GAMEOVER_NUM_DRAWABLE_OBJECTS], Cursor_t* cursor);
 
+/**
+ * @brief Loads Game Over.
+ * 
+ * @return GameOver_t* 
+ */
 GameOver_t* loadGameOver();
 
+/**
+ * @brief Draws the game over.
+ * 
+ * @param over 
+ */
 void drawGameOver(GameOver_t* over);
 
+/**
+ * @brief Destroys Game Over.
+ * 
+ * @param over 
+ */
 void destroyGameOver(GameOver_t* over);

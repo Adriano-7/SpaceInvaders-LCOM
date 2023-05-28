@@ -9,10 +9,20 @@ int (keyboard_subscribe_int)(uint8_t *bit_no);
 
 int (keyboard_unsubscribe_int)();
 
+/**
+ * @brief Construct a new int object.
+ * 
+ */
 int (keyboard_get_status(uint8_t *st));
 
 void (keyboard_int_handler)();
 
+/**
+ * @brief Keybord Parse Output.
+ * 
+ * @return true 
+ * @return false 
+ */
 bool keyboard_parse_output();
 
 #endif
