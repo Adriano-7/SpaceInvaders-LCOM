@@ -23,6 +23,11 @@ int (rtc_update_date)();
 
 void (rtc_int_handler)();
 
+/**
+ * @struct Date
+ * @brief Gets the date.
+ * 
+ */
 typedef struct Date{
     uint8_t seconds;
     uint8_t minutes;
