@@ -25,6 +25,11 @@ int game_loop(){
 		return 1;
 	}
 
+	if(timer_set_frequency(0, 60)){
+		printf("Error while setting timer frequency\n");
+		return 1;
+	}
+
 	if(keyboard_subscribe_int(&keyboard_bit_no)){
 		printf("Error subscribing keyboard interrupts\n");
 		return 1;

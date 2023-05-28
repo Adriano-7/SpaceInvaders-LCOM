@@ -1,5 +1,4 @@
 #include "gameOver.h"
-#include "../../xpm/loadXpm.h"
 
 GameOver_t* createGameOver(Option_t* options[GAMEOVER_OPTIONS], DrawableObject_t* drawableObjects[GAMEOVER_NUM_DRAWABLE_OBJECTS], Cursor_t* cursor) {
     GameOver_t* gameover = (GameOver_t*) malloc(sizeof(GameOver_t));

@@ -1,6 +1,7 @@
 #include "gameController.h"
 
 extern Map_t* map;
+extern int timer_counter;
 
 void (game_handle_keyboard)(enum Keys key){
     if(key == Make_Arrow_left){

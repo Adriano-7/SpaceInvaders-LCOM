@@ -15,8 +15,6 @@
 
 #include "../../state.h"
 
-extern int timer_counter;
-
 /**
  * @brief Handles keyboard input during the game.
  * @param key The key that was pressed.

@@ -7,7 +7,7 @@
 #include "../../state.h"
 #include "../constants.h"
 #include "../game/map.h"
-
+#include "../../xpm/loadXpm.h"
 
 extern vbe_mode_info_t mode_info;
 extern Map_t* map;

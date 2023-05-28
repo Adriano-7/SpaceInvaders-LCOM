@@ -3,7 +3,7 @@
 
 #include "devices/video.h"
 
-enum State {MENU, LEADERBOARD, GAME, PAUSE, GAMEOVER, EXIT};
+enum State {MENU, LEADERBOARD, GAME, GAMEOVER, EXIT};
 
 /**
  * @brief Pointer to the current state of the game.

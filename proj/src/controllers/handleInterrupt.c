@@ -17,8 +17,6 @@ int handle_keyboard(enum State* state){
         case GAME:
             game_handle_keyboard(key);
             break;
-        case PAUSE:
-            break;
         case GAMEOVER:
             game_over_handle_keyboard(key);
             break;
@@ -39,8 +37,6 @@ int handle_timer(enum State* state){
         case GAME:
             game_handle_timer();
             break;
-        case PAUSE:
-            break;
         case GAMEOVER:
             game_over_handle_timer();
             break;
@@ -59,8 +55,6 @@ int handle_mouse(enum State* state){
         case EXIT:
             break;
         case GAME:
-            break;
-        case PAUSE:
             break;
         case GAMEOVER:
             game_over_handle_mouse();
