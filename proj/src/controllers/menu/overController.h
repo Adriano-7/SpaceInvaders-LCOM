@@ -48,4 +48,4 @@ void over_handle_mouse(Over_t* over);
  * @param over Pointer to the game over menu structure.
  * @param pp The mouse packet.
  */
-void sOption(Over_t* over, struct packet pp);
+void sOption(Over_t* over);

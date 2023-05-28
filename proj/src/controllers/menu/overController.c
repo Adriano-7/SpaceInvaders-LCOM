@@ -1,5 +1,7 @@
 #include "overController.h"
 
+extern struct packet pkt;
+
 void (over_handle_keyboard)(enum Keys key){
     if(key==Make_Esc){
         changeState(EXIT);
@@ -11,12 +13,12 @@ void (over_handle_timer)(Over_t* over){
 }
 
 void over_handle_mouse(Over_t* over){
-    updateCursor(over->cursor, pp);
-    sOption(over, pp);
+    updateCursor(over->cursor);
+    sOption(over);
 }
 
 
-void sOption(Over_t* over, struct packet pp){
+void sOption(Over_t* over){
     Cursor_t* cursor = over->cursor;
     if(cursor->lbPressed){
         for(int i=0; i<NUM_OPTIONS; i++){
