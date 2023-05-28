@@ -1,6 +1,7 @@
 #include <lcom/lcf.h>
 #include "game.h"
 #include "devices/video.h"
+#include "devices/macros.h"
 
 int main(int argc, char *argv[]) {
   lcf_set_language("EN-US");
@@ -16,12 +17,12 @@ int main(int argc, char *argv[]) {
 }
 
 int proj_main_loop(int argc, char *argv[]) {
-  if(map_phys_mem(0x105)){
+  if(map_phys_mem(VIDEO_1024x768_MODE)){
     printf("Error mapping phys memmory\n");
     return 1;
   }
   
-  if(video_set_mode(0x105)){
+  if(video_set_mode(VIDEO_1024x768_MODE)){
     printf("Error setting graphics mode\n");
     return 1;
   }

@@ -1,11 +1,11 @@
 #include "keys.h"
 
 enum Keys get_key(uint8_t bytes[2]) {
-    if (bytes[0] == 0xE0) {
+    if (bytes[0] == KEYBOARD_TWO_BYTE) {
         switch (bytes[1]) {
-            case 0x4B:
+            case KEY_ARROW_LEFT_MAKE:
                 return Make_Arrow_left;
-            case 0x4D:
+            case KEY_ARROW_RIGHT_MAKE:
                 return Make_Arrow_right;
             default:
                 return KEY_NONE;
@@ -13,9 +13,9 @@ enum Keys get_key(uint8_t bytes[2]) {
     } 
     else{
         switch (bytes[0]) {
-            case 0x39:
+            case KEY_SPACEBAR_MAKE:
                 return Make_Spacebar;
-            case 0x01:
+            case KEY_ESC_MAKE:
                 return Make_Esc;
             default:
                 return KEY_NONE;

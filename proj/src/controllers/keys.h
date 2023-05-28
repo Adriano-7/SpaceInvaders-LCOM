@@ -2,6 +2,8 @@
 #include <lcom/lcf.h>
 #include <stdint.h>
 
+#include "../devices/macros.h"
+
 /**
  * @brief Enumeration of keyboard keys.
  *

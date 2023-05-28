@@ -9,12 +9,6 @@
 #include "menu/menuController.h"
 #include "menu/leaderboardController.h"
 #include "menu/overController.h"
-
-#include "model/game/player.h"
-#include "../model/game/map.h"
-#include "../model/menu/menu.h"
-#include "../model/menu/over.h"
-
 /**
  * @brief Handles keyboard input for the game.
  *
@@ -23,13 +17,9 @@
  * and performs the necessary actions based on the input.
  *
  * @param state Pointer to the current state.
- * @param bytes Array containing the keyboard input bytes.
- * @param map Pointer to the game map structure.
- * @param menu Pointer to the menu structure.
- * @param over Pointer to the game over menu structure.
  * @return Return 0 on success, non-zero otherwise.
  */
-int (handle_keyboard)(enum State* state, Map_t* map, Menu_t* menu, Over_t* over);
+int (handle_keyboard)(enum State* state);
 
 /**
  * @brief Handles timer interrupt for the game.
@@ -39,12 +29,9 @@ int (handle_keyboard)(enum State* state, Map_t* map, Menu_t* menu, Over_t* over)
  * and performs any necessary operations that need to be executed on each timer interrupt.
  *
  * @param state Pointer to the current state.
- * @param map Pointer to the game map structure.
- * @param menu Pointer to the menu structure.
- * @param over Pointer to the game over menu structure.
  * @return Return 0 on success, non-zero otherwise.
  */
-int handle_timer(enum State* state, Map_t* map, Menu_t* menu, Over_t* over);
+int handle_timer(enum State* state);
 
 /**
  * @brief Handles mouse input for the game.
@@ -54,9 +41,12 @@ int handle_timer(enum State* state, Map_t* map, Menu_t* menu, Over_t* over);
  * and performs the necessary actions based on the mouse input.
  *
  * @param state Pointer to the current state.
- * @param map Pointer to the game map structure.
- * @param menu Pointer to the menu structure.
- * @param over Pointer to the game over menu structure.
  * @return Return 0 on success, non-zero otherwise.
  */
-int handle_mouse(enum State* state, Map_t* map, Menu_t* menu, Over_t* over);
+int handle_mouse(enum State* state);
+
+int (handle_keyboard)(enum State* state);
+
+int (handle_timer)(enum State* state);
+
+int (handle_mouse)(enum State* state);

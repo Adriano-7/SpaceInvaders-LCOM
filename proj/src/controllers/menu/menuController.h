@@ -26,7 +26,7 @@ void menu_handle_keyboard(enum Keys key);
  *
  * @param menu Pointer to the menu structure.
  */
-void menu_handle_timer(Menu_t* menu);
+void menu_handle_timer();
 
 /**
  * @brief Handles mouse input for the menu.
@@ -36,7 +36,7 @@ void menu_handle_timer(Menu_t* menu);
  *
  * @param menu Pointer to the menu structure.
  */
-void menu_handle_mouse(Menu_t* menu);
+void menu_handle_mouse();
 
 /**
  * @brief Selects an option in the menu based on the mouse input.
@@ -48,5 +48,4 @@ void menu_handle_mouse(Menu_t* menu);
  * @param menu Pointer to the menu structure.
  * @param pp The mouse packet.
  */
-void selectOption(Menu_t* menu);
-
+void selectOption();

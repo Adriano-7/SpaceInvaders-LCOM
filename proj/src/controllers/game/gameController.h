@@ -26,7 +26,7 @@ extern int timer_counter;
  * as input and updates the game state accordingly. The map parameter is a pointer to the game map, which is
  * used to update the player's movement or perform other actions based on the key input.
  */
-void game_handle_keyboard(enum Keys key, Map_t* map);
+void (game_handle_keyboard)(enum Keys key);
 
 /**
  * @brief Handles timer interrupts during the game.
@@ -36,4 +36,4 @@ void game_handle_keyboard(enum Keys key, Map_t* map);
  * elapsed time. The map parameter is a pointer to the game map, which is used to update the game entities
  * and perform other time-dependent operations.
  */
-void game_handle_timer(Map_t* map);
+void (game_handle_timer)();

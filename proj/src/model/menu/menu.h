@@ -13,14 +13,17 @@
 #include "../../state.h"
 #include "../constants.h"
 
+extern vbe_mode_info_t mode_info;
+
 /**
  * @struct Menu
  * @brief Structure representing a menu.
  */
-typedef struct Menu {
-    Option_t* options[NUM_OPTIONS];                   /**< Array of menu options. */
-    Cursor_t* cursor;                                 /**< Pointer to the menu cursor. */
-    DrawableObject_t* drawableObjects[NUM_OPTIONS+2]; /**< Array of drawable objects associated with the menu. */
+typedef struct Menu{
+    bool firstTime;
+    Option_t* options[NUM_OPTIONS];
+    Cursor_t* cursor;
+    DrawableObject_t* drawableObjects[NUM_OPTIONS+2];
 } Menu_t;
 
 /**

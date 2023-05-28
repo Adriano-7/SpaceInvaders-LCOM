@@ -36,6 +36,10 @@
 
 /*Keys*/
 #define KEY_ESC_BREAK 0x81
+#define KEY_ARROW_LEFT_MAKE 0x4B
+#define KEY_ARROW_RIGHT_MAKE 0x4D
+#define KEY_SPACEBAR_MAKE 0x39
+#define KEY_ESC_MAKE 0x01
 
 /*Mouse*/
 #define MOUSE_IRQ 12

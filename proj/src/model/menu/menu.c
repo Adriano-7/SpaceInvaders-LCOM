@@ -16,6 +16,8 @@ Menu_t* createMenu(Option_t* options[NUM_OPTIONS], DrawableObject_t* drawableObj
         menu->drawableObjects[i] = drawableObjects[i];
     }
 
+    menu->firstTime = true;
+
     return menu;
 }
 
@@ -48,6 +50,8 @@ Menu_t* loadMenu(){
 }
 
 void drawMenu(Menu_t* menu) {
+    if(menu->firstTime){erase_screen(); menu->firstTime = false;}
+    
     for(int i=0; i<NUM_OPTIONS+2; i++){
         drawdrawableObject(menu->drawableObjects[i]);
     }
