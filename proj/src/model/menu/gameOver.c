@@ -54,6 +54,8 @@ void drawGameOver(GameOver_t* gameover) {
     for(int i=0; i<GAMEOVER_NUM_DRAWABLE_OBJECTS; i++){
         drawdrawableObject(gameover->drawableObjects[i]);
     }
+
+    drawNumber(map->lastScore, 639, 335, true);
 }
 
 void destroyGameOver(GameOver_t* gameover) {

@@ -17,7 +17,8 @@ typedef struct Map{
     Monster_t* monsters[NUM_MONSTERS];
     Bullet_t* bullets[NUM_BULLETS];
     DrawableObject_t* drawableObjects[GAME_NUM_DRAWABLE_OBJECTS];
-
+    
+    int lastScore;
     int visibleMonsters;
 } Map_t;
 

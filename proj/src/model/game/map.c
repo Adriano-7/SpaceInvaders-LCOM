@@ -17,6 +17,7 @@ Map_t* createMap(Player_t* player, Monster_t* monsters[NUM_MONSTERS], Bullet_t* 
         map->drawableObjects[i] = drawableObjects[i];
     }
     
+    map->lastScore = 0;
     map->visibleMonsters = NUM_MONSTERS;
 
     return map;
@@ -100,7 +101,7 @@ void drawScore(int score){
     video_draw_rectangle(0, 0, mode_info.XResolution / 2, mode_info.YResolution / 30, 0);
 
     drawString("score:", mode_info.XResolution / 40, mode_info.YResolution / 40);
-    drawNumber(score, mode_info.XResolution / 40 + 6 * 23, mode_info.YResolution / 40);
+    drawNumber(score, mode_info.XResolution / 40 + 6 * 23, mode_info.YResolution / 40, false);
 }
 
 void drawLiveBar(int lives) {
@@ -119,6 +120,7 @@ void resetMap(Map_t* map, bool decreaseLives, bool resetScore, bool resetLives, 
         map->player->lives--;
         if(map->player->lives==0){
             addScore(map->player->score);
+            map->lastScore = map->player->score;
             resetMap(map, false, true, true, true);
             changeState(GAMEOVER);
         }

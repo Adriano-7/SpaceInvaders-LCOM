@@ -16,7 +16,7 @@ void loadXpms(){
     for(int i = 0; i < 26; i++){
         letters_xpm_map[i] = xpm_load(letters_xpm_name[i], XPM_INDEXED, &letters_xpm[i]);
     }
-    for (int i = 0; i < 10; i++){
+    for (int i = 0; i < 20; i++){
         numbers_xpm_map[i] = xpm_load(numbers_xpm_name[i], XPM_INDEXED, &numbers_xpm[i]);
     }
     for (int i = 0; i < 4; i++){
@@ -41,7 +41,7 @@ void cleanXpms(){
         free(letters_xpm_map[i]);
     }
 
-    for (int i = 0; i < 10; i++){
+    for (int i = 0; i < 20; i++){
         free(numbers_xpm_map[i]);
     }
 
@@ -61,7 +61,7 @@ void (drawLetter)(char letter, uint16_t x, uint16_t y) {
     }
 
     else if(letter >= '0' && letter <= '9'){
-        drawNumber(letter - '0', x, y);
+        drawNumber(letter - '0', x, y, false);
         return;
     }
     
@@ -70,7 +70,7 @@ void (drawLetter)(char letter, uint16_t x, uint16_t y) {
     video_draw_xpm(letters_xpm[index], letters_xpm_map[index], x, y);
 }
 
-void (drawNumber)(int number, uint16_t x, uint16_t y) {
+void (drawNumber)(int number, uint16_t x, uint16_t y, bool yellow) {
     int digits = 0;
     int aux = number;
     while (aux != 0) {
@@ -84,7 +84,9 @@ void (drawNumber)(int number, uint16_t x, uint16_t y) {
     for (int i = digits-1; i >= 0; i--) {
         int digit = aux % 10;
         aux /= 10;
-        video_draw_xpm(numbers_xpm[digit], numbers_xpm_map[digit], x + i * 22, y);
+
+        int index = yellow ? digit +10 : digit;
+        video_draw_xpm(numbers_xpm[index], numbers_xpm_map[index], x + i * 22, y);
     }
 }
 

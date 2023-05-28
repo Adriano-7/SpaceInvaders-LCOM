@@ -38,7 +38,7 @@ static const xpm_row_t *letters_xpm_name[] = {a_xpm, b_xpm, c_xpm, d_xpm, e_xpm,
 /**
  * @brief Array of XPM images for numbers.
  */
-static const xpm_row_t *numbers_xpm_name[] = {zero_xpm, one_xpm, two_xpm, three_xpm, four_xpm, five_xpm, six_xpm, seven_xpm, eight_xpm, nine_xpm};
+static const xpm_row_t *numbers_xpm_name[] = {zero_xpm, one_xpm, two_xpm, three_xpm, four_xpm, five_xpm, six_xpm, seven_xpm, eight_xpm, nine_xpm, yellow_zero_xpm, yellow_one_xpm, yellow_two_xpm, yellow_three_xpm, yellow_four_xpm, yellow_five_xpm, yellow_six_xpm, yellow_seven_xpm, yellow_eight_xpm, yellow_nine_xpm};
 /**
  * @brief Array of XPM images for game over screen elements.
  */
@@ -63,7 +63,7 @@ xpm_image_t letters_xpm[26];
 /**
  * @brief Array of loaded XPM images for numbers.
  */
-xpm_image_t numbers_xpm[10];
+xpm_image_t numbers_xpm[20];
 /**
  * @brief Array of loaded XPM images for game over screen elements.
  */
@@ -88,7 +88,7 @@ uint8_t* letters_xpm_map[26];
 /**
  * @brief Array of pointers to the pixel map of number XPM images.
  */
-uint8_t* numbers_xpm_map[10];
+uint8_t* numbers_xpm_map[20];
 /**
  * @brief Array of pointers to the pixel map of game over XPM images.
  */
@@ -110,7 +110,7 @@ void drawLetter(char letter, uint16_t x, uint16_t y);
  * @param x The x-coordinate of the position.
  * @param y The y-coordinate of the position.
  */
-void drawNumber(int number, uint16_t x, uint16_t y);
+void drawNumber(int number, uint16_t x, uint16_t y, bool yellow);
 
 /**
  * @brief Draw a string of letters at the specified position.
