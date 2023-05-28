@@ -2,7 +2,6 @@
 #include "../../xpm/loadXpm.h"
 
 extern vbe_mode_info_t mode_info;
-extern bool firstTime;
 
 Menu_t* createMenu(Option_t* options[NUM_OPTIONS], DrawableObject_t* drawableObjects[NUM_OPTIONS+2], Cursor_t* cursor) {
     Menu_t* menu = (Menu_t*) malloc(sizeof(Menu_t));
@@ -16,6 +15,8 @@ Menu_t* createMenu(Option_t* options[NUM_OPTIONS], DrawableObject_t* drawableObj
     for(int i=0; i<NUM_OPTIONS+2; i++){
         menu->drawableObjects[i] = drawableObjects[i];
     }
+
+    menu->firstTime = true;
 
     return menu;
 }
@@ -49,6 +50,8 @@ Menu_t* loadMenu(){
 }
 
 void drawMenu(Menu_t* menu) {
+    if(menu->firstTime){erase_screen(); menu->firstTime = false;}
+    
     for(int i=0; i<NUM_OPTIONS+2; i++){
         drawdrawableObject(menu->drawableObjects[i]);
     }

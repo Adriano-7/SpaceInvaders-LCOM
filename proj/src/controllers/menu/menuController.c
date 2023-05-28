@@ -26,6 +26,7 @@ void selectOption(){
             if(cursor->drawableObject->x >= option->drawableObject->x && cursor->drawableObject->x <= option->drawableObject->x + option->drawableObject->img.width){
                 if(cursor->drawableObject->y >= option->drawableObject->y && cursor->drawableObject->y <= option->drawableObject->y + option->drawableObject->img.height){
                     changeState(option->state);
+                    menu->firstTime = true;
                 }
             }
         }

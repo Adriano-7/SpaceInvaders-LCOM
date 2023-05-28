@@ -11,6 +11,7 @@
 extern vbe_mode_info_t mode_info;
 
 typedef struct Menu{
+    bool firstTime;
     Option_t* options[NUM_OPTIONS];
     Cursor_t* cursor;
     DrawableObject_t* drawableObjects[NUM_OPTIONS+2];
