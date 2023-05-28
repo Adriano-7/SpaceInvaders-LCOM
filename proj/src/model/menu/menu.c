@@ -3,16 +3,16 @@
 
 extern vbe_mode_info_t mode_info;
 
-Menu_t* createMenu(Option_t* options[NUM_OPTIONS], DrawableObject_t* drawableObjects[NUM_OPTIONS+2], Cursor_t* cursor) {
+Menu_t* createMenu(Option_t* options[MENU_NUM_OPTIONS], DrawableObject_t* drawableObjects[MENU_NUM_DRAWABLE_OBJECTS], Cursor_t* cursor) {
     Menu_t* menu = (Menu_t*) malloc(sizeof(Menu_t));
 
-    for(int i=0; i<NUM_OPTIONS; i++){
+    for(int i=0; i<MENU_NUM_OPTIONS; i++){
         menu->options[i] = options[i];
     }
 
     menu->cursor = cursor;
 
-    for(int i=0; i<NUM_OPTIONS+2; i++){
+    for(int i=0; i<MENU_NUM_DRAWABLE_OBJECTS; i++){
         menu->drawableObjects[i] = drawableObjects[i];
     }
 
@@ -22,13 +22,13 @@ Menu_t* createMenu(Option_t* options[NUM_OPTIONS], DrawableObject_t* drawableObj
 }
 
 Menu_t* loadMenu(){
-    Option_t* options[NUM_OPTIONS];
-    DrawableObject_t* drawableObjects[NUM_OPTIONS+2];
+    Option_t* options[MENU_NUM_OPTIONS];
+    DrawableObject_t* drawableObjects[MENU_NUM_DRAWABLE_OBJECTS];
     Cursor_t*cursor = createCursor();
 
-    enum State state[NUM_OPTIONS] = {GAME, LEADERBOARD, EXIT};
+    enum State state[MENU_NUM_OPTIONS] = {GAME, LEADERBOARD, EXIT};
 
-    for(int i=0; i<NUM_OPTIONS + 1; i++){
+    for(int i=0; i<MENU_NUM_OPTIONS + 1; i++){
         xpm_image_t img = menu_xpm[i];
         uint8_t* img_colors = menu_xpm_map[i];
 
@@ -44,7 +44,7 @@ Menu_t* loadMenu(){
         }
     }
 
-    drawableObjects[NUM_OPTIONS+1] = cursor->drawableObject;
+    drawableObjects[MENU_NUM_DRAWABLE_OBJECTS-1] = cursor->drawableObject;
 
     return createMenu(options, drawableObjects, cursor);
 }
@@ -52,13 +52,13 @@ Menu_t* loadMenu(){
 void drawMenu(Menu_t* menu) {
     if(menu->firstTime){erase_screen(); menu->firstTime = false;}
     
-    for(int i=0; i<NUM_OPTIONS+2; i++){
+    for(int i=0; i<MENU_NUM_DRAWABLE_OBJECTS; i++){
         drawdrawableObject(menu->drawableObjects[i]);
     }
 }
 
 void destroyMenu(Menu_t* menu) {
-    for(int i=0; i<NUM_OPTIONS; i++){
+    for(int i=0; i<MENU_NUM_OPTIONS; i++){
         destroyOption(menu->options[i]);
     }
     free(menu);

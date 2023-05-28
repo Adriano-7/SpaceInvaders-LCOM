@@ -21,7 +21,7 @@ void menu_handle_mouse(){
 void selectOption(){
     Cursor_t* cursor = menu->cursor;
     if(cursor->lbPressed){
-        for(int i=0; i<NUM_OPTIONS; i++){
+        for(int i=0; i<MENU_NUM_OPTIONS; i++){
             Option_t* option = menu->options[i];
             if(cursor->drawableObject->x >= option->drawableObject->x && cursor->drawableObject->x <= option->drawableObject->x + option->drawableObject->img.width){
                 if(cursor->drawableObject->y >= option->drawableObject->y && cursor->drawableObject->y <= option->drawableObject->y + option->drawableObject->img.height){

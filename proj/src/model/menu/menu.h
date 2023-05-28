@@ -21,9 +21,9 @@ extern vbe_mode_info_t mode_info;
  */
 typedef struct Menu{
     bool firstTime;
-    Option_t* options[NUM_OPTIONS];
+    Option_t* options[MENU_NUM_OPTIONS];
     Cursor_t* cursor;
-    DrawableObject_t* drawableObjects[NUM_OPTIONS+2];
+    DrawableObject_t* drawableObjects[MENU_NUM_DRAWABLE_OBJECTS];
 } Menu_t;
 
 /**
@@ -33,7 +33,7 @@ typedef struct Menu{
  * @param cursor Pointer to the menu cursor.
  * @return Pointer to the created Menu object.
  */
-Menu_t* createMenu(Option_t* options[NUM_OPTIONS], DrawableObject_t* drawableObjects[NUM_OPTIONS+2], Cursor_t* cursor);
+Menu_t* createMenu(Option_t* options[MENU_NUM_OPTIONS], DrawableObject_t* drawableObjects[MENU_NUM_DRAWABLE_OBJECTS], Cursor_t* cursor);
 
 /**
  * @brief Loads a Menu object.

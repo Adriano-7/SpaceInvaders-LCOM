@@ -4,7 +4,7 @@ enum State* state = &(enum State){MENU};
 
 Map_t* map;
 Menu_t* menu;
-Over_t* over;
+GameOver_t* gameover;
 Leaderboard_t* leaderboard;
 
 int game_loop(){
@@ -17,7 +17,7 @@ int game_loop(){
 
 	map =  loadGame();
 	menu = loadMenu();
-	over = loadOver();
+	gameover = loadGameOver();
 	leaderboard = createLeaderboard();
 
 	if(timer_subscribe_int(&timer_bit_no)){

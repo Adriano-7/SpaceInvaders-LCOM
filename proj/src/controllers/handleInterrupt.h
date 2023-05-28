@@ -8,7 +8,7 @@
 #include "game/gameController.h"
 #include "menu/menuController.h"
 #include "menu/leaderboardController.h"
-#include "menu/overController.h"
+#include "menu/gameOverController.h"
 /**
  * @brief Handles keyboard input for the game.
  *

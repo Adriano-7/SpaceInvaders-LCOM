@@ -1,31 +1,33 @@
-#include "overController.h"
+#include "gameOverController.h"
 
 extern struct packet pkt;
+extern GameOver_t* gameover;
 
-void (over_handle_keyboard)(enum Keys key){
+void (game_over_handle_keyboard)(enum Keys key){
     if(key==Make_Esc){
-        changeState(EXIT);
+        changeState(MENU);
     }
 }
 
-void (over_handle_timer)(Over_t* over){
-    drawOver(over);
+void (game_over_handle_timer)(){
+    drawGameOver(gameover);
 }
 
-void over_handle_mouse(Over_t* over){
-    updateCursor(over->cursor);
-    sOption(over);
+void game_over_handle_mouse(){
+    updateCursor(gameover->cursor);
+    game_over_option(gameover);
 }
 
 
-void sOption(Over_t* over){
-    Cursor_t* cursor = over->cursor;
+void game_over_option(){
+    Cursor_t* cursor = gameover->cursor;
     if(cursor->lbPressed){
-        for(int i=0; i<NUM_OPTIONS; i++){
-            Option_t* option = over->options[i];
+        for(int i=0; i<MENU_NUM_OPTIONS; i++){
+            Option_t* option = gameover->options[i];
             if(cursor->drawableObject->x >= option->drawableObject->x && cursor->drawableObject->x <= option->drawableObject->x + option->drawableObject->img.width){
                 if(cursor->drawableObject->y >= option->drawableObject->y && cursor->drawableObject->y <= option->drawableObject->y + option->drawableObject->img.height){
                     changeState(option->state);
+                    gameover->firstTime = true;
                 }
             }
         }

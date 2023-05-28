@@ -1,7 +1,7 @@
 #include "map.h"
 
 
-Map_t* createMap(Player_t* player, Monster_t* monsters[NUM_MONSTERS], Bullet_t* bullets[NUM_BULLETS], DrawableObject_t* drawableObjects[NUM_DRAWABLE_OBJECTS]){
+Map_t* createMap(Player_t* player, Monster_t* monsters[NUM_MONSTERS], Bullet_t* bullets[NUM_BULLETS], DrawableObject_t* drawableObjects[GAME_NUM_DRAWABLE_OBJECTS]){
     Map_t* map = malloc(sizeof(Map_t));
     map->player = player;
 
@@ -13,7 +13,7 @@ Map_t* createMap(Player_t* player, Monster_t* monsters[NUM_MONSTERS], Bullet_t* 
         map->bullets[i] = bullets[i];
     }
 
-    for(int i = 0; i < NUM_DRAWABLE_OBJECTS; i++){
+    for(int i = 0; i < GAME_NUM_DRAWABLE_OBJECTS; i++){
         map->drawableObjects[i] = drawableObjects[i];
     }
     
@@ -31,7 +31,7 @@ Map_t* loadGame(){
     }
 
     Monster_t* monsters[NUM_MONSTERS];
-    DrawableObject_t* drawableObjects[NUM_DRAWABLE_OBJECTS];
+    DrawableObject_t* drawableObjects[GAME_NUM_DRAWABLE_OBJECTS];
     Bullet_t* bullets[NUM_BULLETS];
 
     int i = 0;
@@ -85,7 +85,7 @@ void drawMap(Map_t* map){
         resetMap(map, false, false, true, true);
     }
 
-    for(int i = 0; i < NUM_DRAWABLE_OBJECTS; i++){
+    for(int i = 0; i < GAME_NUM_DRAWABLE_OBJECTS; i++){
         if(map->drawableObjects[i] != NULL && map->drawableObjects[i]->isVisible == true){
             drawdrawableObject(map->drawableObjects[i]);
         }

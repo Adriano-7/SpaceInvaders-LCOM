@@ -3,7 +3,7 @@
 
 #include "../keys.h"
 
-#include "model/menu/over.h"
+#include "model/menu/gameOver.h"
 #include "../../state.h"
 
 extern struct packet pp;
@@ -16,7 +16,7 @@ extern struct packet pp;
  *
  * @param key The key that was pressed.
  */
-void over_handle_keyboard(enum Keys key);
+void game_over_handle_keyboard(enum Keys key);
 
 /**
  * @brief Handles timer interrupt for the game over menu.
@@ -26,7 +26,7 @@ void over_handle_keyboard(enum Keys key);
  *
  * @param over Pointer to the game over menu structure.
  */
-void over_handle_timer(Over_t* over);
+void game_over_handle_timer();
 
 /**
  * @brief Handles mouse input for the game over menu.
@@ -36,7 +36,7 @@ void over_handle_timer(Over_t* over);
  *
  * @param over Pointer to the game over menu structure.
  */
-void over_handle_mouse(Over_t* over);
+void game_over_handle_mouse();
 
 /**
  * @brief Selects an option in the game over menu based on the mouse input.
@@ -48,4 +48,4 @@ void over_handle_mouse(Over_t* over);
  * @param over Pointer to the game over menu structure.
  * @param pp The mouse packet.
  */
-void sOption(Over_t* over);
+void game_over_option();
