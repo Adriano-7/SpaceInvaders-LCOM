@@ -115,8 +115,6 @@ void resetMap(Map_t* map, bool decreaseLives, bool resetScore, bool resetLives, 
     map->player->drawableObject->y = mode_info.YResolution - game_xpm[0].height - 10;
     map->player->drawableObject->old_y = mode_info.YResolution - game_xpm[0].height - 10;
     
-    map->visibleMonsters = NUM_MONSTERS;
-
     if(decreaseLives){
         map->player->lives--;
         if(map->player->lives==0){
@@ -129,27 +127,29 @@ void resetMap(Map_t* map, bool decreaseLives, bool resetScore, bool resetLives, 
     if(resetLives){map->player->lives = 3;}
     
     if(resetMonsters){
-    int i = 0;
-    i++;
+        map->visibleMonsters = NUM_MONSTERS;
 
-    while (i < NUM_MONSTERS+1) {
-        int x = (i % 11) * 70;
-        int y = (i / 11) * 50 + mode_info.YResolution / 8;
-        if(i % 11 == 0) y -= 50;
-
-        if(i < 12){
-            x += 5;
-        } 
-
-        map->monsters[i - 1]->drawableObject->x = x+150;
-        map->monsters[i - 1]->drawableObject->old_x = x+150;
-        map->monsters[i - 1]->drawableObject->y = y;
-        map->monsters[i - 1]->drawableObject->old_y = y;
-        map->monsters[i - 1]->drawableObject->isVisible = true;
-        map->monsters[i - 1]->direction = RIGHT;
-
+        int i = 0;
         i++;
-    }
+
+        while (i < NUM_MONSTERS+1) {
+            int x = (i % 11) * 70;
+            int y = (i / 11) * 50 + mode_info.YResolution / 8;
+            if(i % 11 == 0) y -= 50;
+    
+            if(i < 12){
+                x += 5;
+            } 
+    
+            map->monsters[i - 1]->drawableObject->x = x+150;
+            map->monsters[i - 1]->drawableObject->old_x = x+150;
+            map->monsters[i - 1]->drawableObject->y = y;
+            map->monsters[i - 1]->drawableObject->old_y = y;
+            map->monsters[i - 1]->drawableObject->isVisible = true;
+            map->monsters[i - 1]->direction = RIGHT;
+    
+            i++;
+        }
     }
 
     for(int i = 0; i < NUM_BULLETS; i++){
