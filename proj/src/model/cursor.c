@@ -22,20 +22,20 @@ Cursor_t* createCursor(){
     return cursor;
 }
 
-void updateCursor(Cursor_t* cursor, struct packet pp){
+void updateCursor(Cursor_t* cursor){
     cursor->drawableObject->old_x = cursor->drawableObject->x;
     cursor->drawableObject->old_y = cursor->drawableObject->y;
     
-    vg_draw_rectangle(cursor->drawableObject->x, cursor->drawableObject->y, cursor->drawableObject->img.width, cursor->drawableObject->img.height, 0);
+    video_draw_rectangle(cursor->drawableObject->x, cursor->drawableObject->y, cursor->drawableObject->img.width, cursor->drawableObject->img.height, 0);
 
-    if(pp.x_ov || pp.y_ov){
+    if(pkt.x_ov || pkt.y_ov){
         return;
     }
 
-    cursor->drawableObject->x += pp.delta_x;
-    cursor->drawableObject->y -= pp.delta_y;
+    cursor->drawableObject->x += pkt.delta_x;
+    cursor->drawableObject->y -= pkt.delta_y;
 
-    if(pp.lb){
+    if(pkt.lb){
         cursor->lbPressed = true;
     }
     else{

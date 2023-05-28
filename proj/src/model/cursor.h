@@ -1,8 +1,3 @@
-/**
- * @file cursor.h
- * @brief Definition of the Cursor struct and related functions.
- */
-
 #pragma once
 
 #include <lcom/lcf.h>
@@ -10,13 +5,15 @@
 #include "../devices/mouse.h"
 #include "../state.h"
 
+extern struct packet pkt;
+
 /**
  * @struct Cursor
  * @brief Structure representing a cursor.
  */
 typedef struct Cursor {
-    DrawableObject_t* drawableObject; /**< The drawable object associated with the cursor. */
-    bool lbPressed;                  /**< Flag indicating whether the left button is pressed. */
+    DrawableObject_t* drawableObject;
+    bool lbPressed;
 } Cursor_t;
 
 /**
@@ -30,7 +27,7 @@ Cursor_t* createCursor();
  * @param cursor Pointer to the Cursor object.
  * @param pp Mouse packet containing the mouse input data.
  */
-void updateCursor(Cursor_t* cursor, struct packet pp);
+void updateCursor(Cursor_t* cursor);
 
 /**
  * @brief Destroys a Cursor object and frees the associated memory.

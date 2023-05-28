@@ -6,7 +6,7 @@
 #pragma once
 
 #include <lcom/lcf.h>
-#include "../devices/graphics.h"
+#include "../devices/video.h"
 #include "gameXpm.h"
 #include "lettersXpm.h"
 #include "menuXpm.h"

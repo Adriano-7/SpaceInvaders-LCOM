@@ -29,7 +29,7 @@
  * @param over Pointer to the game over menu structure.
  * @return Return 0 on success, non-zero otherwise.
  */
-int handle_keyboard(enum State* state, uint8_t bytes[2], Map_t* map, Menu_t* menu, Over_t* over);
+int (handle_keyboard)(enum State* state, Map_t* map, Menu_t* menu, Over_t* over);
 
 /**
  * @brief Handles timer interrupt for the game.

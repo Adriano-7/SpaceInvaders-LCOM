@@ -5,16 +5,17 @@
 #include <stdio.h>
 #include "../../devices/rtc.h"
 
-
 typedef struct Score {
-
-    real_time_info time;
+    Date_t date;
     int score;
-
 } Score_t;
 
+typedef struct Leaderboard {
+    Score_t* scores[3];
+} Leaderboard_t;
 
+
+Leaderboard_t* createLeaderboard();
+Score_t* createScore(int score);
+int addScore(int score);
 int drawLeaderboard();
-int writeFile();
-void drawText();
-void leaderboardAdd(int score);

@@ -1,11 +1,6 @@
 #ifndef _LCOM_GAME_H_
 #define _LCOM_GAME_H_
 
-/**
- * @file game.h
- * @brief Main header file for the game.
- */
-
 #include <lcom/lcf.h>
 #include "state.h"
 
@@ -19,8 +14,7 @@
 
 #include "devices/keyboard.h"
 #include "devices/timer.h"
-#include "devices/vbe.h"
-#include "devices/graphics.h"
+#include "devices/video.h"
 #include "devices/mouse.h"
 #include "devices/rtc.h"
 
@@ -32,6 +26,6 @@
  * handles interrupts, and updates the game state based on user input and timers. It continues to run
  * until the game is exited or an error occurs.
  */
-int game_loop();
+int (game_loop)();
 
-#endif /* _LCOM_GAME_H_ */
+#endif

@@ -1,14 +1,8 @@
 #ifndef STATE_H
 #define STATE_H
 
-/**
- * @file state.h
- * @brief Defines the enum State and the changeState function.
- */
+#include "devices/video.h"
 
-/**
- * @brief Enumeration representing the different states of the game.
- */
 enum State {MENU, LEADERBOARD, GAME, PAUSE, GAMEOVER, EXIT};
 
 /**

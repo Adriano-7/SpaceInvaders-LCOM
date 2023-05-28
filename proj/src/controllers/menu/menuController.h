@@ -6,7 +6,7 @@
 #include "model/menu/menu.h"
 #include "../../state.h"
 
-extern struct packet pp;
+extern struct packet pkt;
 
 /**
  * @brief Handles keyboard input for the menu.
@@ -48,5 +48,5 @@ void menu_handle_mouse(Menu_t* menu);
  * @param menu Pointer to the menu structure.
  * @param pp The mouse packet.
  */
-void selectOption(Menu_t* menu, struct packet pp);
+void selectOption(Menu_t* menu);
 

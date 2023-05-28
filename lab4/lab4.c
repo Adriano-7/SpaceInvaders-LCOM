@@ -6,8 +6,8 @@
 
 #include "mouse.h"
 
-extern uint8_t output;
-extern struct packet pp;
+extern uint8_t mouse_out;
+extern struct packet pkt;
 extern int timer_counter; 
 
 // Any header files included below this line should have been created by you
@@ -47,7 +47,7 @@ int(mouse_test_packet)(uint32_t cnt){
     return 1;
   }
 
-  if (mouse_subscribe_interrupts(&mouse_bit_no)){
+  if (mouse_subscribe_int(&mouse_bit_no)){
     printf("Error while subscribing the mouse interrupts\n");
     return 1;
   }
@@ -66,7 +66,7 @@ int(mouse_test_packet)(uint32_t cnt){
 
           if(mouse_parse_output()){            
             mouse_build_packet();
-            mouse_print_packet(&pp);
+            mouse_print_packet(&pkt);
             cnt--;
           }
         }
@@ -74,13 +74,12 @@ int(mouse_test_packet)(uint32_t cnt){
     }
   }
 
-  // Reset the mouse configuration
   if (disable_data_report()){
     printf("Error while disabling the mouse data report\n");
     return 1;
   }
 
-  if (mouse_unsubscribe_interrupts()){
+  if (mouse_unsubscribe_int()){
     printf("Error while unsubscribing the mouse interrupts\n");
     return 1;
   }
@@ -99,7 +98,7 @@ int(mouse_test_async)(uint8_t idle_time){
     return 1;
   }
 
-  if (mouse_subscribe_interrupts(&mouse_bit_no)){
+  if (mouse_subscribe_int(&mouse_bit_no)){
     printf("Error while subscribing the mouse interrupts\n");
     return 1;
   }
@@ -125,7 +124,7 @@ int(mouse_test_async)(uint8_t idle_time){
 
           if(mouse_parse_output()){
             mouse_build_packet();
-            mouse_print_packet(&pp);
+            mouse_print_packet(&pkt);
           }
           aux_idle_time = idle_time;
         }
@@ -153,7 +152,7 @@ int(mouse_test_async)(uint8_t idle_time){
     return 1;
   }
 
-  if (mouse_unsubscribe_interrupts()){
+  if (mouse_unsubscribe_int()){
     printf("Error while unsubscribing the mouse interrupts\n");
     return 1;
   }

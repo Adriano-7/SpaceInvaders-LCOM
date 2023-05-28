@@ -97,7 +97,7 @@ void drawMap(Map_t* map){
 }
 
 void drawScore(int score){
-    vg_draw_rectangle(0, 0, mode_info.XResolution / 2, mode_info.YResolution / 30, 0);
+    video_draw_rectangle(0, 0, mode_info.XResolution / 2, mode_info.YResolution / 30, 0);
 
     drawString("score:", mode_info.XResolution / 40, mode_info.YResolution / 40);
     drawNumber(score, mode_info.XResolution / 40 + 6 * 23, mode_info.YResolution / 40);
@@ -105,7 +105,7 @@ void drawScore(int score){
 
 void drawLiveBar(int lives) {
   for (int i = 0; i < lives; i++) {
-    draw_xpm(game_xpm[8], game_xpm_map[8], mode_info.XResolution - (i+1)*game_xpm[8].width - mode_info.XResolution / 40, mode_info.YResolution / 40);
+    video_draw_xpm(game_xpm[8], game_xpm_map[8], mode_info.XResolution - (i+1)*game_xpm[8].width - mode_info.XResolution / 40, mode_info.YResolution / 40);
   }
 }
 
@@ -120,7 +120,7 @@ void resetMap(Map_t* map, bool decreaseLives, bool resetScore, bool resetLives, 
     if(decreaseLives){
         map->player->lives--;
         if(map->player->lives==0){
-            leaderboardAdd(map->player->score);
+            addScore(map->player->score);
             resetMap(map, false, true, true, true);
             changeState(GAMEOVER);
         }

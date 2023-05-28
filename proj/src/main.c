@@ -1,6 +1,6 @@
 #include <lcom/lcf.h>
 #include "game.h"
-#include "devices/graphics.h"
+#include "devices/video.h"
 
 int main(int argc, char *argv[]) {
   lcf_set_language("EN-US");
@@ -21,7 +21,7 @@ int proj_main_loop(int argc, char *argv[]) {
     return 1;
   }
   
-  if(set_graphics_mode(0x105)){
+  if(video_set_mode(0x105)){
     printf("Error setting graphics mode\n");
     return 1;
   }

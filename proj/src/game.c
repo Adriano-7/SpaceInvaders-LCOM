@@ -1,32 +1,28 @@
 #include "game.h"
 
-extern uint8_t output;
-extern struct packet pp;
-
 enum State* state = &(enum State){MENU};
-extern real_time_info time_info;   
 
+Leaderboard_t* leaderboard;
 
 int game_loop(){
 	int ipc_status, r;
 	message msg;
 
-	bool secondByte = false;
-	uint8_t bytes[2];
-	uint8_t keyboard_bit_no, timer_bit_no, mouse_bit_no;
+	uint8_t keyboard_bit_no, timer_bit_no, mouse_bit_no, rtc_bit_no;
 
 
 	loadXpms();
 	Map_t* map =  loadGame();
 	Menu_t* menu = loadMenu();
 	Over_t* over = loadOver();
+	leaderboard = createLeaderboard();
 
 	if(timer_subscribe_int(&timer_bit_no)){
 		printf("Error while subscribing timer interrupt\n");
 		return 1;
 	}
 
-	if(keyboard_subscribe_interrupts(&keyboard_bit_no)){
+	if(keyboard_subscribe_int(&keyboard_bit_no)){
 		printf("Error subscribing keyboard interrupts\n");
 		return 1;
 	}
@@ -36,9 +32,14 @@ int game_loop(){
     	return 1;
   	}
 
-  	if (mouse_subscribe_interrupts(&mouse_bit_no)){
+  	if (mouse_subscribe_int(&mouse_bit_no)){
     	printf("Error while subscribing the mouse interrupts\n");
     	return 1;
+  	}
+
+	if(rtc_subscribe_int(&rtc_bit_no)){
+  		printf("Error while subscribing the rtc interrupts\n");
+  		return 1;
   	}
 
 	while(*state != EXIT){
@@ -51,37 +52,28 @@ int game_loop(){
 		switch (_ENDPOINT_P(msg.m_source)) {
 		case HARDWARE:
 			if (msg.m_notify.interrupts & BIT(keyboard_bit_no)) {
-				kbc_ih();
-				if(secondByte){
-					secondByte=false;
-					bytes[1]=output;
-					handle_keyboard(state, bytes, map, menu, over);
-				}
-				else{
-					bytes[0] = output;
-					if(output==0xE0){
-						secondByte = true;
-					}
-					else{
-						handle_keyboard(state, bytes,map, menu, over);
-					}
+				keyboard_int_handler();
+				if(keyboard_parse_output()){
+					handle_keyboard(state, map, menu, over);
 				}
 			}
 
 			if (msg.m_notify.interrupts & BIT(timer_bit_no)){
 				timer_int_handler();
-				if(timer_counter % 60 == 0) rtc_update_time();
 				handle_timer(state, map, menu, over);
 			}
 
 			if (msg.m_notify.interrupts & BIT(mouse_bit_no)){
           		mouse_ih();
-
           		if(mouse_parse_output()){            
             		mouse_build_packet();
 					handle_mouse(state, map, menu, over);
           		}
         	}
+			if (msg.m_notify.interrupts & BIT(rtc_bit_no)){
+				rtc_int_handler();
+			}
+
 			break;
 			}
 		}
@@ -94,7 +86,7 @@ int game_loop(){
 		return 1;
 	}
 
-	if(keyboard_unsubscribe_interrupts()){
+	if(keyboard_unsubscribe_int()){
 		printf("Error unsubscribing keyboard interrupts\n");
 		return 1;
 	}
@@ -104,9 +96,14 @@ int game_loop(){
     	return 1;
   	}
 
-  	if (mouse_unsubscribe_interrupts()){
+  	if (mouse_unsubscribe_int()){
     	printf("Error while unsubscribing the mouse interrupts\n");
     	return 1;
+  	}
+
+	if(rtc_unsubscribe_int()){
+  		printf("Error while unsubscribing the rtc interrupts\n");
+  		return 1;
   	}
 
 	if(vg_exit()){
