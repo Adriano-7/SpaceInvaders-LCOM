@@ -76,32 +76,43 @@ $(function() {
   <div class="headertitle"><div class="title">mouse.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;minix/sysutil.h&gt;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;lcom/lcf.h&gt;</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;macros.h&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>int (mouse_subscribe_int)(uint8_t *bit_no);</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>int (mouse_unsubscribe_int)();</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>int (mouse_get_status(uint8_t *st));</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>void(mouse_ih)();</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keywordtype">bool</span> mouse_parse_output();</div>
+<a href="mouse_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;minix/sysutil.h&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;lcom/lcf.h&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;macros.h&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keywordtype">int</span> <a class="code hl_function" href="mouse_8h.html#a9da18257ff113b686bb826d154bfaa87">mouse_subscribe_int</a>(uint8_t *bit_no);</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keywordtype">int</span> <a class="code hl_function" href="mouse_8h.html#a685ad2706aca36d9869a30a19b9f446a">mouse_unsubscribe_int</a>();</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>uint16_t twoComplement(uint8_t* number, uint8_t msb);</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keywordtype">void</span> mouse_build_packet();</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keywordtype">int</span> write_KBC_command(uint8_t port, uint8_t cmd);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="mouse_8h.html#ab4085c83506aff59470a2973f45f61fe">   31</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="mouse_8h.html#ab4085c83506aff59470a2973f45f61fe">mouse_get_status</a>(uint8_t *st);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keywordtype">void</span> <a class="code hl_function" href="mouse_8h.html#a834b6d7efe311484d6da234db333cb97">mouse_ih</a>();</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keywordtype">bool</span> <a class="code hl_function" href="mouse_8h.html#af9c154a0a3de9ea09125bed0226528b9">mouse_parse_output</a>();</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="keywordtype">int</span> write_mouse_cmd(uint8_t cmd);</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="keywordtype">int</span> disable_data_report();</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="keywordtype">int</span> enable_data_report();</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>uint16_t <a class="code hl_function" href="mouse_8h.html#aab5632b565c24b40712848771dc323d5">twoComplement</a>(uint8_t* number, uint8_t msb);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="keywordtype">void</span> <a class="code hl_function" href="mouse_8h.html#a0e02a911146c3e015b30e5e37281fa15">mouse_build_packet</a>();</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="keywordtype">int</span> <a class="code hl_function" href="mouse_8h.html#a6089ebced769ce450b28f63a8b8aa629">write_KBC_command</a>(uint8_t port, uint8_t cmd);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="keywordtype">int</span> <a class="code hl_function" href="mouse_8h.html#aecdd51f940be83961956458c45d902e4">write_mouse_cmd</a>(uint8_t cmd);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="keywordtype">int</span> <a class="code hl_function" href="mouse_8h.html#a9d37a10902df825a7445faa3261f1a91">disable_data_report</a>();</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="keywordtype">int</span> <a class="code hl_function" href="mouse_8h.html#a898e9289d77e1290373396a43ee9c53d">enable_data_report</a>();</div>
+<div class="ttc" id="amouse_8h_html_a0e02a911146c3e015b30e5e37281fa15"><div class="ttname"><a href="mouse_8h.html#a0e02a911146c3e015b30e5e37281fa15">mouse_build_packet</a></div><div class="ttdeci">void mouse_build_packet()</div><div class="ttdoc">Builds the mouse packet.</div><div class="ttdef"><b>Definition:</b> mouse.c:103</div></div>
+<div class="ttc" id="amouse_8h_html_a6089ebced769ce450b28f63a8b8aa629"><div class="ttname"><a href="mouse_8h.html#a6089ebced769ce450b28f63a8b8aa629">write_KBC_command</a></div><div class="ttdeci">int write_KBC_command(uint8_t port, uint8_t cmd)</div><div class="ttdoc">Writes a KBC command.</div><div class="ttdef"><b>Definition:</b> mouse.c:119</div></div>
+<div class="ttc" id="amouse_8h_html_a685ad2706aca36d9869a30a19b9f446a"><div class="ttname"><a href="mouse_8h.html#a685ad2706aca36d9869a30a19b9f446a">mouse_unsubscribe_int</a></div><div class="ttdeci">int mouse_unsubscribe_int()</div><div class="ttdoc">Unsubscribes from mouse interrupts.</div><div class="ttdef"><b>Definition:</b> mouse.c:22</div></div>
+<div class="ttc" id="amouse_8h_html_a834b6d7efe311484d6da234db333cb97"><div class="ttname"><a href="mouse_8h.html#a834b6d7efe311484d6da234db333cb97">mouse_ih</a></div><div class="ttdeci">void mouse_ih()</div><div class="ttdoc">Mouse interrupt handler.</div><div class="ttdef"><b>Definition:</b> mouse.c:39</div></div>
+<div class="ttc" id="amouse_8h_html_a898e9289d77e1290373396a43ee9c53d"><div class="ttname"><a href="mouse_8h.html#a898e9289d77e1290373396a43ee9c53d">enable_data_report</a></div><div class="ttdeci">int enable_data_report()</div><div class="ttdoc">Enables data reporting from the mouse.</div><div class="ttdef"><b>Definition:</b> mouse.c:176</div></div>
+<div class="ttc" id="amouse_8h_html_a9d37a10902df825a7445faa3261f1a91"><div class="ttname"><a href="mouse_8h.html#a9d37a10902df825a7445faa3261f1a91">disable_data_report</a></div><div class="ttdeci">int disable_data_report()</div><div class="ttdoc">Disables data reporting from the mouse.</div><div class="ttdef"><b>Definition:</b> mouse.c:172</div></div>
+<div class="ttc" id="amouse_8h_html_a9da18257ff113b686bb826d154bfaa87"><div class="ttname"><a href="mouse_8h.html#a9da18257ff113b686bb826d154bfaa87">mouse_subscribe_int</a></div><div class="ttdeci">int mouse_subscribe_int(uint8_t *bit_no)</div><div class="ttdoc">Subscribes to mouse interrupts.</div><div class="ttdef"><b>Definition:</b> mouse.c:11</div></div>
+<div class="ttc" id="amouse_8h_html_aab5632b565c24b40712848771dc323d5"><div class="ttname"><a href="mouse_8h.html#aab5632b565c24b40712848771dc323d5">twoComplement</a></div><div class="ttdeci">uint16_t twoComplement(uint8_t *number, uint8_t msb)</div><div class="ttdoc">Calculates the two's complement of a number.</div><div class="ttdef"><b>Definition:</b> mouse.c:99</div></div>
+<div class="ttc" id="amouse_8h_html_ab4085c83506aff59470a2973f45f61fe"><div class="ttname"><a href="mouse_8h.html#ab4085c83506aff59470a2973f45f61fe">mouse_get_status</a></div><div class="ttdeci">int mouse_get_status(uint8_t *st)</div><div class="ttdoc">Gets the mouse status.</div></div>
+<div class="ttc" id="amouse_8h_html_aecdd51f940be83961956458c45d902e4"><div class="ttname"><a href="mouse_8h.html#aecdd51f940be83961956458c45d902e4">write_mouse_cmd</a></div><div class="ttdeci">int write_mouse_cmd(uint8_t cmd)</div><div class="ttdoc">Writes a mouse command.</div><div class="ttdef"><b>Definition:</b> mouse.c:142</div></div>
+<div class="ttc" id="amouse_8h_html_af9c154a0a3de9ea09125bed0226528b9"><div class="ttname"><a href="mouse_8h.html#af9c154a0a3de9ea09125bed0226528b9">mouse_parse_output</a></div><div class="ttdeci">bool mouse_parse_output()</div><div class="ttdoc">Parses the mouse output.</div><div class="ttdef"><b>Definition:</b> mouse.c:75</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

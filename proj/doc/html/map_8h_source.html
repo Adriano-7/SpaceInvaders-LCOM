@@ -78,8 +78,8 @@ $(function() {
 <div class="contents">
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;lcom/lcf.h&gt;</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;player.h&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;monster.h&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="player_8h.html">player.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="monster_8h.html">monster.h</a>&quot;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="bullet_8h.html">bullet.h</a>&quot;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;../drawableObject.h&quot;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
@@ -97,23 +97,26 @@ $(function() {
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <a class="code hl_struct" href="struct_bullet.html">Bullet_t</a>* bullets[NUM_BULLETS];</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <a class="code hl_struct" href="struct_drawable_object.html">DrawableObject_t</a>* drawableObjects[GAME_NUM_DRAWABLE_OBJECTS];</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordtype">int</span> visibleMonsters;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>} <a class="code hl_struct" href="struct_map.html">Map_t</a>;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><a class="code hl_struct" href="struct_map.html">Map_t</a>* createMap(<a class="code hl_struct" href="struct_player.html">Player_t</a>* player, <a class="code hl_struct" href="struct_monster.html">Monster_t</a>* monsters[NUM_MONSTERS], <a class="code hl_struct" href="struct_bullet.html">Bullet_t</a>* bullets[NUM_BULLETS], <a class="code hl_struct" href="struct_drawable_object.html">DrawableObject_t</a>* drawableObjects[GAME_NUM_DRAWABLE_OBJECTS]);</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><a class="code hl_struct" href="struct_map.html">Map_t</a>* loadGame();</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="keywordtype">void</span> drawMap(<a class="code hl_struct" href="struct_map.html">Map_t</a>* map);</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="keywordtype">void</span> drawScore(<span class="keywordtype">int</span> score);</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="keywordtype">void</span> drawLiveBar(<span class="keywordtype">int</span> lives);</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="keywordtype">void</span> resetMap(<a class="code hl_struct" href="struct_map.html">Map_t</a>* map, <span class="keywordtype">bool</span> decreaseLives, <span class="keywordtype">bool</span> resetScore, <span class="keywordtype">bool</span> resetLives, <span class="keywordtype">bool</span> resetMonsters);</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="keywordtype">void</span> destroyMap(<a class="code hl_struct" href="struct_map.html">Map_t</a>* map);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordtype">int</span> lastScore;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordtype">int</span> visibleMonsters;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>} <a class="code hl_struct" href="struct_map.html">Map_t</a>;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><a class="code hl_struct" href="struct_map.html">Map_t</a>* createMap(<a class="code hl_struct" href="struct_player.html">Player_t</a>* player, <a class="code hl_struct" href="struct_monster.html">Monster_t</a>* monsters[NUM_MONSTERS], <a class="code hl_struct" href="struct_bullet.html">Bullet_t</a>* bullets[NUM_BULLETS], <a class="code hl_struct" href="struct_drawable_object.html">DrawableObject_t</a>* drawableObjects[GAME_NUM_DRAWABLE_OBJECTS]);</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><a class="code hl_struct" href="struct_map.html">Map_t</a>* loadGame();</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="keywordtype">void</span> drawMap(<a class="code hl_struct" href="struct_map.html">Map_t</a>* map);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="keywordtype">void</span> drawScore(<span class="keywordtype">int</span> score);</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="keywordtype">void</span> drawLiveBar(<span class="keywordtype">int</span> lives);</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="keywordtype">void</span> resetMap(<a class="code hl_struct" href="struct_map.html">Map_t</a>* map, <span class="keywordtype">bool</span> decreaseLives, <span class="keywordtype">bool</span> resetScore, <span class="keywordtype">bool</span> resetLives, <span class="keywordtype">bool</span> resetMonsters);</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="keywordtype">void</span> destroyMap(<a class="code hl_struct" href="struct_map.html">Map_t</a>* map);</div>
 <div class="ttc" id="abullet_8h_html"><div class="ttname"><a href="bullet_8h.html">bullet.h</a></div><div class="ttdoc">Definition of the Bullet struct and related functions for bullet management.</div></div>
+<div class="ttc" id="amonster_8h_html"><div class="ttname"><a href="monster_8h.html">monster.h</a></div><div class="ttdoc">Functions for handling monsters on the game map.</div></div>
+<div class="ttc" id="aplayer_8h_html"><div class="ttname"><a href="player_8h.html">player.h</a></div><div class="ttdoc">Functions and structures related to the game player.</div></div>
 <div class="ttc" id="astruct_bullet_html"><div class="ttname"><a href="struct_bullet.html">Bullet</a></div><div class="ttdoc">Structure representing a bullet in the game.</div><div class="ttdef"><b>Definition:</b> bullet.h:19</div></div>
 <div class="ttc" id="astruct_drawable_object_html"><div class="ttname"><a href="struct_drawable_object.html">DrawableObject</a></div><div class="ttdoc">Structure representing a drawable object with position, image, and visibility.</div><div class="ttdef"><b>Definition:</b> drawableObject.h:15</div></div>
 <div class="ttc" id="astruct_map_html"><div class="ttname"><a href="struct_map.html">Map</a></div><div class="ttdoc">Creates the map.</div><div class="ttdef"><b>Definition:</b> map.h:20</div></div>

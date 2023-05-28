@@ -76,25 +76,25 @@ $(function() {
   <div class="headertitle"><div class="title">keyboard.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef _LCOM_KEYBOARD_H_</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define _LCOM_KEYBOARD_H_</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;lcom/lcf.h&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;macros.h&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>int (keyboard_subscribe_int)(uint8_t *bit_no);</div>
+<a href="keyboard_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;lcom/lcf.h&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;macros.h&quot;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>int (keyboard_unsubscribe_int)();</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>int (keyboard_get_status(uint8_t *st));</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keywordtype">int</span> <a class="code hl_function" href="keyboard_8h.html#a8eee4d0a15beada731a514481b5ad4bf">keyboard_subscribe_int</a>(uint8_t *bit_no);</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>void (keyboard_int_handler)();</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keywordtype">bool</span> keyboard_parse_output();</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keywordtype">int</span> <a class="code hl_function" href="keyboard_8h.html#ac95aea27a5e91b363b876fed881f368f">keyboard_unsubscribe_int</a>();</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="keyboard_8h.html#ab6bec41fbf3df2d52442ff59f362be6e">   31</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="keyboard_8h.html#ab6bec41fbf3df2d52442ff59f362be6e">keyboard_get_status</a>(uint8_t *st);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keywordtype">void</span> <a class="code hl_function" href="keyboard_8h.html#a01840afec9e62d53dd67a765cf6eb74a">keyboard_int_handler</a>();</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keywordtype">bool</span> <a class="code hl_function" href="keyboard_8h.html#a1f466a26a88050cbc5e0b637cd1c3e4f">keyboard_parse_output</a>();</div>
+<div class="ttc" id="akeyboard_8h_html_a01840afec9e62d53dd67a765cf6eb74a"><div class="ttname"><a href="keyboard_8h.html#a01840afec9e62d53dd67a765cf6eb74a">keyboard_int_handler</a></div><div class="ttdeci">void keyboard_int_handler()</div><div class="ttdoc">Keyboard interrupt handler.</div><div class="ttdef"><b>Definition:</b> keyboard.c:39</div></div>
+<div class="ttc" id="akeyboard_8h_html_a1f466a26a88050cbc5e0b637cd1c3e4f"><div class="ttname"><a href="keyboard_8h.html#a1f466a26a88050cbc5e0b637cd1c3e4f">keyboard_parse_output</a></div><div class="ttdeci">bool keyboard_parse_output()</div><div class="ttdoc">Parses the keyboard output.</div><div class="ttdef"><b>Definition:</b> keyboard.c:61</div></div>
+<div class="ttc" id="akeyboard_8h_html_a8eee4d0a15beada731a514481b5ad4bf"><div class="ttname"><a href="keyboard_8h.html#a8eee4d0a15beada731a514481b5ad4bf">keyboard_subscribe_int</a></div><div class="ttdeci">int keyboard_subscribe_int(uint8_t *bit_no)</div><div class="ttdoc">Subscribes to keyboard interrupts.</div><div class="ttdef"><b>Definition:</b> keyboard.c:9</div></div>
+<div class="ttc" id="akeyboard_8h_html_ab6bec41fbf3df2d52442ff59f362be6e"><div class="ttname"><a href="keyboard_8h.html#ab6bec41fbf3df2d52442ff59f362be6e">keyboard_get_status</a></div><div class="ttdeci">int keyboard_get_status(uint8_t *st)</div><div class="ttdoc">Gets the keyboard status.</div></div>
+<div class="ttc" id="akeyboard_8h_html_ac95aea27a5e91b363b876fed881f368f"><div class="ttname"><a href="keyboard_8h.html#ac95aea27a5e91b363b876fed881f368f">keyboard_unsubscribe_int</a></div><div class="ttdeci">int keyboard_unsubscribe_int()</div><div class="ttdoc">Unsubscribes from keyboard interrupts.</div><div class="ttdef"><b>Definition:</b> keyboard.c:21</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

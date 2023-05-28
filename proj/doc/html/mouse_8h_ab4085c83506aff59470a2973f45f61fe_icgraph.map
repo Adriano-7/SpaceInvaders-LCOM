@@ -1,0 +1,5 @@
+<map id="mouse_get_status" name="mouse_get_status">
+<area shape="rect" id="node1" title="Gets the mouse status." alt="" coords="200,31,328,57"/>
+<area shape="rect" id="node2" href="$mouse_8c.html#a210374b50462acdedab00df64d5cea3c" title="Mouse interrupt handler." alt="" coords="40,5,117,32"/>
+<area shape="rect" id="node3" href="$mouse_8c.html#a6089ebced769ce450b28f63a8b8aa629" title="Writes a KBC command." alt="" coords="5,56,152,83"/>
+</map>

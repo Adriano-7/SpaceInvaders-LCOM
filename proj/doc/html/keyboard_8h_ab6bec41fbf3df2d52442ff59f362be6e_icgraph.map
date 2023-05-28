@@ -1,0 +1,4 @@
+<map id="keyboard_get_status" name="keyboard_get_status">
+<area shape="rect" id="node1" title="Gets the keyboard status." alt="" coords="198,5,340,32"/>
+<area shape="rect" id="node2" href="$keyboard_8c.html#a7aea1273eb1787ec00d2fd0d7f9b6530" title="Keyboard interrupt handler." alt="" coords="5,5,150,32"/>
+</map>

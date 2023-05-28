@@ -1,5 +1,5 @@
 <map id="Leaderboard" name="Leaderboard">
 <area shape="rect" id="node1" title=" " alt="" coords="5,187,98,213"/>
 <area shape="rect" id="node2" href="$struct_score.html" title="Gets data for Score." alt="" coords="24,96,79,123"/>
-<area shape="rect" id="node3" href="$struct_date.html" title="Gets the date." alt="" coords="27,5,76,32"/>
+<area shape="rect" id="node3" href="$struct_date.html" title="Represents the current date and time." alt="" coords="27,5,76,32"/>
 </map>

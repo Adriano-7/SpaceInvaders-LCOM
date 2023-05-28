@@ -1,0 +1,4 @@
+<map id="write_KBC_command" name="write_KBC_command">
+<area shape="rect" id="node1" title="Writes a KBC command." alt="" coords="5,5,152,32"/>
+<area shape="rect" id="node2" href="$mouse_8h.html#ab4085c83506aff59470a2973f45f61fe" title="Gets the mouse status." alt="" coords="200,5,328,32"/>
+</map>

@@ -76,26 +76,22 @@ $(function() {
   <div class="headertitle"><div class="title">bulletController.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;lcom/lcf.h&gt;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;<a class="code" href="bullet_8h.html">model/game/bullet.h</a>&quot;</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;model/game/map.h&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;model/direction.h&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;../../../model/menu/leaderboard.h&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;../../../state.h&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">extern</span> vbe_mode_info_t mode_info;</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keywordtype">void</span> moveBullets(<a class="code hl_struct" href="struct_map.html">Map_t</a>* map);</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keywordtype">void</span> playerBulletCollision(<a class="code hl_struct" href="struct_map.html">Map_t</a>* map, <a class="code hl_struct" href="struct_bullet.html">Bullet_t</a>* bullet);</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="keywordtype">void</span> monsterBulletCollision(<a class="code hl_struct" href="struct_map.html">Map_t</a>* map, <a class="code hl_struct" href="struct_bullet.html">Bullet_t</a>* bullet);</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keywordtype">bool</span> detectObjectCollision(<a class="code hl_struct" href="struct_drawable_object.html">DrawableObject_t</a>* obj1, <a class="code hl_struct" href="struct_drawable_object.html">DrawableObject_t</a>* obj2);</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="keywordtype">void</span> wallCollision(<a class="code hl_struct" href="struct_bullet.html">Bullet_t</a>* bullet);</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;lcom/lcf.h&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="bullet_8h.html">model/game/bullet.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;model/game/map.h&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;model/direction.h&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;../../../model/menu/leaderboard.h&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keywordtype">void</span> moveBullets(<a class="code hl_struct" href="struct_map.html">Map_t</a>* map);</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keywordtype">void</span> playerBulletCollision(<a class="code hl_struct" href="struct_map.html">Map_t</a>* map, <a class="code hl_struct" href="struct_bullet.html">Bullet_t</a>* bullet);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keywordtype">void</span> monsterBulletCollision(<a class="code hl_struct" href="struct_map.html">Map_t</a>* map, <a class="code hl_struct" href="struct_bullet.html">Bullet_t</a>* bullet);</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="keywordtype">bool</span> detectObjectCollision(<a class="code hl_struct" href="struct_drawable_object.html">DrawableObject_t</a>* obj1, <a class="code hl_struct" href="struct_drawable_object.html">DrawableObject_t</a>* obj2);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="keywordtype">void</span> wallCollision(<a class="code hl_struct" href="struct_bullet.html">Bullet_t</a>* bullet);</div>
 <div class="ttc" id="abullet_8h_html"><div class="ttname"><a href="bullet_8h.html">bullet.h</a></div><div class="ttdoc">Definition of the Bullet struct and related functions for bullet management.</div></div>
 <div class="ttc" id="astruct_bullet_html"><div class="ttname"><a href="struct_bullet.html">Bullet</a></div><div class="ttdoc">Structure representing a bullet in the game.</div><div class="ttdef"><b>Definition:</b> bullet.h:19</div></div>
 <div class="ttc" id="astruct_drawable_object_html"><div class="ttname"><a href="struct_drawable_object.html">DrawableObject</a></div><div class="ttdoc">Structure representing a drawable object with position, image, and visibility.</div><div class="ttdef"><b>Definition:</b> drawableObject.h:15</div></div>

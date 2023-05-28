@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['y_0',['y',['../struct_drawable_object.html#a0a2f84ed7838f07779ae24c5a9086d33',1,'DrawableObject']]]
+  ['player_0',['Player',['../struct_player.html',1,'']]],
+  ['player_2eh_1',['player.h',['../player_8h.html',1,'']]]
 ];

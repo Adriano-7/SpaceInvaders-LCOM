@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['x_0',['x',['../struct_drawable_object.html#a6150e0515f7202e2fb518f7206ed97dc',1,'DrawableObject']]]
+  ['type_0',['type',['../struct_bullet.html#aaf405dcc5c90fe07ae6643dffa8257aa',1,'Bullet']]]
 ];

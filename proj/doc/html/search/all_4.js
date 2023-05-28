@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['game_5fxpm_0',['game_xpm',['../load_xpm_8h.html#ab4d31db1a9cc6c3b89b49e58a26c85cc',1,'loadXpm.h']]],
-  ['game_5fxpm_5fmap_1',['game_xpm_map',['../load_xpm_8h.html#ac093883eb1dca28127d9e850f1a4fc02',1,'loadXpm.h']]],
-  ['gameover_2',['GameOver',['../struct_game_over.html',1,'']]],
-  ['gameover_5fxpm_3',['gameover_xpm',['../load_xpm_8h.html#a8c7dd0bafbfb31286df35114b41a5bc9',1,'loadXpm.h']]],
-  ['gameover_5fxpm_5fmap_4',['gameover_xpm_map',['../load_xpm_8h.html#a2a82fce063068eb93cec8bab98443763',1,'loadXpm.h']]]
+  ['enable_5fdata_5freport_0',['enable_data_report',['../mouse_8h.html#a898e9289d77e1290373396a43ee9c53d',1,'mouse.c']]],
+  ['erase_5fscreen_1',['erase_screen',['../video_8h.html#a84bb2ed95d7b049fec4af1c323b7b993',1,'video.c']]]
 ];

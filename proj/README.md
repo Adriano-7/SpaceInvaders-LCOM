@@ -21,13 +21,6 @@ Space Invaders is a classic arcade game set in the depths of outer space. The ga
 The gameplay is simple yet addictive. Rows of alien invaders move steadily towards the bottom of the screen, approaching closer with each passing moment. Armed with a laser cannon at the bottom of the screen, you must eliminate the invaders before they reach the Earth's surface.
 
 ___
-## How it works:
-
-
-___
-
-## How to use:
-
 ### Running the Game
 - Open the terminal on the diretory where Makefile is.
 - Then proceed to run the command:```make clean ```
@@ -35,8 +28,11 @@ ___
 - Once compiled, run the  just run the command:```lcom_run proj``
 ___
 
-## Important Notes:
-___
-
-## Requirements
-
+### Game Screenshots:
+<table>
+  <tr>
+    <td><img src="doc/1.png" width=500></td>
+    <td><img src="doc/2.png" width=500></td>
+  </tr>
+ </table>
+ 

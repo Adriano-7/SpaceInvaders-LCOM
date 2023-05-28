@@ -1,9 +1,12 @@
 <map id="src/model" name="src/model">
-<area shape="rect" id="node1" href="dir_da6fe5e4d9a1dbbbb350dc3c74ca8362.html" title="xpm" alt="" coords="80,139,126,165"/>
-<area shape="rect" id="node3" href="dir_fee78fc739ce98be219876ee3f79c5c9.html" title="game" alt="" coords="115,64,168,91"/>
-<area shape="rect" id="edge1-headlabel" href="dir_000004_000009.html" title="2" alt="" coords="122,118,129,134"/>
-<area shape="rect" id="node4" href="dir_dd963cf28c3b29492a5c06ac39d96855.html" title="menu" alt="" coords="37,64,91,91"/>
-<area shape="rect" id="edge2-headlabel" href="dir_000006_000009.html" title="3" alt="" coords="91,110,98,126"/>
+<area shape="rect" id="node1" href="dir_6fac9273c1f4413d2ee63ba6cd0b0eb2.html" title="devices" alt="" coords="52,139,116,165"/>
+<area shape="rect" id="node2" href="dir_da6fe5e4d9a1dbbbb350dc3c74ca8362.html" title="xpm" alt="" coords="178,139,225,165"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000007_000001.html" title="3" alt="" coords="81,110,88,126"/>
+<area shape="rect" id="node4" href="dir_fee78fc739ce98be219876ee3f79c5c9.html" title="game" alt="" coords="195,64,248,91"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000004_000009.html" title="2" alt="" coords="214,115,221,131"/>
+<area shape="rect" id="node5" href="dir_dd963cf28c3b29492a5c06ac39d96855.html" title="menu" alt="" coords="117,64,171,91"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000006_000001.html" title="1" alt="" coords="109,122,116,138"/>
+<area shape="rect" id="edge4-headlabel" href="dir_000006_000009.html" title="3" alt="" coords="183,111,190,127"/>
 <area shape="rect" id="clust2" href="dir_5dd65160827af56e6353642206b80129.html" alt="" coords="27,53,259,101"/>
 <area shape="rect" id="clust1" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html" title="src" alt="" coords="16,16,269,176"/>
 </map>
