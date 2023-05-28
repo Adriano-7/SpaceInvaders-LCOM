@@ -120,7 +120,7 @@ void resetMap(Map_t* map, bool decreaseLives, bool resetScore, bool resetLives, 
     if(decreaseLives){
         map->player->lives--;
         if(map->player->lives==0){
-            leaderboardAdd(map->player->score);
+            addScore(map->player->score);
             resetMap(map, false, true, true, true);
             changeState(MENU);
         }

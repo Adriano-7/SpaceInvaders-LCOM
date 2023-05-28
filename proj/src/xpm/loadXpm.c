@@ -51,7 +51,22 @@ void cleanXpms(){
 }
 
 void (drawLetter)(char letter, uint16_t x, uint16_t y) {
-    int index = letter - 'a';
+    int index = 0;
+    
+    if(letter >= 'A' && letter <= 'Z'){
+        index = letter - 'A';
+    }
+    else if(letter >= 'a' && letter <= 'z'){
+        index = letter - 'a';
+    }
+
+    else if(letter >= '0' && letter <= '9'){
+        drawNumber(letter - '0', x, y);
+        return;
+    }
+    
+    else return;
+
     video_draw_xpm(letters_xpm[index], letters_xpm_map[index], x, y);
 }
 

@@ -2,6 +2,8 @@
 
 enum State* state = &(enum State){MENU};
 
+Leaderboard_t* leaderboard;
+
 int game_loop(){
 	int ipc_status, r;
 	message msg;
@@ -12,6 +14,7 @@ int game_loop(){
 	loadXpms();
 	Map_t* map =  loadGame();
 	Menu_t* menu = loadMenu();
+	leaderboard = createLeaderboard();
 
 	if(timer_subscribe_int(&timer_bit_no)){
 		printf("Error while subscribing timer interrupt\n");

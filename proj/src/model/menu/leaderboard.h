@@ -10,8 +10,12 @@ typedef struct Score {
     int score;
 } Score_t;
 
-Score_t* createScore (int score, Date_t date);
+typedef struct Leaderboard {
+    Score_t* scores[3];
+} Leaderboard_t;
+
+
+Leaderboard_t* createLeaderboard();
+Score_t* createScore(int score);
+int addScore(int score);
 int drawLeaderboard();
-int writeFile();
-void drawText();
-void leaderboardAdd(int score);
