@@ -2,6 +2,8 @@
 
 enum State* state = &(enum State){MENU};
 
+Map_t* map;
+Menu_t* menu;
 Leaderboard_t* leaderboard;
 
 int game_loop(){
@@ -10,10 +12,9 @@ int game_loop(){
 
 	uint8_t keyboard_bit_no, timer_bit_no, mouse_bit_no, rtc_bit_no;
 
-
 	loadXpms();
-	Map_t* map =  loadGame();
-	Menu_t* menu = loadMenu();
+	map =  loadGame();
+	menu = loadMenu();
 	leaderboard = createLeaderboard();
 
 	if(timer_subscribe_int(&timer_bit_no)){
@@ -42,38 +43,38 @@ int game_loop(){
   	}
 
 	while(*state != EXIT){
-	if((r = driver_receive(ANY, &msg, &ipc_status))) {
-		printf("driver_receive failed with: %d", r);
-		continue;
-	}
+		if((r = driver_receive(ANY, &msg, &ipc_status))) {
+			printf("driver_receive failed with: %d", r);
+			continue;
+		}
 
-	if (is_ipc_notify(ipc_status)) {
-		switch (_ENDPOINT_P(msg.m_source)) {
-		case HARDWARE:
-			if (msg.m_notify.interrupts & BIT(keyboard_bit_no)) {
-				keyboard_int_handler();
-				if(keyboard_parse_output()){
-					handle_keyboard(state, map, menu);
+		if (is_ipc_notify(ipc_status)) {
+			switch (_ENDPOINT_P(msg.m_source)) {
+			case HARDWARE:
+				if (msg.m_notify.interrupts & BIT(keyboard_bit_no)) {
+					keyboard_int_handler();
+					if(keyboard_parse_output()){
+						handle_keyboard(state);
+					}
 				}
-			}
 
-			if (msg.m_notify.interrupts & BIT(timer_bit_no)){
-				timer_int_handler();
-				handle_timer(state, map, menu);
-			}
+				if (msg.m_notify.interrupts & BIT(timer_bit_no)){
+					timer_int_handler();
+					handle_timer(state);
+				}
 
-			if (msg.m_notify.interrupts & BIT(mouse_bit_no)){
-          		mouse_ih();
-          		if(mouse_parse_output()){            
-            		mouse_build_packet();
-					handle_mouse(state, map, menu);
-          		}
-        	}
-			if (msg.m_notify.interrupts & BIT(rtc_bit_no)){
-				rtc_int_handler();
-			}
+				if (msg.m_notify.interrupts & BIT(mouse_bit_no)){
+          			mouse_ih();
+          			if(mouse_parse_output()){            
+            			mouse_build_packet();
+						handle_mouse(state);
+          			}
+        		}
+				if (msg.m_notify.interrupts & BIT(rtc_bit_no)){
+					rtc_int_handler();
+				}
 
-			break;
+				break;
 			}
 		}
 	} 

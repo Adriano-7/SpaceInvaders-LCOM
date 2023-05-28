@@ -10,9 +10,9 @@ extern struct packet pkt;
 
 void (menu_handle_keyboard)(enum Keys key);
 
-void (menu_handle_timer)(Menu_t* menu);
+void (menu_handle_timer)();
 
-void (menu_handle_mouse)(Menu_t* menu);
+void (menu_handle_mouse)();
 
-void selectOption(Menu_t* menu);
+void selectOption();
 

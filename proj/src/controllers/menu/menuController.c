@@ -1,22 +1,24 @@
 #include "menuController.h"
 
+extern Menu_t* menu;
+
 void (menu_handle_keyboard)(enum Keys key){
     if(key==Make_Esc){
         changeState(EXIT);
     }
 }
 
-void (menu_handle_timer)(Menu_t* menu){
+void (menu_handle_timer)(){
     drawMenu(menu);
 }
 
-void menu_handle_mouse(Menu_t* menu){
+void menu_handle_mouse(){
     updateCursor(menu->cursor);
-    selectOption(menu);
+    selectOption();
 }
 
 
-void selectOption(Menu_t* menu){
+void selectOption(){
     Cursor_t* cursor = menu->cursor;
     if(cursor->lbPressed){
         for(int i=0; i<NUM_OPTIONS; i++){

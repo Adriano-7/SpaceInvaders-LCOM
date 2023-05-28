@@ -17,7 +17,7 @@
 
 extern int timer_counter;
 
-void (game_handle_keyboard)(enum Keys key, Map_t* map);
+void (game_handle_keyboard)(enum Keys key);
 
-void (game_handle_timer)(Map_t* map);
+void (game_handle_timer)();
 

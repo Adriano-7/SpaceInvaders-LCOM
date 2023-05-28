@@ -1,6 +1,8 @@
 #include "gameController.h"
 
-void (game_handle_keyboard)(enum Keys key, Map_t* map){
+extern Map_t* map;
+
+void (game_handle_keyboard)(enum Keys key){
     if(key == Make_Arrow_left){
         movePlayer(map->player, LEFT);
     }
@@ -17,7 +19,7 @@ void (game_handle_keyboard)(enum Keys key, Map_t* map){
     }
 }
 
-void (game_handle_timer)(Map_t* map){
+void (game_handle_timer)(){
     if(timer_counter % 30 == 0){
         animateMonsters(map->monsters);
     }
