@@ -23,6 +23,7 @@ typedef struct Map{
     Bullet_t* bullets[NUM_BULLETS];
     DrawableObject_t* drawableObjects[GAME_NUM_DRAWABLE_OBJECTS];
 
+    int lastScore;
     int visibleMonsters;
 } Map_t;
 
