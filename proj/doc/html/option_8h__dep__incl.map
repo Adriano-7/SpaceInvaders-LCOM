@@ -1,0 +1,9 @@
+<map id="src/model/menu/option.h" name="src/model/menu/option.h">
+<area shape="rect" id="node1" title="Definition of the Option struct and related functions." alt="" coords="116,5,280,32"/>
+<area shape="rect" id="node2" href="$game_over_8h_source.html" title=" " alt="" coords="5,80,193,107"/>
+<area shape="rect" id="node6" href="$menu_8h.html" title="Definition of the Menu struct and related functions." alt="" coords="217,80,378,107"/>
+<area shape="rect" id="node3" href="$game_over_controller_8h_source.html" title=" " alt="" coords="55,155,204,197"/>
+<area shape="rect" id="node5" href="$game_8h_source.html" title=" " alt="" coords="44,320,130,347"/>
+<area shape="rect" id="node4" href="$handle_interrupt_8h_source.html" title=" " alt="" coords="55,245,258,272"/>
+<area shape="rect" id="node7" href="$menu_controller_8h_source.html" title=" " alt="" coords="228,155,367,197"/>
+</map>

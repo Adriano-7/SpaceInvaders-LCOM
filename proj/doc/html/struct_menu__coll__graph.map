@@ -1,0 +1,6 @@
+<map id="Menu" name="Menu">
+<area shape="rect" id="node1" title="Structure representing a menu." alt="" coords="125,187,179,213"/>
+<area shape="rect" id="node2" href="$struct_option.html" title="Structure representing a menu option." alt="" coords="122,96,182,123"/>
+<area shape="rect" id="node3" href="$struct_drawable_object.html" title="Structure representing a drawable object with position, image, and visibility." alt="" coords="56,5,168,32"/>
+<area shape="rect" id="node4" href="$struct_cursor.html" title="Structure representing a cursor." alt="" coords="206,96,266,123"/>
+</map>

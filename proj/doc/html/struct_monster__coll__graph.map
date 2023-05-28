@@ -1,0 +1,4 @@
+<map id="Monster" name="Monster">
+<area shape="rect" id="node1" title="Struct that characterizes the monsters." alt="" coords="27,96,96,123"/>
+<area shape="rect" id="node2" href="$struct_drawable_object.html" title="Structure representing a drawable object with position, image, and visibility." alt="" coords="5,5,118,32"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="Cursor" name="Cursor">
+<area shape="rect" id="node1" title="Structure representing a cursor." alt="" coords="32,96,91,123"/>
+<area shape="rect" id="node2" href="$struct_drawable_object.html" title="Structure representing a drawable object with position, image, and visibility." alt="" coords="5,5,118,32"/>
+</map>

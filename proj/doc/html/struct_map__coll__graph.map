@@ -1,0 +1,7 @@
+<map id="Map" name="Map">
+<area shape="rect" id="node1" title="Creates the map." alt="" coords="169,187,216,213"/>
+<area shape="rect" id="node2" href="$struct_player.html" title="Characterizes the player." alt="" coords="125,96,183,123"/>
+<area shape="rect" id="node3" href="$struct_drawable_object.html" title="Structure representing a drawable object with position, image, and visibility." alt="" coords="112,5,225,32"/>
+<area shape="rect" id="node4" href="$struct_monster.html" title="Struct that characterizes the monsters." alt="" coords="208,96,276,123"/>
+<area shape="rect" id="node5" href="$struct_bullet.html" title="Structure representing a bullet in the game." alt="" coords="319,96,373,123"/>
+</map>
