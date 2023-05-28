@@ -37,8 +37,8 @@ GameOver_t* loadGameOver(){
 
         drawableObjects[i] = createdrawableObject(x, y, img, img_colors, true);
 
-        if(i!=0){
-            options[i-1] = createOption(state[i-1], drawableObjects[i]);
+        if(i==2 || i==3){
+            options[i-2] = createOption(state[i-2], drawableObjects[i]);
         }
     }
 

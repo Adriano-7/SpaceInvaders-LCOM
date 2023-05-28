@@ -22,7 +22,7 @@ void game_over_handle_mouse(){
 void game_over_option(){
     Cursor_t* cursor = gameover->cursor;
     if(cursor->lbPressed){
-        for(int i=0; i<MENU_NUM_OPTIONS; i++){
+        for(int i=0; i<GAMEOVER_OPTIONS; i++){
             Option_t* option = gameover->options[i];
             if(cursor->drawableObject->x >= option->drawableObject->x && cursor->drawableObject->x <= option->drawableObject->x + option->drawableObject->img.width){
                 if(cursor->drawableObject->y >= option->drawableObject->y && cursor->drawableObject->y <= option->drawableObject->y + option->drawableObject->img.height){

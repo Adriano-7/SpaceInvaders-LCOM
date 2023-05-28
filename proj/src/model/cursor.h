@@ -29,6 +29,7 @@ Cursor_t* createCursor();
  */
 void updateCursor(Cursor_t* cursor);
 
+
 /**
  * @brief Destroys a Cursor object and frees the associated memory.
  * @param cursor Pointer to the Cursor object to be destroyed.
