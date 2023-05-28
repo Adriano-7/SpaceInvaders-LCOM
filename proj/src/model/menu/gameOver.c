@@ -33,8 +33,12 @@ GameOver_t* loadGameOver(){
         int y = (mode_info.YResolution/8)*(i+1);
 
         i!=0 ? y+=140 : y;
+        if(i == 1){
+            drawableObjects[i] = createdrawableObject(x, 260, img, img_colors, true);
+        }else{
+            drawableObjects[i] = createdrawableObject(x, y, img, img_colors, true);
+        }
 
-        drawableObjects[i] = createdrawableObject(x, y, img, img_colors, true);
 
         if(i==2 || i==3){
             options[i-2] = createOption(state[i-2], drawableObjects[i]);
@@ -50,11 +54,12 @@ GameOver_t* loadGameOver(){
 void drawGameOver(GameOver_t* gameover) {
     if(gameover->firstTime){erase_screen(); gameover->firstTime = false;}
 
+
     for(int i=0; i<GAMEOVER_NUM_DRAWABLE_OBJECTS; i++){
         drawdrawableObject(gameover->drawableObjects[i]);
     }
 
-    drawNumber(map->lastScore, 639, 335, true);
+    drawNumber(map->lastScore, 480, 330, true);
 }
 
 void destroyGameOver(GameOver_t* gameover) {
