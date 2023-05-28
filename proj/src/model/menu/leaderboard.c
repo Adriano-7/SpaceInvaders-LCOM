@@ -70,3 +70,13 @@ int drawLeaderboard(){
     return 0;
 }
 
+void destroyLeaderboard(){
+    for(int i=0; i<3; i++){
+        if(leaderboard->scores[i] != NULL){
+            free(leaderboard->scores[i]);
+        }
+    }
+
+    free(leaderboard);
+}
+

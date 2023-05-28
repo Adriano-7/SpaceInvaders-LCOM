@@ -53,3 +53,9 @@ int addScore(int score);
  * @return int 
  */
 int drawLeaderboard();
+
+/**
+ * @brief Destroys the leaderboard.
+ * 
+ */
+void destroyLeaderboard();

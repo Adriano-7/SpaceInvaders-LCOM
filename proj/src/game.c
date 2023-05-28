@@ -86,6 +86,11 @@ int game_loop(){
 	} 
 
 	destroyMap(map);
+	destroyMenu(menu);
+	destroyGameOver(gameover);
+	destroyLeaderboard();
+
+	cleanXpms();
 
 	if(timer_unsubscribe_int()){
 		printf("Error while unsubscribing timer interrupt\n");
